@@ -10,14 +10,13 @@ namespace Honeymoon
 {
 	public class Main : Game
 	{
-		private GraphicsDeviceManager _graphics;
+		//private GraphicsDeviceManager _graphics;
 		public static Main self;
-		public static int gameState = 0;
 		MainMenu mainMenu;
 
 		public Main()
 		{
-			_graphics = new GraphicsDeviceManager(this);
+			Globals._graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
 			self = this;
@@ -26,12 +25,13 @@ namespace Honeymoon
 		protected override void Initialize()
 		{
 			base.Initialize();
-			_graphics.IsFullScreen = true;
-			_graphics.PreferredBackBufferWidth = 1280;
-			_graphics.PreferredBackBufferHeight = 756;
-			_graphics.HardwareModeSwitch = false;
+			Globals.ChangeGameResolution(2);
+			//Globals._graphics.IsFullScreen = true;
+			//Globals._graphics.PreferredBackBufferWidth = 1280;
+			//Globals._graphics.PreferredBackBufferHeight = 756;
+			//Globals._graphics.HardwareModeSwitch = false;
 			Globals.windowSize = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
-			_graphics.ApplyChanges();
+			Globals._graphics.ApplyChanges();
 		}
 
 		public static bool IsOutOfFocus()
@@ -47,6 +47,9 @@ namespace Honeymoon
 			FontManager.LoadContent(Content);
 			mainMenu = new MainMenu();
 			Globals.settingsMenu = new SettingsMenu();
+			Globals.generalSettings = new GeneralSettings();
+			Globals.volumeSettings = new VolumeSettings();
+			Globals.videoSettings = new VideoSettings();
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -58,17 +61,29 @@ namespace Honeymoon
 				Globals.mousePosition = new Vector2(mouseState.X, mouseState.Y);
 				InputManager.SetCurrentStates(new ButtonState[] { mouseState.LeftButton, mouseState.RightButton });
 				InputManager.SetCurrentStates(Keyboard.GetState());
-				if (gameState == 0)
+				if (Globals.gameState == 0)
 				{
 					mainMenu.Update();
 				}
-				else if (gameState == 1)
+				else if (Globals.gameState == 1)
 				{
 
 				}
-				else if (gameState == 2)
+				else if (Globals.gameState == 2)
 				{
 					Globals.settingsMenu.Update();
+				}
+				else if (Globals.gameState == 3)
+				{
+					Globals.generalSettings.Update();
+				}
+				else if (Globals.gameState == 4)
+				{
+					Globals.videoSettings.Update();
+				}
+				else if (Globals.gameState == 5)
+				{
+					Globals.volumeSettings.Update();
 				}
 			}
 			AudioManager.audioEngine.Update();
@@ -79,18 +94,30 @@ namespace Honeymoon
 		{
 			base.Draw(gameTime);
 			Globals.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, null);
-			_graphics.GraphicsDevice.Clear(new Color(255, 235, 177));
-			if (gameState == 0)
+			Globals._graphics.GraphicsDevice.Clear(new Color(255, 235, 177));
+			if (Globals.gameState == 0)
 			{
 				mainMenu.Draw();
 			}
-			else if (gameState == 1)
+			else if (Globals.gameState == 1)
 			{
 
 			}
-			else if (gameState == 2)
+			else if (Globals.gameState == 2)
 			{
 				Globals.settingsMenu.Draw();
+			}
+			else if (Globals.gameState == 3)
+			{
+				Globals.generalSettings.Draw();
+			}
+			else if (Globals.gameState == 4)
+			{
+				Globals.videoSettings.Draw();
+			}
+			else if (Globals.gameState == 5)
+			{
+				Globals.volumeSettings.Draw();
 			}
 			Globals.spriteBatch.End();
 		}

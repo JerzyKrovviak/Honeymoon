@@ -23,12 +23,44 @@ namespace Honeymoon.Source
 
 		public static GameTime gameTime;
 
-		public static Random random = new Random();
+		public static int gameState = 0;
 
-		public static MainMenu mainMenu;
-
-		public static SettingsMenu settingsMenu;
+		public static int selectedResolution;
 
 		public static Vector2 windowSize, mousePosition;
+
+		public static void ChangeGameResolution(int id)
+		{
+			if (id == 1)
+			{
+				_graphics.IsFullScreen = true;
+				_graphics.HardwareModeSwitch = true;
+				_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			}
+			else if (id == 2)
+			{
+				_graphics.IsFullScreen = false;
+				_graphics.HardwareModeSwitch = false;
+				_graphics.PreferredBackBufferWidth = 1280;
+				_graphics.PreferredBackBufferHeight = 756;
+			}
+			else if (id == 3)
+			{
+				_graphics.IsFullScreen = false;
+				_graphics.HardwareModeSwitch = false;
+				_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			}
+			selectedResolution = id;
+			_graphics.ApplyChanges();
+		}
+
+		public static Random random = new Random();
+
+		public static SettingsMenu settingsMenu;
+		public static GeneralSettings generalSettings;
+		public static VideoSettings videoSettings;
+		public static VolumeSettings volumeSettings;
 	}
 }

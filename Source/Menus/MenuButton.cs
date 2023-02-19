@@ -47,7 +47,7 @@ namespace Honeymoon.Menus
 			isHovered = false;
 		}
 
-		public MenuButton(Texture2D texture, Vector2 position)
+		public MenuButton(SpriteFont hm_f_menu, Texture2D texture, Vector2 position)
 		{
 			this.texture = texture;
 			this.position = position;

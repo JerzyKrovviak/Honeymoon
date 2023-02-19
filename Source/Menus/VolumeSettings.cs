@@ -10,30 +10,32 @@ using Microsoft.Xna.Framework.Input;
 using Honeymoon.Managers;
 using Honeymoon.Source.Menus;
 using Honeymoon.Source;
+using Honeymoon.Menus;
 
-namespace Honeymoon.Menus
+namespace Honeymoon.Source.Menus
 {
-	public class MainMenu
+	public class VolumeSettings
 	{
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
-		private static MenuButton logo;
+		private static MenuButton volumelSettingsLogo;
 		private static bool lastHover = false;
 
-		public MainMenu()
+		public VolumeSettings()
 		{
-			logo = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/logo"), Rectangle.Empty, new Rectangle(0, 0, 152, 68));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Singleplayer", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Multiplayer", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Settings", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Exit", Vector2.Zero, 3));
+			volumelSettingsLogo = new MenuButton(FontManager.hm_f_menu, "Volume", Vector2.Zero, 5);
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting1", Vector2.Zero, 3));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting2", Vector2.Zero, 3));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3));
 		}
 
 		public virtual void Update()
 		{
-			logo.inGameData = new Rectangle((int)GlobalFunctions.PerfectMidPosX(608), (int)GlobalFunctions.PerfectMidPosY(272) - 350, 608, 272);
+			volumelSettingsLogo.size = volumelSettingsLogo.GetButtonSize();
+			volumelSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(volumelSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(volumelSettingsLogo.size.Y) - 250);
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
+				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[0].size.Y - 170 * i));
 				lastHover = menuButtons[i].isHovered;
 				menuButtons[i].size = menuButtons[i].GetButtonSize();
 				if (menuButtons[i].scale == 3)
@@ -67,30 +69,22 @@ namespace Honeymoon.Menus
 					AudioManager.soundBank.PlayCue("optionHover");
 				}
 			}
-
-			if (menuButtons[2].hitbox.Contains(Globals.mousePosition))
+			if (menuButtons[3].hitbox.Contains(Globals.mousePosition))
 			{
 				if (InputManager.IsLeftButtonNewlyPressed())
 				{
 					Globals.gameState = 2;
 				}
 			}
-			else if (menuButtons[3].hitbox.Contains(Globals.mousePosition))
-			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Main.self.Exit();
-				}
-			}
 		}
 
 		public virtual void Draw()
 		{
+			volumelSettingsLogo.DrawString();
 			foreach (MenuButton button in menuButtons)
 			{
 				button.DrawString();
 			}
-			logo.DrawTexture();
 		}
 	}
 }
