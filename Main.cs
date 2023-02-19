@@ -3,15 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Honeymoon.Managers;
 using Honeymoon.Menus;
+using Honeymoon.Source.Menus;
+using Honeymoon.Source;
 
 namespace Honeymoon
 {
 	public class Main : Game
 	{
 		private GraphicsDeviceManager _graphics;
-		private SpriteBatch _spriteBatch;
-		public static Vector2 windowSize, mousePosition;
 		public static Main self;
+		public static int gameState = 0;
+		MainMenu mainMenu;
 
 		public Main()
 		{
@@ -24,11 +26,11 @@ namespace Honeymoon
 		protected override void Initialize()
 		{
 			base.Initialize();
-			//_graphics.IsFullScreen = true;
+			_graphics.IsFullScreen = true;
 			_graphics.PreferredBackBufferWidth = 1280;
 			_graphics.PreferredBackBufferHeight = 756;
 			_graphics.HardwareModeSwitch = false;
-			windowSize = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+			Globals.windowSize = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
 			_graphics.ApplyChanges();
 		}
 
@@ -39,34 +41,58 @@ namespace Honeymoon
 
 		protected override void LoadContent()
 		{
-			_spriteBatch = new SpriteBatch(GraphicsDevice);
-			//windowSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-			//windowSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+			Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+			Globals.content = this.Content;
+			AudioManager.LoadAudioContent();
 			FontManager.LoadContent(Content);
-			MainMenu.LoadContent(Content);
+			mainMenu = new MainMenu();
+			Globals.settingsMenu = new SettingsMenu();
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			windowSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+			Globals.windowSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 			if (!IsOutOfFocus())
 			{
 				MouseState mouseState = Mouse.GetState();
-				mousePosition = new Vector2(mouseState.X, mouseState.Y);
+				Globals.mousePosition = new Vector2(mouseState.X, mouseState.Y);
 				InputManager.SetCurrentStates(new ButtonState[] { mouseState.LeftButton, mouseState.RightButton });
 				InputManager.SetCurrentStates(Keyboard.GetState());
+				if (gameState == 0)
+				{
+					mainMenu.Update();
+				}
+				else if (gameState == 1)
+				{
+
+				}
+				else if (gameState == 2)
+				{
+					Globals.settingsMenu.Update();
+				}
 			}
-			MainMenu.Update(gameTime);
+			AudioManager.audioEngine.Update();
 			base.Update(gameTime);
 		}
 
 		protected override void Draw(GameTime gameTime)
 		{
 			base.Draw(gameTime);
-			_spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, null);
+			Globals.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, null);
 			_graphics.GraphicsDevice.Clear(new Color(255, 235, 177));
-			MainMenu.Draw(_spriteBatch);
-			_spriteBatch.End();
+			if (gameState == 0)
+			{
+				mainMenu.Draw();
+			}
+			else if (gameState == 1)
+			{
+
+			}
+			else if (gameState == 2)
+			{
+				Globals.settingsMenu.Draw();
+			}
+			Globals.spriteBatch.End();
 		}
 	}
 }
