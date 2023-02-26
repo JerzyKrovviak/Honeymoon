@@ -23,3 +23,5 @@ C:\Users\JK\source\repos\Honeymoon\Honeymoon\obj\Debug\net6.0\Honeymoon.dll
 C:\Users\JK\source\repos\Honeymoon\Honeymoon\obj\Debug\net6.0\ref\Honeymoon.dll
 C:\Users\JK\source\repos\Honeymoon\Honeymoon\obj\Debug\net6.0\Honeymoon.pdb
 C:\Users\JK\source\repos\Honeymoon\Honeymoon\obj\Debug\net6.0\Honeymoon.genruntimeconfig.cache
+C:\Users\JK\source\repos\Honeymoon\Honeymoon\bin\Debug\net6.0\XmlDataCache.dll
+C:\Users\JK\source\repos\Honeymoon\Honeymoon\bin\Debug\net6.0\XmlDataCache.pdb

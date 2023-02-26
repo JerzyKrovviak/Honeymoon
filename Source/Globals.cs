@@ -10,6 +10,9 @@ using Microsoft.Xna.Framework.Input;
 using Honeymoon.Managers;
 using Honeymoon.Source.Menus;
 using Honeymoon.Menus;
+using Honeymoon.Source.World.Map;
+using Honeymoon.Source.World.Creatures.Player;
+using Honeymoon.Source.World.Creatures;
 
 namespace Honeymoon.Source
 {
@@ -62,5 +65,12 @@ namespace Honeymoon.Source
 		public static GeneralSettings generalSettings;
 		public static VideoSettings videoSettings;
 		public static VolumeSettings volumeSettings;
+
+		public static SavedSettings persistentSettings;
+
+		public static Map map;
+		public static TilesetManager tilesetManager;
+
+		public static Beekeeper player;
 	}
 }

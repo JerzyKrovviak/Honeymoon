@@ -24,7 +24,7 @@ namespace Honeymoon.Source.Menus
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 3));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Video", Vector2.Zero, 3));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Volume", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Save & back", Vector2.Zero, 3));
 		}
 
 		public virtual void Update()
@@ -93,6 +93,8 @@ namespace Honeymoon.Source.Menus
 			{
 				if (InputManager.IsLeftButtonNewlyPressed())
 				{
+					Globals.persistentSettings = new SavedSettings();
+					SavedSettings.SaveSettings(Globals.persistentSettings);
 					Globals.gameState = 0;
 				}
 			}

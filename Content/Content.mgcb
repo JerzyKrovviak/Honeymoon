@@ -10,8 +10,21 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\XmlDataCache\bin\Debug\net6.0\XmlDataCache.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin Creatures/Beekeeper/beekeeper.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Creatures/Beekeeper/beekeeper.png
 
 #begin Fonts/hm_f_default.tga
 /importer:TextureImporter
@@ -37,6 +50,21 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/hm_f_outline.tga
 
+#begin Maps/hm_map_0.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/hm_map_0.xml
+
+#begin Maps/hm_map_1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/hm_map_1.xml
+
+#begin Maps/hm_map_2.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Maps/hm_map_2.xml
+
 #begin MiscSprites/logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -48,4 +76,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MiscSprites/logo.png
+
+#begin Tilesets/hm_tileset_common.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tilesets/hm_tileset_common.png
 

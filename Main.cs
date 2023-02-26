@@ -5,12 +5,13 @@ using Honeymoon.Managers;
 using Honeymoon.Menus;
 using Honeymoon.Source.Menus;
 using Honeymoon.Source;
+using Honeymoon.Source.World.Map;
+using Honeymoon.Source.World.Creatures.Player;
 
 namespace Honeymoon
 {
 	public class Main : Game
 	{
-		//private GraphicsDeviceManager _graphics;
 		public static Main self;
 		MainMenu mainMenu;
 
@@ -25,12 +26,16 @@ namespace Honeymoon
 		protected override void Initialize()
 		{
 			base.Initialize();
-			Globals.ChangeGameResolution(2);
-			//Globals._graphics.IsFullScreen = true;
-			//Globals._graphics.PreferredBackBufferWidth = 1280;
-			//Globals._graphics.PreferredBackBufferHeight = 756;
-			//Globals._graphics.HardwareModeSwitch = false;
 			Globals.windowSize = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+			if (SavedSettings.CheckIfFileExists())
+			{
+				Globals.persistentSettings = SavedSettings.LoadSettings();
+				Globals.ChangeGameResolution(Globals.persistentSettings.resolution);
+			}
+			else
+			{
+				Globals.ChangeGameResolution(2);
+			}
 			Globals._graphics.ApplyChanges();
 		}
 
@@ -50,6 +55,9 @@ namespace Honeymoon
 			Globals.generalSettings = new GeneralSettings();
 			Globals.volumeSettings = new VolumeSettings();
 			Globals.videoSettings = new VideoSettings();
+			Globals.map = new Map();
+			Globals.tilesetManager = new TilesetManager();
+			Globals.player = new Beekeeper();
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -57,6 +65,7 @@ namespace Honeymoon
 			Globals.windowSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 			if (!IsOutOfFocus())
 			{
+				Globals.gameTime = gameTime;
 				MouseState mouseState = Mouse.GetState();
 				Globals.mousePosition = new Vector2(mouseState.X, mouseState.Y);
 				InputManager.SetCurrentStates(new ButtonState[] { mouseState.LeftButton, mouseState.RightButton });
@@ -67,7 +76,8 @@ namespace Honeymoon
 				}
 				else if (Globals.gameState == 1)
 				{
-
+					Globals.map.Update();
+					Globals.player.Update();
 				}
 				else if (Globals.gameState == 2)
 				{
@@ -98,10 +108,12 @@ namespace Honeymoon
 			if (Globals.gameState == 0)
 			{
 				mainMenu.Draw();
+				Globals.player.Draw();
 			}
 			else if (Globals.gameState == 1)
 			{
-
+				Globals.map.Draw(0);
+				Globals.player.Draw();
 			}
 			else if (Globals.gameState == 2)
 			{
