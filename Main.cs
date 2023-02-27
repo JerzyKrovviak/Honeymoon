@@ -58,6 +58,7 @@ namespace Honeymoon
 			Globals.map = new Map();
 			Globals.tilesetManager = new TilesetManager();
 			Globals.player = new Beekeeper();
+			Globals.input = new Source.World.Creatures.InputComponent();
 		}
 
 		protected override void Update(GameTime gameTime)

@@ -72,5 +72,6 @@ namespace Honeymoon.Source
 		public static TilesetManager tilesetManager;
 
 		public static Beekeeper player;
+		public static InputComponent input;
 	}
 }

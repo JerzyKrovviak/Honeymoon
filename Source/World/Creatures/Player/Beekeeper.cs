@@ -21,16 +21,15 @@ namespace Honeymoon.Source.World.Creatures.Player
 			color = Color.White;
 			rotation = 0;
 			origin = Vector2.Zero;
-			framesCount = 3;
-			currentFrame = 0;
-			frameSpeed = 60f;
+			velocity = new Vector2(130,130);
+			animation.Add(new Animation2d("walkHorizontal", 3, 0, 90f));
+			animation.Add(new Animation2d("walkVerticalDown", 4, 32, 70f));
+			animation.Add(new Animation2d("walkVerticalUp", 4, 64, 70f));
 		}
 
 		public virtual void Update()
 		{
-			PlayAnimation();
-			position.X += 0.5f;
-			System.Diagnostics.Debug.WriteLine("updating skurwysyna");
+			Globals.input.Update();
 		}
 	}
 }
