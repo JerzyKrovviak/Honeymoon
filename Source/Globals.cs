@@ -13,6 +13,7 @@ using Honeymoon.Menus;
 using Honeymoon.Source.World.Map;
 using Honeymoon.Source.World.Creatures.Player;
 using Honeymoon.Source.World.Creatures;
+using Honeymoon.Source.Managers;
 
 namespace Honeymoon.Source
 {
@@ -61,6 +62,7 @@ namespace Honeymoon.Source
 
 		public static Random random = new Random();
 
+		public static MainMenu mainMenu;
 		public static SettingsMenu settingsMenu;
 		public static GeneralSettings generalSettings;
 		public static VideoSettings videoSettings;
@@ -68,6 +70,8 @@ namespace Honeymoon.Source
 
 		public static SavedSettings persistentSettings;
 
+		public static MenuManager menuManager;
+		public static GameManager gameManager;
 		public static Map map;
 		public static TilesetManager tilesetManager;
 

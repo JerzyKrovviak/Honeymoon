@@ -16,7 +16,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 		public Beekeeper()
 		{
 			texture = Globals.content.Load<Texture2D>("Creatures/Beekeeper/beekeeper");
-			position = new Vector2(333, 111);
+			position = new Vector2(800, 800);
 			sourceData = new Rectangle(0, 0, 16, 32);
 			color = Color.White;
 			rotation = 0;
@@ -30,6 +30,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 		public virtual void Update()
 		{
 			Globals.input.Update();
+			Camera.CalculateTranslation();
 		}
 	}
 }
