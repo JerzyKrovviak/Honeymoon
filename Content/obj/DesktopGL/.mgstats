@@ -1,6 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Creatures/Beekeeper/beekeeper.png","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Creatures/Beekeeper/beekeeper.xnb","TextureProcessor","Texture2DContent",1324,24661,0,2713781
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_default.xnb","FontTextureProcessor","SpriteFontContent",49918,78702,0,0206931
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_menu.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_menu.xnb","FontTextureProcessor","SpriteFontContent",61158,95086,0,0137841
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_outline.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_outline.xnb","FontTextureProcessor","SpriteFontContent",53653,95086,0,0115082
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Maps/hm_map_1.xml","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Maps/hm_map_1.xnb","PassThroughProcessor","Map",6129,10843,0,0347818
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_default.xnb","FontTextureProcessor","SpriteFontContent",49918,78702,0,1208263
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_menu.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_menu.xnb","FontTextureProcessor","SpriteFontContent",61158,95086,0,0113604
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_outline.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_outline.xnb","FontTextureProcessor","SpriteFontContent",53653,95086,0,0080674
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Maps/hm_map_0.xml","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Maps/hm_map_0.xnb","PassThroughProcessor","Map",6664,10827,0,0322449

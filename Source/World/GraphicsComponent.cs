@@ -17,46 +17,6 @@ namespace Honeymoon.Source.World
 		public static Rectangle sourceData;
 		public Color color;
 		public bool flipHorizontal, flipVertical;
-		public List<Animation2d> animation = new List<Animation2d>();
-
-		public class Animation2d
-		{
-			public string name;
-			public int framesCount;
-			public int currentFrame;
-			public int sourceY;
-			public float frameSpeed;
-			public double timeSinceLastFrame;
-
-			public Animation2d(string name, int framesCount, int sourceY, float frameSpeed)
-			{
-				this.name = name;
-				this.framesCount = framesCount;
-				this.sourceY = sourceY;
-				this.frameSpeed = frameSpeed;
-			}
-
-			public void PlayAnimation()
-			{
-				timeSinceLastFrame += Globals.gameTime.ElapsedGameTime.TotalMilliseconds;
-				if (timeSinceLastFrame > frameSpeed)
-				{
-					currentFrame += 1;
-					timeSinceLastFrame = 0;
-					if (currentFrame >= framesCount)
-					{
-						currentFrame = 0;
-					}
-				}
-				sourceData.Y = sourceY;
-				sourceData.X = sourceData.Width * currentFrame;
-			}
-
-			public void StopAnimation()
-			{
-				sourceData.X = sourceData.Width * currentFrame;
-				currentFrame = 0;
-			}
-		}
+		public List<AnimatedComponent> animation = new List<AnimatedComponent>();
 	}
 }

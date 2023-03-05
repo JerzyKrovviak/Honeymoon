@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Tilesets/hm_tileset_common.png</SourceFile>
-  <SourceTime>2023-03-04T18:18:44.8842993+01:00</SourceTime>
-  <DestFile>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Tilesets/hm_tileset_common.xnb</DestFile>
-  <DestTime>2023-03-04T23:07:07.8435028+01:00</DestTime>
+  <SourceFile>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Tilesets/hm_tileset_animated.png</SourceFile>
+  <SourceTime>2023-03-03T00:50:41.1323572+01:00</SourceTime>
+  <DestFile>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Tilesets/hm_tileset_animated.xnb</DestFile>
+  <DestTime>2023-03-04T23:07:07.8415016+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -57,7 +57,6 @@ namespace Honeymoon
 		protected override void Update(GameTime gameTime)
 		{
 			Globals.windowSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-			System.Diagnostics.Debug.WriteLine(Globals.windowSize);
 			if (!IsOutOfFocus())
 			{
 				Globals.gameTime = gameTime;
@@ -69,7 +68,6 @@ namespace Honeymoon
 				if (Globals.gameState == 1)
 				{
 					Globals.gameManager.Update();
-					System.Diagnostics.Debug.WriteLine(Globals.windowSize);
 				}
 				else
 				{

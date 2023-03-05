@@ -14,14 +14,16 @@ namespace Honeymoon.Source.Managers
 	{
 		public GameManager()
 		{
-			Globals.map = new Map();
 			Globals.tilesetManager = new TilesetManager();
+			Globals.map = new Map();
+			System.Diagnostics.Debug.WriteLine(TilesetManager.GetTilesetByGid(19));
 			Globals.player = new Beekeeper();
 			Globals.input = new Source.World.Creatures.InputComponent();
 		}
 
 		public virtual void Update()
 		{
+			Globals.tilesetManager.Update();
 			Globals.map.Update();
 			Globals.player.Update();
 		}
@@ -29,7 +31,7 @@ namespace Honeymoon.Source.Managers
 		public virtual void Draw()
 		{
 			Globals.map.Draw(0);
-			Globals.map.DrawDebugMode();
+			//Globals.map.DrawDebugMode();
 			Globals.player.Draw();
 		}
 	}

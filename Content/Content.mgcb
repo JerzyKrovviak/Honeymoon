@@ -55,16 +55,6 @@
 /processor:PassThroughProcessor
 /build:Maps/hm_map_0.xml
 
-#begin Maps/hm_map_1.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Maps/hm_map_1.xml
-
-#begin Maps/hm_map_2.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Maps/hm_map_2.xml
-
 #begin MiscSprites/logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -76,6 +66,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MiscSprites/logo.png
+
+#begin Objects/tree.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/tree.png
+
+#begin Tilesets/hm_tileset_animated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tilesets/hm_tileset_animated.png
 
 #begin Tilesets/hm_tileset_common.png
 /importer:TextureImporter

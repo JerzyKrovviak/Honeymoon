@@ -14,16 +14,18 @@ namespace Honeymoon.Source.World.Map
 		public Texture2D texture;
 		public int tileWidth;
 		public int tileHeight;
-		public Rectangle[] tiles;
-		public int[] collisionTiles;
+		public int rows;
+		public int columns;
+		public int firstgid;
+		public int totalTiles;
+		public Tile[] tiles;
 
 		public Tileset(Texture2D loadedTexture)
 		{
 			texture = loadedTexture;
 			tileWidth = 16;
 			tileHeight = 16;
-			tiles = Array.Empty<Rectangle>();
-			collisionTiles = Array.Empty<int>();
+			tiles = Array.Empty<Tile>();
 		}
 	}
 }
