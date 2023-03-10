@@ -15,8 +15,11 @@ namespace Honeymoon.Source.World.Map
 		public int tileWidth, tileHeight;
 		public Rectangle sourceData;
 		public bool collision, isAnimated;
+		public Color color;
+		//soundplayed when stepped on by something
 
-		public int firstFrame, lastFrame;
+		public int framesCount;
+		public int currentFrame;
 		public float frameSpeed;
 		public double timeSinceLastFrame;
 
@@ -31,14 +34,15 @@ namespace Honeymoon.Source.World.Map
 			timeSinceLastFrame += Globals.gameTime.ElapsedGameTime.TotalMilliseconds;
 			if (timeSinceLastFrame > frameSpeed)
 			{
-				if (id < lastFrame - 1)
+				if (currentFrame < framesCount - 1)
 				{
-					id += 1;
+					currentFrame += 1;
 				}
 				else
-					id = firstFrame;
+					currentFrame = 0;
 				timeSinceLastFrame = 0;
 			}
+			sourceData.X = sourceData.Width * currentFrame;
 		}
 	}
 }

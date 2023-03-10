@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="XmlDataCache.TileData">
+    <tileData>
+      <Item>
+        <gid>22</gid>
+        <collision>true</collision>
+        <isAnimated>true</isAnimated>
+        <framesCount>10</framesCount>
+        <frameSpeed>120</frameSpeed>
+      </Item>
+    </tileData>
+  </Asset>
+</XnaContent>

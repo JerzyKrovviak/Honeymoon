@@ -15,7 +15,6 @@ namespace Honeymoon.Source.World
 		public int sourceY;
 		public float frameSpeed;
 		public double timeSinceLastFrame;
-		public int sourceDataY;
 
 		public AnimatedComponent(string name, int framesCount, int sourceDataY, float frameSpeed)
 		{

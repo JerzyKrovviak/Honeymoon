@@ -18,27 +18,36 @@ namespace Honeymoon.Source.World.Map
 			tilesets.Add(new Tileset(Globals.content.Load<Texture2D>("Tilesets/hm_tileset_common")));
 			tilesets[0].firstgid = 1;
 			tilesets.Add(new Tileset(Globals.content.Load<Texture2D>("Tilesets/hm_tileset_animated")));
+			XmlDataCache.TileData tileData = Globals.content.Load<XmlDataCache.TileData>("Data/TileData");
 
 			for (int i = 0; i < tilesets.Count; i++)
 			{
-				tilesets[i].columns = tilesets[i].texture.Width / tilesets[i].tileWidth; //calculationg columns of tileset
-				tilesets[i].rows = tilesets[i].texture.Height / tilesets[i].tileHeight; //calculatin rows of tileset
-				tilesets[i].totalTiles = tilesets[i].rows * tilesets[i].columns; //calcuating total amount of tiles in tileset
+				tilesets[i].columns = tilesets[i].texture.Width / tilesets[i].tileWidth;
+				tilesets[i].rows = tilesets[i].texture.Height / tilesets[i].tileHeight;
+				tilesets[i].totalTiles = tilesets[i].rows * tilesets[i].columns;
 				if (i > 0)
 				{
-					tilesets[i].firstgid = tilesets[i - 1].firstgid + tilesets[i - 1].totalTiles; // calculatin firstgid
+					tilesets[i].firstgid = tilesets[i - 1].firstgid + tilesets[i - 1].totalTiles;
 				}
 				tilesets[i].tiles = new Tile[tilesets[i].totalTiles];
-				//System.Diagnostics.Debug.WriteLine(tilesets[i].tiles.Length);
 				for (int y = 0; y < tilesets[i].rows; y++)
 				{
 					for (int x = 0; x < tilesets[i].columns; x++)
 					{
 						int index = y * tilesets[i].columns + x;
-						System.Diagnostics.Debug.WriteLine(index);
 						var source = new Rectangle(x * tilesets[i].tileWidth, y * tilesets[i].tileHeight, tilesets[i].tileWidth, tilesets[i].tileHeight);
 						tilesets[i].tiles[index] = new Tile(index + tilesets[i].firstgid, source);
-						System.Diagnostics.Debug.WriteLine("index: " + index + "   adding tile gid: " + tilesets[i].tiles[index].id + " source" + source + " tileset: " + tilesets[i].texture);
+
+						for (int d = 0; d < tileData.tileData.Count; d++)
+						{
+							if (tilesets[i].tiles[index].id == tileData.tileData[d].gid)
+							{
+								tilesets[i].tiles[index].collision = tileData.tileData[d].collision;
+								tilesets[i].tiles[index].isAnimated = tileData.tileData[d].isAnimated;
+								tilesets[i].tiles[index].framesCount = tileData.tileData[d].framesCount;
+								tilesets[i].tiles[index].frameSpeed = tileData.tileData[d].frameSpeed;
+							}
+						}
 					}
 				}
 			}

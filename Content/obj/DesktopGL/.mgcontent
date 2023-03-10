@@ -5,12 +5,12 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Creatures/Beekeeper/beekeeper.png</File>
+    <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Data/TileData.xml</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_menu.tga</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_outline.tga</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Maps/hm_map_0.xml</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/MiscSprites/logo.png</File>
-    <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Objects/tree.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Tilesets/hm_tileset_animated.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Tilesets/hm_tileset_common.png</File>
   </SourceFiles>

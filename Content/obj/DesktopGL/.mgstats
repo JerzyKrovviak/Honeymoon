@@ -1,5 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_default.xnb","FontTextureProcessor","SpriteFontContent",49918,78702,0,1208263
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_menu.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_menu.xnb","FontTextureProcessor","SpriteFontContent",61158,95086,0,0113604
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_outline.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_outline.xnb","FontTextureProcessor","SpriteFontContent",53653,95086,0,0080674
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Maps/hm_map_0.xml","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Maps/hm_map_0.xnb","PassThroughProcessor","Map",6664,10827,0,0322449
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Data/TileData.xml","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Data/TileData.xnb","PassThroughProcessor","TileData",360,634,0,1081922
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_default.xnb","FontTextureProcessor","SpriteFontContent",49918,78702,0,0407413
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_menu.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_menu.xnb","FontTextureProcessor","SpriteFontContent",61158,95086,0,0085141
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_outline.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_outline.xnb","FontTextureProcessor","SpriteFontContent",53653,95086,0,0085523

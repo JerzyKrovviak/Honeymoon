@@ -33,7 +33,6 @@ namespace Honeymoon.Source.World.Map
 
 			rectanglexdddd = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
 			rectanglexdddd.SetData(new Color[] { Color.Red });
-			//System.Diagnostics.Debug.WriteLine(TilesetManager.GetTilesetTextureByGid(18));
 		}
 
 		public virtual void Update()
@@ -88,13 +87,8 @@ namespace Honeymoon.Source.World.Map
 								int gid = layer.tileData[y * layer.tilesWidth + x];
 								if (gid == 0) continue;
 								var tileset = TilesetManager.GetTilesetByGid(gid);
-								//System.Diagnostics.Debug.WriteLine(tileset.tiles[gid - tileset.firstgid].id);
 								var source = tileset.tiles[gid - tileset.firstgid].sourceData;
-								//System.Diagnostics.Debug.WriteLine("gid: " + gid + " texture: " + tileset.texture + " source: " + source + " id: " + tileset.tiles[gid - 1].id + " layer: " + layer.layerName);
 								Rectangle destination = new Rectangle(x * tileWidth * scale, y * tileHeight * scale, tileWidth * scale, tileHeight * scale);
-								//tileset.tiles[gid].sourceData przy tym sie pierdoli
-								//System.Diagnostics.Debug.WriteLine("gid: " + gid + " texture: " + tileset.texture + " source: " + tileset.tiles[gid].sourceData);
-								//System.Diagnostics.Debug.WriteLine("drawing tile gid: " + gid + " source" + source + " tileset: " + tilesets[i].texture);
 								Globals.spriteBatch.Draw(tileset.texture, destination, source, Color.White);
 							}
 						}
