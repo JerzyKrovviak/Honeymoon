@@ -15,54 +15,31 @@ namespace Honeymoon.Source.World.Creatures
 	{
 		public void Update()
 		{
-			if (InputManager.AreKeysDown(new Keys[] { Keys.A, Keys.D }))
-			{
-				if (Globals.player.acceleration.X < 90)
-				{
-					Globals.player.acceleration.X += 5.5f;
-				}
-			}
-			else if (InputManager.AreKeysDown(new Keys[] { Keys.W, Keys.S }))
-			{
-				if (Globals.player.acceleration.Y < 90)
-				{
-					Globals.player.acceleration.Y += 5.5f;
-				}
-			}
-			else
-			{
-				Globals.player.acceleration = Vector2.Zero;
-				foreach (var animation in Globals.player.animation)
-				{
-					animation.StopAnimation();
-				}
-			}
-
-			if (InputManager.IsKeyDown(Keys.A))
+			if (InputManager.IsKeyDown(Keys.A) && !Map.Map.CheckForCollision(Globals.player))
 			{
 				Globals.player.direction = 7;
-				Globals.player.position.X -= (Globals.player.velocity.X + Globals.player.acceleration.X) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+				Globals.player.position.X -= (Globals.player.velocity.X) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
 				Globals.player.animation[0].PlayAnimation();
 				Globals.player.flipHorizontal = true;
 			}
-			else if (InputManager.IsKeyDown(Keys.D))
+			else if (InputManager.IsKeyDown(Keys.D) && !Map.Map.CheckForCollision(Globals.player))
 			{
 				Globals.player.direction = 3;
-				Globals.player.position.X += (Globals.player.velocity.X + Globals.player.acceleration.X) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+				Globals.player.position.X += (Globals.player.velocity.X) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
 				Globals.player.animation[0].PlayAnimation();
 				Globals.player.flipHorizontal = false;
 			}
 
-			if (InputManager.IsKeyDown(Keys.W))
+			if (InputManager.IsKeyDown(Keys.W) && !Map.Map.CheckForCollision(Globals.player))
 			{
 				Globals.player.direction = 1;
-				Globals.player.position.Y -= (Globals.player.velocity.Y + Globals.player.acceleration.Y) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+				Globals.player.position.Y -= (Globals.player.velocity.Y) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
 				Globals.player.animation[2].PlayAnimation();
 			}
-			else if (InputManager.IsKeyDown(Keys.S))
+			else if (InputManager.IsKeyDown(Keys.S) && !Map.Map.CheckForCollision(Globals.player))
 			{
 				Globals.player.direction = 5;
-				Globals.player.position.Y += (Globals.player.velocity.X + Globals.player.acceleration.Y) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+				Globals.player.position.Y += (Globals.player.velocity.Y) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
 				Globals.player.animation[1].PlayAnimation();
 			}
 

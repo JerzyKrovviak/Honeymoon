@@ -22,7 +22,7 @@ namespace Honeymoon.Source.World.Map
 		public static int tilesHeight;
 		public static int currentMap;
 
-		private List<XmlDataCache.Map> maps = new List<XmlDataCache.Map>();
+		private static List<XmlDataCache.Map> maps = new List<XmlDataCache.Map>();
 
 		public Texture2D rectanglexdddd;
 		
@@ -33,6 +33,40 @@ namespace Honeymoon.Source.World.Map
 
 			rectanglexdddd = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
 			rectanglexdddd.SetData(new Color[] { Color.Red });
+		}
+
+		public static Vector2 GetEntityTile(PhysicalComponent entity)
+		{
+			//return new Vector2((entity.hitBox.X + entity.hitBox.Width / 2) / scaledTileWidth, (entity.hitBox.Y + entity.hitBox.Height / 2) / scaledTileHeight);
+			return new Vector2((entity.hitBox.X + entity.hitBox.Width) / scaledTileWidth, (entity.hitBox.Y + entity.hitBox.Height) / scaledTileHeight);
+		}
+
+		public static bool CheckForCollision(PhysicalComponent entity)
+		{
+			foreach (XmlDataCache.Map map in maps)
+			{
+				if (map.mapId == GetCurrentMapId())
+				{
+					foreach (var layer in map.layers)
+					{
+						for (int y = (int)GetEntityTile(entity).Y - 1; y < (int)GetEntityTile(entity).Y + 1; y++)
+						{
+							for (int x = (int)GetEntityTile(entity).X - 1; x < (int)GetEntityTile(entity).X + 1; x++)
+							{
+								int gid = layer.tileData[y * layer.tilesWidth + x];
+								if (gid == 0) continue;
+								var tileset = TilesetManager.GetTilesetByGid(gid);
+								Rectangle destination = new Rectangle(x * tileWidth * scale, y * tileHeight * scale, tileWidth * scale, tileHeight * scale);
+								if (entity.hitBox.Intersects(destination) && tileset.tiles[gid - tileset.firstgid].collision)
+								{
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+			return false;
 		}
 
 		public virtual void Update()
@@ -62,11 +96,6 @@ namespace Honeymoon.Source.World.Map
 		public static Vector2 TileIdPosToXY(Vector2 position)
 		{
 			return new Vector2((int)position.X * scaledTileWidth, (int)position.Y * scaledTileHeight);
-		}
-
-		public static Vector2 GetPlayerTile()
-		{
-			return new Vector2(((int)Globals.player.hitBox.X + Globals.player.hitBox.Width / 2) / scaledTileWidth, ((int)Globals.player.hitBox.Y + Globals.player.hitBox.Height / 2) / scaledTileHeight);
 		}
 
 		public virtual void Draw(int mapID)
@@ -112,7 +141,11 @@ namespace Honeymoon.Source.World.Map
 					}
 				}
 			}
-			Globals.spriteBatch.Draw(rectanglexdddd, Globals.player.hitBox, Color.Red);
+			//Rectangle destination = new Rectangle(TileIdPosToXY(GetEntityTile(Globals.player).X).X, GetEntityTile(Globals.player).Y);
+			Vector2 rectpos = TileIdPosToXY(new Vector2(GetEntityTile(Globals.player).X, GetEntityTile(Globals.player).Y));
+			Rectangle destination = new Rectangle((int)rectpos.X, (int)rectpos.Y, 64, 64);
+			System.Diagnostics.Debug.WriteLine(destination);
+			Globals.spriteBatch.Draw(rectanglexdddd, destination, Color.Red);
 		}
 	}
 }

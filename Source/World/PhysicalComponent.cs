@@ -14,7 +14,7 @@ namespace Honeymoon.Source.World
 	public class PhysicalComponent : GraphicsComponent
 	{
 		public Vector2 position;
-		public Vector2 velocity, acceleration;
+		public Vector2 velocity;
 		public Rectangle hitBox;
 		public float rotation;
 		public Vector2 origin;

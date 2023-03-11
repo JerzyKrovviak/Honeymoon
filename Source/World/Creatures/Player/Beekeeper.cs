@@ -28,10 +28,14 @@ namespace Honeymoon.Source.World.Creatures.Player
 			animation.Add(new AnimatedComponent("walkVerticalUp", 4, 64, 70f));
 		}
 
+		public static Vector2 GetPlayerTile()
+		{
+			return new Vector2((Globals.player.hitBox.X + Globals.player.hitBox.Width / 2) / Map.Map.scaledTileWidth, (Globals.player.hitBox.Y + Globals.player.hitBox.Height / 2) / Map.Map.scaledTileHeight);
+		}
+
 		public virtual void Update()
 		{
 			hitBox = new Rectangle((int)position.X, (int)position.Y + 64, 64, 64);
-			//velocity = new Vector2(130, 130);
 			Globals.input.Update();
 			Camera.CalculateTranslation();
 		}
