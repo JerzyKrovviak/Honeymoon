@@ -16,7 +16,6 @@ namespace Honeymoon.Source.World.Map
 		public Rectangle sourceData;
 		public bool collision, isAnimated;
 		public Color color;
-		//soundplayed when stepped on by something
 
 		public int framesCount;
 		public int currentFrame;
@@ -27,6 +26,7 @@ namespace Honeymoon.Source.World.Map
 		{
 			this.id = id;
 			this.sourceData = sourceData;
+			this.color = Color.White;
 		}
 
 		public void PlayAnimation()

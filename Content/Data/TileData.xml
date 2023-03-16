@@ -3,11 +3,12 @@
   <Asset Type="XmlDataCache.TileData">
     <tileData>
       <Item>
-        <gid>22</gid>
+        <gid>34</gid>
         <collision>true</collision>
         <isAnimated>true</isAnimated>
         <framesCount>10</framesCount>
         <frameSpeed>120</frameSpeed>
+		<colorA>140</colorA>
       </Item>
     </tileData>
   </Asset>

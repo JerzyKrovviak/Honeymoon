@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Honeymoon.Managers;
 using Honeymoon.Source;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,6 +22,7 @@ namespace Honeymoon.Menus
 		public float rotation, scale;
 		public Vector2 origin;
 		public bool isHovered;
+		public bool lastHover;
 
 		public MenuButton(SpriteFont font, string text, Vector2 position, float scale)
 		{
@@ -55,6 +57,42 @@ namespace Honeymoon.Menus
 			rotation = 0f;
 			origin = Vector2.Zero;
 			isHovered = false;
+		}
+
+		public virtual void Update()
+		{
+			lastHover = isHovered;
+			size = GetButtonSize();
+			if (scale == 3)
+			{
+				hitbox = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
+			}
+			if (hitbox.Contains(Globals.mousePosition))
+			{
+				isHovered = true;
+				color = Color.Orange;
+				if (scale < 4.0f)
+				{
+					scale += 0.1f;
+				}
+				if (InputManager.IsLeftButtonNewlyPressed())
+				{
+					AudioManager.soundBank.PlayCue("optionSelect");
+				}
+			}
+			else
+			{
+				if (scale > 3.0f)
+				{
+					scale -= 0.1f;
+				}
+				isHovered = false;
+				color = Color.White;
+			}
+			if (!lastHover && isHovered)
+			{
+				AudioManager.soundBank.PlayCue("optionHover");
+			}
 		}
 
 		public virtual void DrawTexture()

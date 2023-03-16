@@ -14,14 +14,13 @@ using Honeymoon.Menus;
 
 namespace Honeymoon.Source.Menus
 {
-	public class VideoSettings
+	public class VideoSettingsMenu
 	{
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static MenuButton videoSettingsLogo;
-		private static bool lastHover = false;
 		private string[] resolutions = { "Fullscreen", "Windowed", "Windowed Fullscreen" };
 
-		public VideoSettings()
+		public VideoSettingsMenu()
 		{
 			//add loading saved resolution from file
 			videoSettingsLogo = new MenuButton(FontManager.hm_f_menu, "Video", Vector2.Zero, 5);
@@ -33,6 +32,11 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void Update()
 		{
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].Update();
+				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
+			}
 			videoSettingsLogo.size = videoSettingsLogo.GetButtonSize();
 			videoSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(videoSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(videoSettingsLogo.size.Y) - 250);
 			if (Globals.selectedResolution == 1)
@@ -48,42 +52,6 @@ namespace Honeymoon.Source.Menus
 				menuButtons[0].text = "Resolution: " + resolutions[2];
 			}
 
-			for (int i = 0; i < menuButtons.Count; i++)
-			{
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[0].size.Y - 170 * i));
-				lastHover = menuButtons[i].isHovered;
-				menuButtons[i].size = menuButtons[i].GetButtonSize();
-				if (menuButtons[i].scale == 3)
-				{
-					menuButtons[i].hitbox = new Rectangle((int)menuButtons[i].position.X, (int)menuButtons[i].position.Y, (int)menuButtons[i].size.X, (int)menuButtons[i].size.Y);
-				}
-				if (menuButtons[i].hitbox.Contains(Globals.mousePosition))
-				{
-					menuButtons[i].isHovered = true;
-					menuButtons[i].color = Color.Orange;
-					if (menuButtons[i].scale < 4.0f)
-					{
-						menuButtons[i].scale += 0.1f;
-					}
-					if (InputManager.IsLeftButtonNewlyPressed())
-					{
-						AudioManager.soundBank.PlayCue("optionSelect");
-					}
-				}
-				else
-				{
-					if (menuButtons[i].scale > 3.0f)
-					{
-						menuButtons[i].scale -= 0.1f;
-					}
-					menuButtons[i].isHovered = false;
-					menuButtons[i].color = Color.White;
-				}
-				if (!lastHover && menuButtons[i].isHovered)
-				{
-					AudioManager.soundBank.PlayCue("optionHover");
-				}
-			}
 			if (menuButtons[0].hitbox.Contains(Globals.mousePosition))
 			{
 				if (InputManager.IsLeftButtonNewlyPressed())

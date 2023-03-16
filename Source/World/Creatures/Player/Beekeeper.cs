@@ -16,7 +16,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 		public Beekeeper()
 		{
 			texture = Globals.content.Load<Texture2D>("Creatures/Beekeeper/beekeeper");
-			position = new Vector2(50, 50);
+			position = Map.Map.TileIdPosToXY(new Vector2(25,25));
 			sourceData = new Rectangle(0, 0, 16, 32);
 			color = Color.White;
 			rotation = 0;

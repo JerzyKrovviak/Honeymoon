@@ -46,6 +46,7 @@ namespace Honeymoon.Source.World.Map
 								tilesets[i].tiles[index].isAnimated = tileData.tileData[d].isAnimated;
 								tilesets[i].tiles[index].framesCount = tileData.tileData[d].framesCount;
 								tilesets[i].tiles[index].frameSpeed = tileData.tileData[d].frameSpeed;
+								tilesets[i].tiles[index].color.A = (byte)tileData.tileData[d].colorA;
 							}
 						}
 					}

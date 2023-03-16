@@ -37,7 +37,6 @@ namespace Honeymoon.Source.World.Map
 
 		public static Vector2 GetEntityTile(PhysicalComponent entity)
 		{
-			//return new Vector2((entity.hitBox.X + entity.hitBox.Width / 2) / scaledTileWidth, (entity.hitBox.Y + entity.hitBox.Height / 2) / scaledTileHeight);
 			return new Vector2((entity.hitBox.X + entity.hitBox.Width) / scaledTileWidth, (entity.hitBox.Y + entity.hitBox.Height) / scaledTileHeight);
 		}
 
@@ -57,6 +56,7 @@ namespace Honeymoon.Source.World.Map
 								if (gid == 0) continue;
 								var tileset = TilesetManager.GetTilesetByGid(gid);
 								Rectangle destination = new Rectangle(x * tileWidth * scale, y * tileHeight * scale, tileWidth * scale, tileHeight * scale);
+
 								if (entity.hitBox.Intersects(destination) && tileset.tiles[gid - tileset.firstgid].collision)
 								{
 									return true;
@@ -118,13 +118,17 @@ namespace Honeymoon.Source.World.Map
 								var tileset = TilesetManager.GetTilesetByGid(gid);
 								var source = tileset.tiles[gid - tileset.firstgid].sourceData;
 								Rectangle destination = new Rectangle(x * tileWidth * scale, y * tileHeight * scale, tileWidth * scale, tileHeight * scale);
-								Globals.spriteBatch.Draw(tileset.texture, destination, source, Color.White);
+								Globals.spriteBatch.Draw(tileset.texture, destination, source, tileset.tiles[gid - tileset.firstgid].color);
 							}
 						}
 					}
 				}
 			}
 		}
+		public virtual void DrawWorldObjects(int saveFileId)
+		{ 
+		}
+
 		public virtual void DrawDebugMode()
 		{
 			foreach (XmlDataCache.Map map in maps)
@@ -144,7 +148,6 @@ namespace Honeymoon.Source.World.Map
 			//Rectangle destination = new Rectangle(TileIdPosToXY(GetEntityTile(Globals.player).X).X, GetEntityTile(Globals.player).Y);
 			Vector2 rectpos = TileIdPosToXY(new Vector2(GetEntityTile(Globals.player).X, GetEntityTile(Globals.player).Y));
 			Rectangle destination = new Rectangle((int)rectpos.X, (int)rectpos.Y, 64, 64);
-			System.Diagnostics.Debug.WriteLine(destination);
 			Globals.spriteBatch.Draw(rectanglexdddd, destination, Color.Red);
 		}
 	}

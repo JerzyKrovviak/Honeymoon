@@ -64,9 +64,12 @@ namespace Honeymoon.Source
 
 		public static MainMenu mainMenu;
 		public static SettingsMenu settingsMenu;
-		public static GeneralSettings generalSettings;
-		public static VideoSettings videoSettings;
-		public static VolumeSettings volumeSettings;
+		public static GeneralSettingsMenu generalSettingsMenu;
+		public static VideoSettingsMenu videoSettingsMenu;
+		public static VolumeSettingsMenu volumeSettingsMenu;
+		public static PlayerSelectionMenu playerSelectionMenu;
+		public static WorldSelectionMenu worldSelectionMenu;
+		public static PlayerCreationMenu playerCreationMenu;
 
 		public static SavedSettings persistentSettings;
 

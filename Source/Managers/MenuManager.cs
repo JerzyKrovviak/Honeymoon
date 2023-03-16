@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Honeymoon.Managers;
 using Honeymoon.Menus;
 using Honeymoon.Source.Menus;
 using Microsoft.Xna.Framework;
@@ -17,9 +18,12 @@ namespace Honeymoon.Source.Managers
 		{
 			Globals.mainMenu = new MainMenu();
 			Globals.settingsMenu = new SettingsMenu();
-			Globals.generalSettings = new GeneralSettings();
-			Globals.volumeSettings = new VolumeSettings();
-			Globals.videoSettings = new VideoSettings();
+			Globals.generalSettingsMenu = new GeneralSettingsMenu();
+			Globals.volumeSettingsMenu = new VolumeSettingsMenu();
+			Globals.videoSettingsMenu = new VideoSettingsMenu();
+			Globals.playerSelectionMenu = new PlayerSelectionMenu();
+			Globals.worldSelectionMenu = new WorldSelectionMenu();
+			Globals.playerCreationMenu = new PlayerCreationMenu();
 		}
 
 		public virtual void Update()
@@ -34,15 +38,28 @@ namespace Honeymoon.Source.Managers
 			}
 			else if (Globals.gameState == 3)
 			{
-				Globals.generalSettings.Update();
+				Globals.generalSettingsMenu.Update();
 			}
 			else if (Globals.gameState == 4)
 			{
-				Globals.videoSettings.Update();
+				Globals.videoSettingsMenu.Update();
 			}
 			else if (Globals.gameState == 5)
 			{
-				Globals.volumeSettings.Update();
+				Globals.volumeSettingsMenu.Update();
+			}
+			else if (Globals.gameState == 6)
+			{
+				Globals.playerSelectionMenu.Update();
+			}
+			else if (Globals.gameState == 7)
+			{
+				Globals.playerCreationMenu.Update();
+			}
+
+			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
+			{
+				Globals.gameState = 0;
 			}
 		}
 
@@ -58,15 +75,23 @@ namespace Honeymoon.Source.Managers
 			}
 			else if (Globals.gameState == 3)
 			{
-				Globals.generalSettings.Draw();
+				Globals.generalSettingsMenu.Draw();
 			}
 			else if (Globals.gameState == 4)
 			{
-				Globals.videoSettings.Draw();
+				Globals.videoSettingsMenu.Draw();
 			}
 			else if (Globals.gameState == 5)
 			{
-				Globals.volumeSettings.Draw();
+				Globals.volumeSettingsMenu.Draw();
+			}
+			else if (Globals.gameState == 6)
+			{
+				Globals.playerSelectionMenu.Draw();
+			}
+			else if (Globals.gameState == 7)
+			{
+				Globals.playerCreationMenu.Draw();
 			}
 		}
 	}

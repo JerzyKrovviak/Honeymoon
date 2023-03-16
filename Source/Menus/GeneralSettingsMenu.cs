@@ -14,15 +14,15 @@ using Honeymoon.Menus;
 
 namespace Honeymoon.Source.Menus
 {
-	public class VolumeSettings
+	public class GeneralSettingsMenu
 	{
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
-		private static MenuButton volumelSettingsLogo;
+		private static MenuButton generalSettingsLogo;
 		private static bool lastHover = false;
 
-		public VolumeSettings()
+		public GeneralSettingsMenu()
 		{
-			volumelSettingsLogo = new MenuButton(FontManager.hm_f_menu, "Volume", Vector2.Zero, 5);
+			generalSettingsLogo = new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 5);
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting1", Vector2.Zero, 3));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting2", Vector2.Zero, 3));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3));
@@ -31,8 +31,8 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void Update()
 		{
-			volumelSettingsLogo.size = volumelSettingsLogo.GetButtonSize();
-			volumelSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(volumelSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(volumelSettingsLogo.size.Y) - 250);
+			generalSettingsLogo.size = generalSettingsLogo.GetButtonSize();
+			generalSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(generalSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(generalSettingsLogo.size.Y) - 250);
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
 				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[0].size.Y - 170 * i));
@@ -80,7 +80,7 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void Draw()
 		{
-			volumelSettingsLogo.DrawString();
+			generalSettingsLogo.DrawString();
 			foreach (MenuButton button in menuButtons)
 			{
 				button.DrawString();

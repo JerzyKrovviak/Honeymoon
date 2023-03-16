@@ -31,7 +31,7 @@ namespace Honeymoon.Source.Managers
 		public virtual void Draw()
 		{
 			Globals.map.Draw(0);
-			Globals.map.DrawDebugMode();
+			//Globals.map.DrawDebugMode();
 			Globals.player.Draw();
 		}
 	}
