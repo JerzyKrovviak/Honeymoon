@@ -19,14 +19,20 @@ namespace Honeymoon.Source.World.Creatures
 			{
 				Globals.player.direction = 7;
 				Globals.player.position.X -= (Globals.player.velocity.X) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
-				Globals.player.animation[0].PlayAnimation();
+				for (int i = 5; i < 10; i++)
+				{
+					Globals.player.animation[i].PlayAnimation();
+				}
 				Globals.player.flipHorizontal = true;
 			}
 			else if (InputManager.IsKeyDown(Keys.D))
 			{
 				Globals.player.direction = 3;
 				Globals.player.position.X += (Globals.player.velocity.X) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
-				Globals.player.animation[0].PlayAnimation();
+				for (int i = 5; i < 10; i++)
+				{
+					Globals.player.animation[i].PlayAnimation();
+				}
 				Globals.player.flipHorizontal = false;
 			}
 
@@ -34,13 +40,16 @@ namespace Honeymoon.Source.World.Creatures
 			{
 				Globals.player.direction = 1;
 				Globals.player.position.Y -= (Globals.player.velocity.Y) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
-				Globals.player.animation[2].PlayAnimation();
+				//Globals.player.animation[2].PlayAnimation();
 			}
 			else if (InputManager.IsKeyDown(Keys.S))
 			{
 				Globals.player.direction = 5;
 				Globals.player.position.Y += (Globals.player.velocity.Y) * (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
-				Globals.player.animation[1].PlayAnimation();
+				for (int i = 0; i < 5; i++)
+				{
+					Globals.player.animation[i].PlayAnimation();
+				}
 			}
 
 			if (InputManager.IsKeyDown(Keys.W) && InputManager.IsKeyDown(Keys.D))

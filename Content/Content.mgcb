@@ -14,7 +14,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Creatures/Beekeeper/beekeeper.png
+#begin Creatures/Beekeeper/hm_beekeeper_base.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -24,7 +24,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Creatures/Beekeeper/beekeeper.png
+/build:Creatures/Beekeeper/hm_beekeeper_base.png
+
+#begin Creatures/Beekeeper/hm_beekeeper_shirts.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Creatures/Beekeeper/hm_beekeeper_shirts.png
 
 #begin Data/TileData.xml
 /importer:XmlImporter
@@ -60,6 +72,18 @@
 /processor:PassThroughProcessor
 /build:Maps/hm_map_0.xml
 
+#begin MiscSprites/hm_uiElements.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MiscSprites/hm_uiElements.png
+
 #begin MiscSprites/logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -71,18 +95,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MiscSprites/logo.png
-
-#begin MiscSprites/uiElements.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:MiscSprites/uiElements.png
 
 #begin Tilesets/hm_tileset_animated.png
 /importer:TextureImporter

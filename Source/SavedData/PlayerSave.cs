@@ -11,6 +11,8 @@ namespace Honeymoon.Source.SavedData
 	public class PlayerSave
 	{
 		public string Name { get; set; }
+		public Color pantsColor { get; set; }
+		public Color shirtColor { get; set; }
 		public Vector2 Position { get; set; }
 
 		public PlayerSave()

@@ -50,8 +50,8 @@ namespace Honeymoon
 			Globals.content = this.Content;
 			AudioManager.LoadAudioContent();
 			FontManager.LoadContent(Content);
-			Globals.gameManager = new GameManager();
 			Globals.menuManager = new MenuManager();
+			Globals.gameManager = new GameManager();
 		}
 
 		protected override void Update(GameTime gameTime)

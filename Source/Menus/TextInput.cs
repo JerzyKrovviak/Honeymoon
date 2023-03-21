@@ -21,7 +21,7 @@ namespace Honeymoon.Source.Menus
 		public float scale;
 		public Color color;
 		public int maxChars;
-		public Texture2D textbg;
+		public Texture2D textUnderline;
 
 		public TextInput(SpriteFont font, string text, Vector2 position, float scale, Color color, int maxChars)
 		{
@@ -31,8 +31,8 @@ namespace Honeymoon.Source.Menus
 			this.scale = scale;
 			this.color = color;
 			this.maxChars = maxChars;
-			textbg = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
-			textbg.SetData(new Color[] { Color.White });
+			textUnderline = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
+			textUnderline.SetData(new Color[] { Color.White });
 		}
 
 		public Vector2 GetButtonSize()
@@ -55,7 +55,6 @@ namespace Honeymoon.Source.Menus
 					else if (keys.Intersect(InputManager.normalChars).Any())
 					{
 						lastKey += keys[keys.Length - 1].ToString().ToLower();
-						//lastKey = lastKey.ToLower();
 						AudioManager.soundBank.PlayCue("optionHover");
 					}
 				}
@@ -104,7 +103,7 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void DrawTextInput()
 		{
-			Globals.spriteBatch.Draw(textbg, new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y), new Color(255, 163, 58));
+			Globals.spriteBatch.Draw(textUnderline, new Rectangle((int)position.X + 3, (int)position.Y + (int)size.Y, (int)size.X, 2), Color.Brown);
 			Globals.spriteBatch.DrawString(font, text, position, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0);
 		}
 	}

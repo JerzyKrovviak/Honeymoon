@@ -14,9 +14,10 @@ namespace Honeymoon.Source.World
 	public class GraphicsComponent
 	{
 		public Texture2D texture;
-		public static Rectangle sourceData;
+		public Rectangle sourceData;
 		public Color color;
 		public bool flipHorizontal, flipVertical;
+		public FrameSet framesData;
 		public List<AnimatedComponent> animation = new List<AnimatedComponent>();
 	}
 }

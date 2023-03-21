@@ -4,47 +4,72 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Honeymoon.Source.World
 {
+	public class FrameSet
+	{
+		public Texture2D texture;
+		public int columns, rows, totalFrames, frameWidth, frameHeight;
+		public Vector2[] frameData;
+
+		public FrameSet(Texture2D texture)
+		{
+			this.texture = texture;
+		}
+	}
+
 	public class AnimatedComponent : GraphicsComponent
 	{
 		public string name;
 		public int framesCount;
 		public int currentFrame;
-		public int sourceY;
-		public float frameSpeed;
+		public int frameWidth;
+		public int frameHeight;
+		public Vector2[] frameData;
+		public double frameSpeed;
 		public double timeSinceLastFrame;
 
-		public AnimatedComponent(string name, int framesCount, int sourceDataY, float frameSpeed)
+		public AnimatedComponent(Texture2D loadedTexture, string name, int frameWidth, int frameHeight, Vector2[] frameData, double frameSpeed, Color color)
 		{
+			this.texture = loadedTexture;
 			this.name = name;
-			this.framesCount = framesCount;
+			this.frameWidth = frameWidth;
+			this.frameHeight = frameHeight;
+			this.frameData = frameData;
 			this.frameSpeed = frameSpeed;
-			this.sourceY = sourceDataY;
+			this.color = color;
+			this.framesCount = frameData.Length;
+			sourceData.Width = frameWidth;
+			sourceData.Height = frameHeight;
 		}
-
 		public void PlayAnimation()
 		{
-			timeSinceLastFrame += Globals.gameTime.ElapsedGameTime.TotalMilliseconds;
-			if (timeSinceLastFrame > frameSpeed)
+			for (int f = 0; f < frameData.Length; f++)
 			{
-				if (currentFrame < framesCount - 1)
+				timeSinceLastFrame += Globals.gameTime.ElapsedGameTime.TotalMilliseconds;
+				if (timeSinceLastFrame > frameSpeed)
 				{
-					currentFrame += 1;
+					if (currentFrame < framesCount)
+					{
+						sourceData.X = (int)frameData[f].X;
+						currentFrame += 1;
+					}
+					else
+					{
+						currentFrame = 0;
+						timeSinceLastFrame = 0;
+					}
 				}
-				else
-					currentFrame = 0;
-				timeSinceLastFrame = 0;
 			}
-			sourceData.Y = sourceY;
-			sourceData.X = sourceData.Width * currentFrame;
 		}
 
 		public void StopAnimation()
 		{
 			currentFrame = 0;
-			sourceData.X = sourceData.Width * currentFrame;
+			sourceData.X = (int)frameData[0].X;
+			timeSinceLastFrame = 0;
 		}
 	}
 }
