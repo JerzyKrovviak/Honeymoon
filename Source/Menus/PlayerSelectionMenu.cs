@@ -16,9 +16,9 @@ namespace Honeymoon.Source.Menus
 
 		public PlayerSelectionMenu()
 		{
-			playerSelectionMenuLogo = new MenuButton(FontManager.hm_f_menu, "Beekeeper Selection", Vector2.Zero, 5);
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Create new ", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3));
+			playerSelectionMenuLogo = new MenuButton(FontManager.hm_f_menu, "Beekeeper Selection", Vector2.Zero, 5, Color.White);
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Create new ", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
 		}
 
 		public virtual void Update()

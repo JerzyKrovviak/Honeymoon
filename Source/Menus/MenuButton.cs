@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Honeymoon.Managers;
+﻿using Honeymoon.Managers;
 using Honeymoon.Source;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Honeymoon.Menus
 {
@@ -24,7 +18,7 @@ namespace Honeymoon.Menus
 		public bool isHovered;
 		public bool lastHover;
 
-		public MenuButton(SpriteFont font, string text, Vector2 position, float scale)
+		public MenuButton(SpriteFont font, string text, Vector2 position, float scale, Color color)
 		{
 			this.font = font;
 			this.text = text;
@@ -32,7 +26,7 @@ namespace Honeymoon.Menus
 			this.scale = scale;
 			size = Vector2.Zero;
 			hitbox = Rectangle.Empty;
-			color = Color.White;
+			this.color = color;
 			rotation = 0f;
 			origin = Vector2.Zero;
 			isHovered = false;

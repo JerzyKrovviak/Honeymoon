@@ -17,7 +17,5 @@ namespace Honeymoon.Source.World
 		public Rectangle sourceData;
 		public Color color;
 		public bool flipHorizontal, flipVertical;
-		public FrameSet framesData;
-		public List<AnimatedComponent> animation = new List<AnimatedComponent>();
 	}
 }

@@ -21,10 +21,10 @@ namespace Honeymoon.Menus
 		public MainMenu()
 		{
 			logo = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/logo"), Rectangle.Empty, new Rectangle(0, 0, 152, 68));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Singleplayer", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Multiplayer", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Settings", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Exit", Vector2.Zero, 3));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Singleplayer", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Multiplayer", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Settings", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Exit", Vector2.Zero, 3, Color.White));
 		}
 
 		public virtual void Update()

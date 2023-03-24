@@ -19,11 +19,11 @@ namespace Honeymoon.Source.Menus
 
 		public SettingsMenu()
 		{
-			settingsMenuLogo = new MenuButton(FontManager.hm_f_menu, "Settings", Vector2.Zero, 5);
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Video", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Volume", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Save & back", Vector2.Zero, 3));
+			settingsMenuLogo = new MenuButton(FontManager.hm_f_menu, "Settings", Vector2.Zero, 5, Color.White);
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Video", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Volume", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Save & back", Vector2.Zero, 3, Color.White));
 		}
 
 		public virtual void Update()

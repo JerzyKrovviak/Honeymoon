@@ -22,11 +22,11 @@ namespace Honeymoon.Source.Menus
 
 		public GeneralSettingsMenu()
 		{
-			generalSettingsLogo = new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 5);
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting1", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting2", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3));
+			generalSettingsLogo = new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 5, Color.White);
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting1", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting2", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3, Color.White));
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
 		}
 
 		public virtual void Update()

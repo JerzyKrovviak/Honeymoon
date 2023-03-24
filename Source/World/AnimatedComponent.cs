@@ -28,10 +28,10 @@ namespace Honeymoon.Source.World
 		public int frameWidth;
 		public int frameHeight;
 		public Vector2[] frameData;
-		public double frameSpeed;
-		public double timeSinceLastFrame;
+		public float frameSpeed;
+		public float timeSinceLastFrame;
 
-		public AnimatedComponent(Texture2D loadedTexture, string name, int frameWidth, int frameHeight, Vector2[] frameData, double frameSpeed, Color color)
+		public AnimatedComponent(Texture2D loadedTexture, string name, int frameWidth, int frameHeight, Vector2[] frameData, float frameSpeed, Color color)
 		{
 			this.texture = loadedTexture;
 			this.name = name;
@@ -41,28 +41,25 @@ namespace Honeymoon.Source.World
 			this.frameSpeed = frameSpeed;
 			this.color = color;
 			this.framesCount = frameData.Length;
+			timeSinceLastFrame = 0;
 			sourceData.Width = frameWidth;
 			sourceData.Height = frameHeight;
 		}
 		public void PlayAnimation()
 		{
-			for (int f = 0; f < frameData.Length; f++)
+			timeSinceLastFrame += (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
+
+			if (timeSinceLastFrame > frameSpeed)
 			{
-				timeSinceLastFrame += Globals.gameTime.ElapsedGameTime.TotalMilliseconds;
-				if (timeSinceLastFrame > frameSpeed)
+				currentFrame += 1;
+				timeSinceLastFrame = 0;
+				if (currentFrame >= framesCount)
 				{
-					if (currentFrame < framesCount)
-					{
-						sourceData.X = (int)frameData[f].X;
-						currentFrame += 1;
-					}
-					else
-					{
-						currentFrame = 0;
-						timeSinceLastFrame = 0;
-					}
+					currentFrame = 0;
 				}
 			}
+			sourceData.X = (int)frameData[currentFrame].X;
+			sourceData.Y = (int)frameData[currentFrame].Y;
 		}
 
 		public void StopAnimation()
@@ -70,6 +67,18 @@ namespace Honeymoon.Source.World
 			currentFrame = 0;
 			sourceData.X = (int)frameData[0].X;
 			timeSinceLastFrame = 0;
+		}
+
+		public virtual void Draw(Vector2 position)
+		{
+			var posiition = new Rectangle((int)position.X, (int)position.Y, sourceData.Width * Map.Map.scale, sourceData.Height * Map.Map.scale);
+			Globals.spriteBatch.Draw(texture, posiition, sourceData, color, 0f, Vector2.Zero, flipHorizontal ? SpriteEffects.FlipHorizontally : flipVertical ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
+		}
+
+		public virtual void DrawSpecialScaled(Vector2 position, int scale)
+		{
+			var posiition = new Rectangle((int)position.X, (int)position.Y, sourceData.Width * scale, sourceData.Height * scale);
+			Globals.spriteBatch.Draw(texture, posiition, sourceData, color, 0f, Vector2.Zero, flipHorizontal ? SpriteEffects.FlipHorizontally : flipVertical ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
 		}
 	}
 }
