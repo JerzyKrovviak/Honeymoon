@@ -83,6 +83,15 @@
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
+      "YamlDotNet/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/YamlDotNet.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/YamlDotNet.dll": {}
+        }
+      },
       "XmlDataCache/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -254,6 +263,33 @@
         "system.runtime.nuspec"
       ]
     },
+    "YamlDotNet/13.0.2": {
+      "sha512": "hRPqCt2bxTvHN6iT2JNG2KznDPFgD5B6j0bQ7woSpfGctmjgAYdKQ+LYHUaj/7q8sN1AbIcTNbaO75g8IFmTjw==",
+      "type": "package",
+      "path": "yamldotnet/13.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "images/yamldotnet.png",
+        "lib/net35/YamlDotNet.dll",
+        "lib/net35/YamlDotNet.xml",
+        "lib/net45/YamlDotNet.dll",
+        "lib/net45/YamlDotNet.xml",
+        "lib/net47/YamlDotNet.dll",
+        "lib/net47/YamlDotNet.xml",
+        "lib/net6.0/YamlDotNet.dll",
+        "lib/net6.0/YamlDotNet.xml",
+        "lib/net7.0/YamlDotNet.dll",
+        "lib/net7.0/YamlDotNet.xml",
+        "lib/netstandard2.0/YamlDotNet.dll",
+        "lib/netstandard2.0/YamlDotNet.xml",
+        "lib/netstandard2.1/YamlDotNet.dll",
+        "lib/netstandard2.1/YamlDotNet.xml",
+        "yamldotnet.13.0.2.nupkg.sha512",
+        "yamldotnet.nuspec"
+      ]
+    },
     "XmlDataCache/1.0.0": {
       "type": "project",
       "path": "../XmlDataCache/XmlDataCache.csproj",
@@ -265,7 +301,8 @@
       "MonoGame.Content.Builder.Task >= 3.8.1.303",
       "MonoGame.Framework.DesktopGL >= 3.8.1.303",
       "System.Runtime >= 4.3.1",
-      "XmlDataCache >= 1.0.0"
+      "XmlDataCache >= 1.0.0",
+      "YamlDotNet >= 13.0.2"
     ]
   },
   "packageFolders": {
@@ -327,6 +364,10 @@
           "System.Runtime": {
             "target": "Package",
             "version": "[4.3.1, )"
+          },
+          "YamlDotNet": {
+            "target": "Package",
+            "version": "[13.0.2, )"
           }
         },
         "imports": [

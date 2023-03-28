@@ -9,12 +9,12 @@ namespace Honeymoon.Managers
 {
 	public class InputManager
 	{
-		private static KeyboardState lastKeyboardState;
-		private static KeyboardState currentKeyboardState;
+		public static KeyboardState lastKeyboardState;
+		public static KeyboardState currentKeyboardState;
 		private static bool[] lastMouseButtonStates = { false, false };
 		private static bool[] mouseButtonStates = { false, false }; // left | right
-		public static Keys[] specialChars = new Keys[] { Keys.Tab, Keys.CapsLock, Keys.LeftShift, Keys.LeftControl, Keys.LeftWindows, Keys.LeftAlt, Keys.RightAlt, Keys.RightAlt, Keys.RightShift, Keys.RightControl, Keys.Enter, Keys.Insert, Keys.Delete, Keys.End, Keys.Home, Keys.PageDown, Keys.PageUp, Keys.NumLock, Keys.PrintScreen, Keys.Pause, Keys.Back };
 		public static Keys[] normalChars = new Keys[] { Keys.A, Keys.B, Keys.C, Keys.D, Keys.E, Keys.F, Keys.G, Keys.H, Keys.I, Keys.J, Keys.K, Keys.L, Keys.M, Keys.N, Keys.O, Keys.P, Keys.Q, Keys.R, Keys.S, Keys.T, Keys.U, Keys.V, Keys.W, Keys.X, Keys.Y, Keys.Z, };
+		//public static Keys[] allowedChars = new Keys[] { Keys.inte
 
 		#region keyInput
 		public static void SetCurrentStates(KeyboardState states)

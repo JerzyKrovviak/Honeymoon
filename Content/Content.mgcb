@@ -67,6 +67,13 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/hm_f_outline.tga
 
+#begin Fonts/textInputFont.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/textInputFont.spritefont
+
 #begin Maps/hm_map_0.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor

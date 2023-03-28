@@ -5,7 +5,7 @@ namespace Honeymoon.Managers
 {
 	public class FontManager
 	{
-		public static SpriteFont hm_f_menu, hm_f_outline, hm_f_default;
+		public static SpriteFont hm_f_menu, hm_f_outline, hm_f_default, hm_f_textInput;
 
 		public static void LoadContent(ContentManager Content)
 		{
