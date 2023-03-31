@@ -34,30 +34,20 @@ namespace Honeymoon.Menus
 				menuButtons[i].Update();
 				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
 			}
-
 			logo.inGameData = new Rectangle((int)GlobalFunctions.PerfectMidPosX(608), 20, 608, 272);
-			if (menuButtons[0].hitbox.Contains(Globals.mousePosition))
+			if (menuButtons[0].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.gameState = 6;
-				}
+				Globals.gameState = 6;
 			}
-			else if (menuButtons[2].hitbox.Contains(Globals.mousePosition))
+			else if (menuButtons[2].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.gameState = 2;
-				}
+				Globals.gameState = 2;
 			}
-			else if (menuButtons[3].hitbox.Contains(Globals.mousePosition))
+			else if (menuButtons[3].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.persistentSettings = new SavedSettings();
-					SavedSettings.SaveSettings(Globals.persistentSettings);
-					Main.self.Exit();
-				}
+				Globals.persistentSettings = new SavedSettings();
+				SavedSettings.SaveSettings(Globals.persistentSettings);
+				Main.self.Exit();
 			}
 		}
 

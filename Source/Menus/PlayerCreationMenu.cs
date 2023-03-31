@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Honeymoon.Source.Menus
 {
@@ -66,35 +68,33 @@ namespace Honeymoon.Source.Menus
 			beekeperDoll[2].color = clothesColors[shirtsSelector.value];
 			beekeperDoll[4].color = clothesColors[shirtsSelector.value];
 			beekeperDoll[1].color = clothesColors[pantsSelector.value];
-
 			shirtsSelector.UpdateSelector();
 			pantsSelector.UpdateSelector();
 			nameInput.UpdateTextInput();
 
-			if (menuButtons[0].hitbox.Contains(Globals.mousePosition))
+			if (menuButtons[0].IsHoveredAndClicked() && !string.IsNullOrEmpty(nameInput.text) && !CheckIfProfileExists(nameInput.text) && CheckProfilesAmount() != 4)
 			{
-				if (InputManager.IsLeftButtonNewlyPressed() && !string.IsNullOrEmpty(nameInput.text))
+				PlayerSave playerSave = new PlayerSave
 				{
-					PlayerSave playerSave = new PlayerSave
-					{
-						Name = nameInput.text,
-						shirtColor = clothesColors[shirtsSelector.value],
-						pantsColor = clothesColors[pantsSelector.value],
-						Position = new Vector2(20,20)
-					};
-					playerSave.CreatePlayerProfile(playerSave);
-				}
-			}
-			else if (menuButtons[1].hitbox.Contains(Globals.mousePosition))
-			{
-				if (InputManager.IsLeftButtonNewlyPressed())
+					Name = nameInput.text,
+					shirtColor = clothesColors[shirtsSelector.value],
+					pantsColor = clothesColors[pantsSelector.value],
+					Position = new Vector2(20, 20)
+				};
+				CreatePlayerProfile(playerSave);
+				PlayerSelectionMenu.playerProfiles = PlayerSelectionMenu.LoadPlayerProfiles();
+				if (CheckProfilesAmount() < 5)
 				{
 					Globals.gameState = 6;
 				}
 			}
+			else if (menuButtons[1].IsHoveredAndClicked())
+			{
+				Globals.gameState = 6;
+			}
 
-			CheckIfProfileExists();
-			if (CheckIfProfileExists())
+			CheckIfProfileExists(nameInput.text);
+			if (CheckIfProfileExists(nameInput.text) || CheckProfilesAmount() >= 4)
 			{
 				nameInput.color = Color.Red;
 			}
@@ -102,17 +102,35 @@ namespace Honeymoon.Source.Menus
 			{
 				nameInput.color = Color.Black;
 			}
-		}
 
-		public bool CheckIfProfileExists()
+		}
+		public void CreatePlayerProfile(PlayerSave playersave)
 		{
-			if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerProfiles\\" + nameInput.text + ".yaml")))
+			if (!CheckIfProfileExists(playersave.Name))
+			{
+				string profilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerProfiles\\" + playersave.Name + ".yaml");
+				var stringBuilder = new StringBuilder();
+				var serializer = new SerializerBuilder().Build();
+				stringBuilder.AppendLine(serializer.Serialize(playersave));
+				using (StreamWriter writer = new StreamWriter(profilePath))
+				{
+					serializer.Serialize(writer, playersave);
+				}
+			}
+		}
+		public bool CheckIfProfileExists(string name)
+		{
+			if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerProfiles\\" + name + ".yaml")))
 			{
 				return true;
 			}
 			return false;
 		}
-
+		public int CheckProfilesAmount()
+		{
+			string[] fileEntries = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerProfiles"), "*.yaml*");
+			return fileEntries.Length;
+		}
 		public virtual void Draw()
 		{
 			playerCreationLogo.DrawString();
@@ -131,13 +149,17 @@ namespace Honeymoon.Source.Menus
 			pantsSelector.DrawSelector();
 			nameInput.DrawTextInput();
 
-			if (CheckIfProfileExists())
+			if (CheckIfProfileExists(nameInput.text))
 			{
 				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "profile with name " + nameInput.text + " already exists!", new Vector2(uiBox.inGameData.X - 120, uiBox.inGameData.Y - 55), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
 			}
 			else if (string.IsNullOrEmpty(nameInput.text))
 			{
 				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "name cannot be empty!", new Vector2(uiBox.inGameData.X + 40, uiBox.inGameData.Y - 55), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
+			}
+			else if (CheckProfilesAmount() >= 4)
+			{
+				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "maximum amount of 4 profiles reached!", new Vector2(uiBox.inGameData.X - 80, uiBox.inGameData.Y - 55), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
 			}
 		}
 	}

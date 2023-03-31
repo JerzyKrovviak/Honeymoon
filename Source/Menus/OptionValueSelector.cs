@@ -24,7 +24,7 @@ namespace Honeymoon.Source.Menus
 		{
 			valueIncrease = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
 			valueDecrease = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
-			sourceData = new Rectangle(96, 0, 5, 7);
+			sourceData = new Rectangle(54, 64, 5, 7);
 			inGameData.Width = sourceData.Width * 4;
 			inGameData.Height = sourceData.Height * 4;
 			this.value = value;
@@ -47,7 +47,7 @@ namespace Honeymoon.Source.Menus
 					{
 						value--;
 					}
-					AudioManager.soundBank.PlayCue("optionSelect");
+					AudioManager.soundBank.PlayCue("selectorAdd");
 				}
 			}
 			else
@@ -65,7 +65,7 @@ namespace Honeymoon.Source.Menus
 					{
 						value++;
 					}
-					AudioManager.soundBank.PlayCue("optionSelect");
+					AudioManager.soundBank.PlayCue("selectorAdd");
 				}
 			}
 			else

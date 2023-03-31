@@ -33,39 +33,26 @@ namespace Honeymoon.Source.Menus
 				menuButtons[i].Update();
 				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
 			}
-
 			settingsMenuLogo.size = settingsMenuLogo.GetButtonSize();
 			settingsMenuLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(settingsMenuLogo.size.X), GlobalFunctions.PerfectMidPosY(settingsMenuLogo.size.Y) - 250);
 
-			if (menuButtons[0].hitbox.Contains(Globals.mousePosition))
+			if (menuButtons[0].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.gameState = 3;
-				}
+				Globals.gameState = 3;
 			}
-			else if (menuButtons[1].hitbox.Contains(Globals.mousePosition))
+			else if (menuButtons[1].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.gameState = 4;
-				}
+				Globals.gameState = 4;
 			}
-			else if (menuButtons[2].hitbox.Contains(Globals.mousePosition))
+			else if (menuButtons[2].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.gameState = 5;
-				}
+				Globals.gameState = 5;
 			}
-			else if (menuButtons[3].hitbox.Contains(Globals.mousePosition))
+			else if (menuButtons[3].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.persistentSettings = new SavedSettings();
-					SavedSettings.SaveSettings(Globals.persistentSettings);
-					Globals.gameState = 0;
-				}
+				Globals.persistentSettings = new SavedSettings();
+				SavedSettings.SaveSettings(Globals.persistentSettings);
+				Globals.gameState = 0;
 			}
 		}
 

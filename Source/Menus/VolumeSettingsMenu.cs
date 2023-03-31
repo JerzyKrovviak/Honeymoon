@@ -37,12 +37,9 @@ namespace Honeymoon.Source.Menus
 			}
 			volumelSettingsLogo.size = volumelSettingsLogo.GetButtonSize();
 			volumelSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(volumelSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(volumelSettingsLogo.size.Y) - 250);
-			if (menuButtons[3].hitbox.Contains(Globals.mousePosition))
+			if (menuButtons[3].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.gameState = 2;
-				}
+				Globals.gameState = 2;
 			}
 		}
 

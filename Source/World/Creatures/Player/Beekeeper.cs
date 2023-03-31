@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using Honeymoon.Source.SavedData;
 
 namespace Honeymoon.Source.World.Creatures.Player
 {
@@ -20,7 +21,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 
 		public List<AnimatedComponent> animations = new List<AnimatedComponent>();
 
-		public Beekeeper()
+		public Beekeeper(PlayerSave playersave)
 		{
 			texture = Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base");
 			position = Map.Map.TileIdPosToXY(new Vector2(25,25));
@@ -30,8 +31,8 @@ namespace Honeymoon.Source.World.Creatures.Player
 			velocity = new Vector2(0.18f,0.18f);
 			hitBox = new Rectangle((int)position.X, (int)position.Y + sourceData.Height / 2, 64,64);
 			direction = 5;
-			shirtColor = Color.LightSeaGreen;
-			pantsColor = Color.Blue;
+			shirtColor = playersave.shirtColor;
+			pantsColor = playersave.pantsColor;
 
 			framesData = new FrameSet(texture);
 			framesData.frameWidth = 16;

@@ -7,14 +7,14 @@ namespace Honeymoon.Menus
 {
 	public class MenuButton
 	{
-		public SpriteFont font;
-		public Texture2D texture;
+		private SpriteFont font;
+		private Texture2D texture;
 		public string text;
 		public Vector2 position, size;
 		public Rectangle inGameData, sourceData, hitbox;
 		public Color color;
 		public float rotation, scale;
-		public Vector2 origin;
+		private Vector2 origin;
 		public bool isHovered;
 		public bool lastHover;
 
@@ -31,7 +31,6 @@ namespace Honeymoon.Menus
 			origin = Vector2.Zero;
 			isHovered = false;
 		}
-
 		public MenuButton(Texture2D texture, Rectangle inGameData, Rectangle sourceData)
 		{
 			this.texture = texture;
@@ -42,7 +41,16 @@ namespace Honeymoon.Menus
 			origin = Vector2.Zero;
 			isHovered = false;
 		}
-
+		public MenuButton(Texture2D texture, Rectangle inGameData, Rectangle sourceData, Color color)
+		{
+			this.texture = texture;
+			this.inGameData = inGameData;
+			this.sourceData = sourceData;
+			this.color = color;
+			rotation = 0f;
+			origin = Vector2.Zero;
+			isHovered = false;
+		}
 		public MenuButton(SpriteFont hm_f_menu, Texture2D texture, Vector2 position)
 		{
 			this.texture = texture;
@@ -53,6 +61,29 @@ namespace Honeymoon.Menus
 			isHovered = false;
 		}
 
+		public Vector2 GetButtonSize()
+		{
+			return new Vector2(font.MeasureString(text).X * scale, font.MeasureString(text).Y * scale);
+		}
+		public bool IsHoveredAndClicked()
+		{
+			if (hitbox.Contains(Globals.mousePosition))
+			{
+				if (InputManager.IsLeftButtonNewlyPressed())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		public bool IsHovered()
+		{
+			if (hitbox.Contains(Globals.mousePosition))
+			{
+				return true;
+			}
+			return false;
+		}
 		public virtual void Update()
 		{
 			lastHover = isHovered;
@@ -88,20 +119,13 @@ namespace Honeymoon.Menus
 				AudioManager.soundBank.PlayCue("optionHover");
 			}
 		}
-
 		public virtual void DrawTexture()
 		{
 			Globals.spriteBatch.Draw(texture, inGameData, sourceData, color, rotation, origin, SpriteEffects.None, 0);
 		}
-
 		public virtual void DrawString()
 		{
 			Globals.spriteBatch.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.None, 0);
-		}
-
-		public Vector2 GetButtonSize()
-		{
-			return new Vector2(font.MeasureString(text).X * scale, font.MeasureString(text).Y * scale);
 		}
 	}
 }

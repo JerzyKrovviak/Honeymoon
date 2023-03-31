@@ -52,39 +52,33 @@ namespace Honeymoon.Source.Menus
 				menuButtons[0].text = "Resolution: " + resolutions[2];
 			}
 
-			if (menuButtons[0].hitbox.Contains(Globals.mousePosition))
+			if (menuButtons[0].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
+				Globals.selectedResolution++;
+				if (Globals.selectedResolution == 1)
 				{
-					Globals.selectedResolution++;
-					if (Globals.selectedResolution == 1)
-					{
-						menuButtons[0].text = "Resolution: " + resolutions[0];
-						Globals.ChangeGameResolution(1);
-					}
-					if (Globals.selectedResolution == 2)
-					{
-						menuButtons[0].text = "Resolution: " + resolutions[1];
-						Globals.ChangeGameResolution(2);
-					}
-					if (Globals.selectedResolution == 3)
-					{
-						menuButtons[0].text = "Resolution: " + resolutions[2];
-						Globals.ChangeGameResolution(3);
-					}
-					if (Globals.selectedResolution > 3)
-					{
-						Globals.ChangeGameResolution(1);
-						Globals.selectedResolution = 1;
-					}
+					menuButtons[0].text = "Resolution: " + resolutions[0];
+					Globals.ChangeGameResolution(1);
+				}
+				if (Globals.selectedResolution == 2)
+				{
+					menuButtons[0].text = "Resolution: " + resolutions[1];
+					Globals.ChangeGameResolution(2);
+				}
+				if (Globals.selectedResolution == 3)
+				{
+					menuButtons[0].text = "Resolution: " + resolutions[2];
+					Globals.ChangeGameResolution(3);
+				}
+				if (Globals.selectedResolution > 3)
+				{
+					Globals.ChangeGameResolution(1);
+					Globals.selectedResolution = 1;
 				}
 			}
-			else if (menuButtons[3].hitbox.Contains(Globals.mousePosition))
+			else if (menuButtons[3].IsHoveredAndClicked())
 			{
-				if (InputManager.IsLeftButtonNewlyPressed())
-				{
-					Globals.gameState = 2;
-				}
+				Globals.gameState = 2;
 			}
 		}
 
