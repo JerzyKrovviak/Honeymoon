@@ -22,8 +22,8 @@ namespace Honeymoon.Source.Managers
 			Globals.volumeSettingsMenu = new VolumeSettingsMenu();
 			Globals.videoSettingsMenu = new VideoSettingsMenu();
 			Globals.playerSelectionMenu = new PlayerSelectionMenu();
-			Globals.worldSelectionMenu = new WorldSelectionMenu();
 			Globals.playerCreationMenu = new PlayerCreationMenu();
+			Globals.worldSelectionMenu = new WorldSelectionMenu();
 		}
 
 		public virtual void Update()
@@ -60,6 +60,7 @@ namespace Honeymoon.Source.Managers
 			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
 			{
 				Globals.gameState = 0;
+				Globals.playerSelectionMenu.deleteConfirm.draw = false;
 			}
 		}
 

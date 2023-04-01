@@ -16,7 +16,7 @@ namespace Honeymoon.Source.Menus
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static List<MenuButton> beekeperDoll = new List<MenuButton>();
 		private static MenuButton playerCreationLogo, uiBox, pantsColorText, shirtColorText;
-		private static Color[] clothesColors = new Color[5] { Color.LightGreen, Color.LightPink, Color.LightSteelBlue, Color.Gold, Color.LightBlue };
+		private static Color[] clothesColors = new Color[5] { Color.Green, Color.Pink, Color.BlueViolet, Color.Gold, Color.OrangeRed };
 		private OptionValueSelector shirtsSelector, pantsSelector;
 		private TextInput nameInput;
 
@@ -82,7 +82,7 @@ namespace Honeymoon.Source.Menus
 					Position = new Vector2(20, 20)
 				};
 				CreatePlayerProfile(playerSave);
-				PlayerSelectionMenu.playerProfiles = PlayerSelectionMenu.LoadPlayerProfiles();
+				PlayerSelectionMenu.LoadPlayerProfiles();
 				if (CheckProfilesAmount() < 5)
 				{
 					Globals.gameState = 6;
@@ -93,7 +93,6 @@ namespace Honeymoon.Source.Menus
 				Globals.gameState = 6;
 			}
 
-			CheckIfProfileExists(nameInput.text);
 			if (CheckIfProfileExists(nameInput.text) || CheckProfilesAmount() >= 4)
 			{
 				nameInput.color = Color.Red;

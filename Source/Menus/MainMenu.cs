@@ -38,6 +38,7 @@ namespace Honeymoon.Menus
 			if (menuButtons[0].IsHoveredAndClicked())
 			{
 				Globals.gameState = 6;
+				PlayerSelectionMenu.LoadPlayerProfiles();
 			}
 			else if (menuButtons[2].IsHoveredAndClicked())
 			{

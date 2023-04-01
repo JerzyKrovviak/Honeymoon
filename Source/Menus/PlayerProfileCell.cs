@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Honeymoon.Source.Menus
 {
-	public class PlayerSelectionCell
+	public class PlayerProfileCell
 	{
 		public Texture2D texture;
-		private PlayerSave linkedSave;
+		public PlayerSave linkedSave;
 		public string name;
 		public Vector2 position;
 		public Rectangle sourceData, inGameData;
 		private List<MenuButton> playerDoll;
+		public MenuButton deleteProfile;
 		public int width, height;
 		private Color color;
 
-		public PlayerSelectionCell(PlayerSave linkedsave)
+		public PlayerProfileCell(PlayerSave linkedsave)
 		{
 			this.texture = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
 			this.linkedSave = linkedsave;
@@ -31,6 +33,7 @@ namespace Honeymoon.Source.Menus
 			width = sourceData.Width * 5;
 			height = sourceData.Height * 5;
 			name = linkedSave.Name;
+			deleteProfile = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Rectangle.Empty, new Rectangle(59,64,9,9), Color.White);
 			playerDoll = new List<MenuButton>();
 			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(0, 0, 16, 32))); //torso
 			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(96, 0, 16, 32), linkedSave.pantsColor)); //pants
@@ -59,6 +62,15 @@ namespace Honeymoon.Source.Menus
 			{
 				color = Color.White;
 			}
+			deleteProfile.inGameData = new Rectangle((int)position.X + 485, (int)position.Y + 140, deleteProfile.sourceData.Width * 4, deleteProfile.sourceData.Height * 4);
+			if (deleteProfile.inGameData.Contains(Globals.mousePosition))
+			{
+				deleteProfile.color = Color.Red;
+			}
+			else
+			{
+				deleteProfile.color = Color.White;
+			}
 		}
 
 		public virtual void Draw()
@@ -69,6 +81,7 @@ namespace Honeymoon.Source.Menus
 				bodypart.DrawTexture();
 			}
 			Globals.spriteBatch.DrawString(FontManager.hm_f_default, name, new Vector2(position.X + 135, position.Y + 25), Color.Brown, 0f, Vector2.Zero, 1.3f, SpriteEffects.None, 0f);
+			deleteProfile.DrawTexture();
 		}
 	}
 }

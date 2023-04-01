@@ -1,19 +1,12 @@
-﻿using Honeymoon.Menus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Honeymoon.Managers;
 
 namespace Honeymoon.Source.Menus
 {
 	public class OptionValueSelector
 	{
-		public Texture2D valueIncrease, valueDecrease;
+		public Texture2D valueIncrease;
 		public Rectangle sourceData, inGameData;
 		public int value, maxValue;
 		public bool isHovered;
@@ -23,7 +16,6 @@ namespace Honeymoon.Source.Menus
 		public OptionValueSelector(int value, int maxValue)
 		{
 			valueIncrease = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
-			valueDecrease = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
 			sourceData = new Rectangle(54, 64, 5, 7);
 			inGameData.Width = sourceData.Width * 4;
 			inGameData.Height = sourceData.Height * 4;
@@ -82,7 +74,7 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void DrawSelector()
 		{
-			Globals.spriteBatch.Draw(valueDecrease, inGameData, sourceData, color1, 0f, Vector2.Zero, SpriteEffects.None, 0);
+			Globals.spriteBatch.Draw(valueIncrease, inGameData, sourceData, color1, 0f, Vector2.Zero, SpriteEffects.None, 0);
 			Globals.spriteBatch.Draw(valueIncrease, new Rectangle(inGameData.X + 30, inGameData.Y, inGameData.Width, inGameData.Height), sourceData, color2, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
 		}
 	}
