@@ -16,7 +16,6 @@ namespace Honeymoon.Source.Managers
 		{
 			Globals.tilesetManager = new TilesetManager();
 			Globals.map = new Map();
-			//Globals.player = new Beekeeper();
 			Globals.input = new Source.World.Creatures.InputComponent();
 		}
 
@@ -31,7 +30,6 @@ namespace Honeymoon.Source.Managers
 		{
 			Globals.map.Draw(0);
 			//Globals.map.DrawDebugMode();
-			//Globals.player.DrawAnimations();
 			Globals.input.DrawPlayerAnim();
 		}
 	}

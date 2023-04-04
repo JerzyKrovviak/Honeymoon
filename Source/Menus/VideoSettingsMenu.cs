@@ -22,23 +22,28 @@ namespace Honeymoon.Source.Menus
 
 		public VideoSettingsMenu()
 		{
-			//add loading saved resolution from file
 			videoSettingsLogo = new MenuButton(FontManager.hm_f_menu, "Video", Vector2.Zero, 5, Color.White);
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Resolution: ", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting2", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
+			ResolutionReload();
 		}
-
+		public virtual void ResolutionReload()
+		{
+			videoSettingsLogo.position = new Vector2(videoSettingsLogo.PerfectMidPositionText().X, videoSettingsLogo.PerfectMidPositionText().Y - 250);
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
+			}
+		}
 		public virtual void Update()
 		{
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
 				menuButtons[i].Update();
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
 			}
-			videoSettingsLogo.size = videoSettingsLogo.GetButtonSize();
-			videoSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(videoSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(videoSettingsLogo.size.Y) - 250);
 			if (Globals.selectedResolution == 1)
 			{
 				menuButtons[0].text = "Resolution: " + resolutions[0];
@@ -75,6 +80,7 @@ namespace Honeymoon.Source.Menus
 					Globals.ChangeGameResolution(1);
 					Globals.selectedResolution = 1;
 				}
+				Globals.menuManager.ResolutionReload();
 			}
 			else if (menuButtons[3].IsHoveredAndClicked())
 			{

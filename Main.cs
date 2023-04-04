@@ -25,8 +25,6 @@ namespace Honeymoon
 
 		protected override void Initialize()
 		{
-			base.Initialize();
-			Globals.windowSize = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
 			if (SavedSettings.CheckIfFileExists())
 			{
 				Globals.persistentSettings = SavedSettings.LoadSettings();
@@ -37,6 +35,8 @@ namespace Honeymoon
 				Globals.ChangeGameResolution(2);
 			}
 			Globals._graphics.ApplyChanges();
+			Globals.windowSize = new Vector2(Globals._graphics.PreferredBackBufferWidth, Globals._graphics.PreferredBackBufferHeight);
+			base.Initialize();
 		}
 
 		public static bool IsOutOfFocus()

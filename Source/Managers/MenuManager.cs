@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Honeymoon.Managers;
+﻿using Honeymoon.Managers;
 using Honeymoon.Menus;
 using Honeymoon.Source.Menus;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Honeymoon.Source.Managers
@@ -25,7 +18,16 @@ namespace Honeymoon.Source.Managers
 			Globals.playerCreationMenu = new PlayerCreationMenu();
 			Globals.worldSelectionMenu = new WorldSelectionMenu();
 		}
-
+		public virtual void ResolutionReload()
+		{
+			Globals.mainMenu.ResolutionReload();
+			Globals.settingsMenu.ResolutionReload();
+			Globals.generalSettingsMenu.ResolutionReload();
+			Globals.volumeSettingsMenu.ResolutionReload();
+			Globals.videoSettingsMenu.ResolutionReload();
+			Globals.playerSelectionMenu.ResolutionReload();
+			Globals.playerCreationMenu.ResolutionReload();
+		}
 		public virtual void Update()
 		{
 			if (Globals.gameState == 0)
@@ -56,6 +58,10 @@ namespace Honeymoon.Source.Managers
 			{
 				Globals.playerCreationMenu.Update();
 			}
+			else if (Globals.gameState == 8)
+			{
+				Globals.worldSelectionMenu.Update();
+			}
 
 			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
 			{
@@ -63,7 +69,6 @@ namespace Honeymoon.Source.Managers
 				Globals.playerSelectionMenu.deleteConfirm.draw = false;
 			}
 		}
-
 		public virtual void Draw()
 		{
 			if (Globals.gameState == 0)
@@ -93,6 +98,10 @@ namespace Honeymoon.Source.Managers
 			else if (Globals.gameState == 7)
 			{
 				Globals.playerCreationMenu.Draw();
+			}
+			else if (Globals.gameState == 8)
+			{
+				Globals.worldSelectionMenu.Draw();
 			}
 		}
 	}

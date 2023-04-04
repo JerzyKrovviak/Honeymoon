@@ -31,7 +31,7 @@ namespace Honeymoon.Source.Menus
 				menuButtons[i].Update();
 				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
 			}
-			worldSelectionMenu.size = worldSelectionMenu.GetButtonSize();
+			worldSelectionMenu.size = worldSelectionMenu.GetTextBtnSize();
 			worldSelectionMenu.position = new Vector2(GlobalFunctions.PerfectMidPosX(worldSelectionMenu.size.X), GlobalFunctions.PerfectMidPosY(worldSelectionMenu.size.Y) - 250);
 		}
 

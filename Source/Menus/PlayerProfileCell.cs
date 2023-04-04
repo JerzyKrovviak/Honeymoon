@@ -29,24 +29,24 @@ namespace Honeymoon.Source.Menus
 		{
 			this.texture = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
 			this.linkedSave = linkedsave;
-			this.sourceData = new Rectangle(96, 0, 96, 37);
+			this.sourceData = new Rectangle(0, 76, 96, 37);
 			width = sourceData.Width * 5;
 			height = sourceData.Height * 5;
 			name = linkedSave.Name;
-			deleteProfile = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Rectangle.Empty, new Rectangle(59,64,9,9), Color.White);
+			deleteProfile = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(59,64,9,9), 4, Color.White);
 			playerDoll = new List<MenuButton>();
-			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(0, 0, 16, 32))); //torso
-			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(96, 0, 16, 32), linkedSave.pantsColor)); //pants
-			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_shirts"), Rectangle.Empty, new Rectangle(0, 0, 16, 32), linkedSave.shirtColor)); //shirt
-			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(48, 0, 16, 32))); //hands
-			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(144, 0, 16, 32), linkedSave.shirtColor)); //shoulders
+			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(0, 0, 16, 32), 4, Color.White)); //torso
+			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(96, 0, 16, 32), 4, linkedSave.pantsColor)); //pants
+			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_shirts"), Vector2.Zero, new Rectangle(0, 0, 16, 32), 4, linkedSave.shirtColor)); //shirt
+			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(48, 0, 16, 32), 4, Color.White)); //hands
+			playerDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(144, 0, 16, 32), 4, linkedSave.shirtColor)); //shoulders
 		}
 
 		public virtual void Update()
 		{
 			foreach (MenuButton bodypart in playerDoll)
 			{
-				bodypart.inGameData = new Rectangle((int)position.X + 45, (int)position.Y + 15, 16 * 4, 32 * 4);
+				bodypart.position = new Vector2((int)position.X + 45, (int)position.Y + 15);
 			}
 			inGameData = new Rectangle((int)position.X, (int)position.Y, width, height);
 			if (inGameData.Contains(Globals.mousePosition))
@@ -62,7 +62,8 @@ namespace Honeymoon.Source.Menus
 			{
 				color = Color.White;
 			}
-			deleteProfile.inGameData = new Rectangle((int)position.X + 485, (int)position.Y + 140, deleteProfile.sourceData.Width * 4, deleteProfile.sourceData.Height * 4);
+			//deleteProfile.inGameData = new Rectangle((int)position.X + 485, (int)position.Y + 140, deleteProfile.sourceData.Width * 4, deleteProfile.sourceData.Height * 4);
+			deleteProfile.position = new Vector2((int)position.X + 485, (int)position.Y + 140);
 			if (deleteProfile.inGameData.Contains(Globals.mousePosition))
 			{
 				deleteProfile.color = Color.Red;

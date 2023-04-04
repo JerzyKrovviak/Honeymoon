@@ -25,54 +25,52 @@ namespace Honeymoon.Source.Menus
 			playerCreationLogo = new MenuButton(FontManager.hm_f_menu, "Create beekeeper", Vector2.Zero, 5, Color.White);
 			pantsColorText = new MenuButton(FontManager.hm_f_default, "Pants Color: ", Vector2.Zero, 1.3f, Color.Brown);
 			shirtColorText = new MenuButton(FontManager.hm_f_default, "Shirt Color: ", Vector2.Zero, 1.3f, Color.Brown);
-			uiBox = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Rectangle.Empty, new Rectangle(0, 0, 96, 64));
+			uiBox = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(0, 0, 96, 64), 6, Color.White);
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Create", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
-			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(0, 0, 16, 32))); //torso
-			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(96, 0, 16, 32))); //pants
-			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_shirts"), Rectangle.Empty, new Rectangle(0, 0, 16, 32))); //shirt
-			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(48, 0, 16, 32))); //hands
-			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Rectangle.Empty, new Rectangle(144, 0, 16, 32))); //shoulders
-
-			shirtsSelector = new OptionValueSelector(1, clothesColors.Length);
-			pantsSelector = new OptionValueSelector(1, clothesColors.Length);
+			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(0, 0, 16, 32), 5, Color.White)); //torso
+			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(96, 0, 16, 32), 5, Color.White)); //pants
+			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_shirts"), Vector2.Zero, new Rectangle(0, 0, 16, 32), 5, Color.White)); //shirt
+			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(48, 0, 16, 32), 5, Color.White)); //hands
+			beekeperDoll.Add(new MenuButton(Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base"), Vector2.Zero, new Rectangle(144, 0, 16, 32), 5, Color.White)); //shoulders
+			shirtsSelector = new OptionValueSelector(Vector2.Zero, 1, clothesColors.Length - 1, 4, 30);
+			pantsSelector = new OptionValueSelector(Vector2.Zero, 1, clothesColors.Length - 1, 4, 30);
 			nameInput = new TextInput("ziemblox", Vector2.Zero);
+			ResolutionReload();
 		}
 
-		public virtual void UpdateResolutionPositions()
+		public virtual void ResolutionReload()
 		{
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
-				menuButtons[i].Update();
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i) + 250);
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
 			}
-			playerCreationLogo.size = playerCreationLogo.GetButtonSize();
-			playerCreationLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(playerCreationLogo.size.X), GlobalFunctions.PerfectMidPosY(playerCreationLogo.size.Y) - 310);
-			uiBox.inGameData = new Rectangle((int)GlobalFunctions.PerfectMidPosX(576), (int)GlobalFunctions.PerfectMidPosY(384), 576, 384);
-			shirtColorText.position = new Vector2(uiBox.inGameData.X + 50, uiBox.inGameData.Y + 110);
-			pantsColorText.position = new Vector2(uiBox.inGameData.X + 50, uiBox.inGameData.Y + 150);
-			shirtsSelector.inGameData.X = (int)shirtColorText.position.X + 160;
-			shirtsSelector.inGameData.Y = (int)shirtColorText.position.Y;
-			pantsSelector.inGameData.X = (int)pantsColorText.position.X + 160;
-			pantsSelector.inGameData.Y = (int)pantsColorText.position.Y;
-			nameInput.position = new Vector2(uiBox.inGameData.X + 307, uiBox.inGameData.Y + 50);
-
+			playerCreationLogo.position = new Vector2(playerCreationLogo.PerfectMidPositionText().X, 20);
+			uiBox.position = new Vector2(uiBox.PerfectMidPositionTexture().X, uiBox.PerfectMidPositionTexture().Y);
+			shirtColorText.position = new Vector2(uiBox.position.X + 50, uiBox.position.Y + 110);
+			pantsColorText.position = new Vector2(uiBox.position.X + 50, uiBox.position.Y + 150);
 			foreach (MenuButton bodypiece in beekeperDoll)
 			{
-				bodypiece.inGameData = new Rectangle((int)uiBox.inGameData.X + 380, (int)uiBox.inGameData.Y + 170, bodypiece.sourceData.Width * 5, bodypiece.sourceData.Height * 5);
+				bodypiece.position = new Vector2((int)uiBox.position.X + 380, (int)uiBox.position.Y + 170);
 			}
+			shirtsSelector.position = new Vector2((int)shirtColorText.position.X + 160, (int)shirtColorText.position.Y);
+			pantsSelector.position = new Vector2((int)pantsColorText.position.X + 160, (int)pantsColorText.position.Y);
+			nameInput.position = new Vector2(uiBox.position.X + 307, uiBox.position.Y + 50);
 		}
 		public virtual void Update()
 		{
-			UpdateResolutionPositions();
 			beekeperDoll[2].color = clothesColors[shirtsSelector.value];
 			beekeperDoll[4].color = clothesColors[shirtsSelector.value];
 			beekeperDoll[1].color = clothesColors[pantsSelector.value];
 			shirtsSelector.UpdateSelector();
 			pantsSelector.UpdateSelector();
 			nameInput.UpdateTextInput();
-
-			if (menuButtons[0].IsHoveredAndClicked() && !string.IsNullOrEmpty(nameInput.text) && !CheckIfProfileExists(nameInput.text) && CheckProfilesAmount() != 4)
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
+				menuButtons[i].Update();
+			}
+			if (menuButtons[0].IsHoveredAndClicked() && !string.IsNullOrEmpty(nameInput.text) && !CheckIfProfileExists(nameInput.text))
 			{
 				PlayerSave playerSave = new PlayerSave
 				{
@@ -83,17 +81,14 @@ namespace Honeymoon.Source.Menus
 				};
 				CreatePlayerProfile(playerSave);
 				PlayerSelectionMenu.LoadPlayerProfiles();
-				if (CheckProfilesAmount() < 5)
-				{
-					Globals.gameState = 6;
-				}
+				Globals.gameState = 6;
 			}
 			else if (menuButtons[1].IsHoveredAndClicked())
 			{
 				Globals.gameState = 6;
 			}
 
-			if (CheckIfProfileExists(nameInput.text) || CheckProfilesAmount() >= 4)
+			if (CheckIfProfileExists(nameInput.text))
 			{
 				nameInput.color = Color.Red;
 			}
@@ -125,11 +120,6 @@ namespace Honeymoon.Source.Menus
 			}
 			return false;
 		}
-		public int CheckProfilesAmount()
-		{
-			string[] fileEntries = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerProfiles"), "*.yaml*");
-			return fileEntries.Length;
-		}
 		public virtual void Draw()
 		{
 			playerCreationLogo.DrawString();
@@ -155,10 +145,6 @@ namespace Honeymoon.Source.Menus
 			else if (string.IsNullOrEmpty(nameInput.text))
 			{
 				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "name cannot be empty!", new Vector2(uiBox.inGameData.X + 40, uiBox.inGameData.Y - 55), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
-			}
-			else if (CheckProfilesAmount() >= 4)
-			{
-				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "maximum amount of 4 profiles reached!", new Vector2(uiBox.inGameData.X - 80, uiBox.inGameData.Y - 55), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
 			}
 		}
 	}

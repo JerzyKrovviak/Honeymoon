@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Honeymoon.Managers;
-using Honeymoon.Source.Menus;
-using Honeymoon.Source;
 using Honeymoon.Menus;
 
 namespace Honeymoon.Source.Menus
@@ -18,25 +9,29 @@ namespace Honeymoon.Source.Menus
 	{
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static MenuButton generalSettingsLogo;
-		private static bool lastHover = false;
-
 		public GeneralSettingsMenu()
 		{
-			generalSettingsLogo = new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 5, Color.White);
+			generalSettingsLogo = new MenuButton(FontManager.hm_f_menu, "General", new Vector2(500,500), 5, Color.White);
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting1", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting2", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
+			ResolutionReload();
 		}
-
+		public virtual void ResolutionReload()
+		{
+			generalSettingsLogo.position = new Vector2(generalSettingsLogo.PerfectMidPositionText().X, generalSettingsLogo.PerfectMidPositionText().Y - 250);
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
+			}
+		}
 		public virtual void Update()
 		{
-			generalSettingsLogo.size = generalSettingsLogo.GetButtonSize();
-			generalSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(generalSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(generalSettingsLogo.size.Y) - 250);
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
 				menuButtons[i].Update();
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
 			}
 
 			if (menuButtons[3].IsHoveredAndClicked())
@@ -44,7 +39,6 @@ namespace Honeymoon.Source.Menus
 				Globals.gameState = 2;
 			}
 		}
-
 		public virtual void Draw()
 		{
 			generalSettingsLogo.DrawString();

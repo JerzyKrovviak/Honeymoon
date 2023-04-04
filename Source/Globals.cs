@@ -41,6 +41,7 @@ namespace Honeymoon.Source
 				_graphics.HardwareModeSwitch = true;
 				_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 				_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+				Globals.windowSize = new Vector2(Globals._graphics.PreferredBackBufferWidth, Globals._graphics.PreferredBackBufferHeight);
 			}
 			else if (id == 2)
 			{
@@ -48,6 +49,7 @@ namespace Honeymoon.Source
 				_graphics.HardwareModeSwitch = false;
 				_graphics.PreferredBackBufferWidth = 1280;
 				_graphics.PreferredBackBufferHeight = 756;
+				Globals.windowSize = new Vector2(Globals._graphics.PreferredBackBufferWidth, Globals._graphics.PreferredBackBufferHeight);
 			}
 			else if (id == 3)
 			{
@@ -55,6 +57,7 @@ namespace Honeymoon.Source
 				_graphics.HardwareModeSwitch = false;
 				_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 				_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+				Globals.windowSize = new Vector2(Globals._graphics.PreferredBackBufferWidth, Globals._graphics.PreferredBackBufferHeight);
 			}
 			selectedResolution = id;
 			_graphics.ApplyChanges();
@@ -70,6 +73,7 @@ namespace Honeymoon.Source
 		public static PlayerSelectionMenu playerSelectionMenu;
 		public static WorldSelectionMenu worldSelectionMenu;
 		public static PlayerCreationMenu playerCreationMenu;
+		public static InGameMenu inGameMenu;
 
 		public static SavedSettings persistentSettings;
 

@@ -31,39 +31,29 @@ namespace Honeymoon.Menus
 			origin = Vector2.Zero;
 			isHovered = false;
 		}
-		public MenuButton(Texture2D texture, Rectangle inGameData, Rectangle sourceData)
+		public MenuButton(Texture2D texture, Vector2 position, Rectangle sourceData, int scale, Color color)
 		{
 			this.texture = texture;
-			this.inGameData = inGameData;
+			this.position = position;
 			this.sourceData = sourceData;
-			color = Color.White;
-			rotation = 0f;
-			origin = Vector2.Zero;
-			isHovered = false;
-		}
-		public MenuButton(Texture2D texture, Rectangle inGameData, Rectangle sourceData, Color color)
-		{
-			this.texture = texture;
-			this.inGameData = inGameData;
-			this.sourceData = sourceData;
+			this.inGameData = new Rectangle((int)position.X, (int)position.Y, sourceData.Width * scale, sourceData.Height * scale);
 			this.color = color;
 			rotation = 0f;
 			origin = Vector2.Zero;
 			isHovered = false;
 		}
-		public MenuButton(SpriteFont hm_f_menu, Texture2D texture, Vector2 position)
-		{
-			this.texture = texture;
-			this.position = position;
-			color = Color.White;
-			rotation = 0f;
-			origin = Vector2.Zero;
-			isHovered = false;
-		}
 
-		public Vector2 GetButtonSize()
+		public Vector2 GetTextBtnSize()
 		{
 			return new Vector2(font.MeasureString(text).X * scale, font.MeasureString(text).Y * scale);
+		}
+		public Vector2 PerfectMidPositionText()
+		{
+			return new Vector2(Globals.windowSize.X / 2 - GetTextBtnSize().X / 2, Globals.windowSize.Y / 2 - GetTextBtnSize().Y / 2);
+		}
+		public Vector2 PerfectMidPositionTexture()
+		{
+			return new Vector2(Globals.windowSize.X / 2 - inGameData.Width / 2, Globals.windowSize.Y / 2 - inGameData.Height / 2);
 		}
 		public bool IsHoveredAndClicked()
 		{
@@ -86,8 +76,10 @@ namespace Honeymoon.Menus
 		}
 		public virtual void Update()
 		{
+			inGameData.X = (int)position.X;
+			inGameData.Y = (int)position.Y;
 			lastHover = isHovered;
-			size = GetButtonSize();
+			size = GetTextBtnSize();
 			if (scale == 3)
 			{
 				hitbox = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
@@ -121,6 +113,8 @@ namespace Honeymoon.Menus
 		}
 		public virtual void DrawTexture()
 		{
+			inGameData.X = (int)position.X;
+			inGameData.Y = (int)position.Y;
 			Globals.spriteBatch.Draw(texture, inGameData, sourceData, color, rotation, origin, SpriteEffects.None, 0);
 		}
 		public virtual void DrawString()

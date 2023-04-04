@@ -19,6 +19,7 @@ namespace Honeymoon.Source.Menus
 		private protected static string profilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerProfiles");
 		private protected static List<PlayerProfileCell> playerSelectionCells;
 		public OptionBoolSelector deleteConfirm;
+		private OptionValueSelector playerCellsSelector;
 		private protected int deleteIndex;
 
 		public PlayerSelectionMenu()
@@ -27,6 +28,16 @@ namespace Honeymoon.Source.Menus
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Create new ", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
 			deleteConfirm = new OptionBoolSelector();
+			playerCellsSelector = new OptionValueSelector(Vector2.Zero, 0, 666, 6, 100);
+			ResolutionReload();
+		}
+		public virtual void ResolutionReload()
+		{
+			playerSelectionMenuLogo.position = new Vector2(playerSelectionMenuLogo.PerfectMidPositionText().X, 50);
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
+			}
 		}
 		public static void CreateFolderIfNotExists()
 		{
@@ -57,32 +68,37 @@ namespace Honeymoon.Source.Menus
 			System.GC.WaitForPendingFinalizers();
 			File.Delete(path);
 			LoadPlayerProfiles();
+			playerCellsSelector.value = 0;
 		}
 		public virtual void Update()
 		{
 			if (!deleteConfirm.draw)
 			{
+				//playerSelectionMenuLogo.position = new Vector2(playerSelectionMenuLogo.PerfectMidPositionText().X, 50);
+				if (playerSelectionCells.Count > 1)
+				{
+					playerCellsSelector.position = new Vector2((int)GlobalFunctions.PerfectMidPosX(playerCellsSelector.inGameData.Width) - playerCellsSelector.distance / 2, GlobalFunctions.PerfectMidPosY(playerCellsSelector.inGameData.Width) + 100);
+					playerCellsSelector.UpdateSelector();
+					playerCellsSelector.maxValue = playerSelectionCells.Count - 1;
+				}
 				for (int i = 0; i < menuButtons.Count; i++)
 				{
 					menuButtons[i].Update();
-					menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i) + 250);
+					menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
 				}
-
-				playerSelectionMenuLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(playerSelectionMenuLogo.GetButtonSize().X), 50);
-
-				for (int i = 0; i < playerSelectionCells.Count; i++)
+				if (playerSelectionCells.Count > 0)
 				{
-					playerSelectionCells[i].Update();
-					playerSelectionCells[i].position = new Vector2(Globals.windowSize.X / 2 - playerSelectionCells[i].width / 2, 180 + (200 * i));
-					if (playerSelectionCells[i].deleteProfile.inGameData.Contains(Globals.mousePosition))
+					for (int i = playerCellsSelector.value; i < playerCellsSelector.value + 1; i++)
 					{
-						if (InputManager.IsLeftButtonNewlyPressed())
+						playerSelectionCells[i].Update();
+						playerSelectionCells[i].position = new Vector2(Globals.windowSize.X / 2 - playerSelectionCells[i].width / 2, GlobalFunctions.PerfectMidPosY(playerSelectionCells[i].inGameData.Width) + 100);
+						if (playerSelectionCells[i].deleteProfile.inGameData.Contains(Globals.mousePosition))
 						{
-							deleteConfirm.draw = true;
-							deleteIndex = i;
-							//System.Diagnostics.Debug.WriteLine("deleting cell: " + playerSelectionCells[i].name);
-							//DeleteProfile(playerSelectionCells[i].linkedSave);
-							//AudioManager.soundBank.PlayCue("trashChar");
+							if (InputManager.IsLeftButtonNewlyPressed())
+							{
+								deleteConfirm.draw = true;
+								deleteIndex = i;
+							}
 						}
 					}
 				}
@@ -100,7 +116,6 @@ namespace Honeymoon.Source.Menus
 				deleteConfirm.Update();
 				if (deleteConfirm.yesButton.IsHoveredAndClicked())
 				{
-					System.Diagnostics.Debug.WriteLine("deleting cell: " + playerSelectionCells[deleteIndex].name);
 					DeleteProfile(playerSelectionCells[deleteIndex].linkedSave);
 					AudioManager.soundBank.PlayCue("trashChar");
 					deleteConfirm.draw = false;
@@ -118,9 +133,16 @@ namespace Honeymoon.Source.Menus
 			{
 				button.DrawString();
 			}
-			for (int i = 0; i < playerSelectionCells.Count; i++)
+			if (playerSelectionCells.Count > 0)
 			{
-				playerSelectionCells[i].Draw();
+				for (int i = playerCellsSelector.value; i < playerCellsSelector.value + 1; i++)
+				{
+					playerSelectionCells[i].Draw();
+				}
+			}
+			if (playerSelectionCells.Count > 1)
+			{
+				playerCellsSelector.DrawSelector();
 			}
 			if (deleteConfirm.draw)
 			{

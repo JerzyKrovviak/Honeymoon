@@ -7,26 +7,30 @@ namespace Honeymoon.Source.Menus
 	public class OptionValueSelector
 	{
 		public Texture2D valueIncrease;
+		public Vector2 position;
 		public Rectangle sourceData, inGameData;
-		public int value, maxValue;
+		public int value, maxValue, distance, scale;
 		public bool isHovered;
 		public bool lastHover;
 		public Color color1, color2;
 
-		public OptionValueSelector(int value, int maxValue)
+		public OptionValueSelector(Vector2 position, int value, int maxValue, int scale, int distance)
 		{
 			valueIncrease = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
 			sourceData = new Rectangle(54, 64, 5, 7);
-			inGameData.Width = sourceData.Width * 4;
-			inGameData.Height = sourceData.Height * 4;
+			inGameData = new Rectangle((int)position.X, (int)position.Y, sourceData.Width * scale, sourceData.Height * scale);
 			this.value = value;
 			this.maxValue = maxValue;
+			this.scale = scale;
+			this.distance = distance;
 		}
 
 		public virtual void UpdateSelector()
 		{
-			Rectangle decreaseHitBox = new Rectangle((int)inGameData.X, (int)inGameData.Y, sourceData.Width * 4, sourceData.Height * 4);
-			Rectangle increaseHitBox = new Rectangle((int)inGameData.X + 30, (int)inGameData.Y, sourceData.Width * 4, sourceData.Height * 4);
+			inGameData.X = (int)position.X;
+			inGameData.Y = (int)position.Y;
+			Rectangle decreaseHitBox = new Rectangle((int)inGameData.X, (int)inGameData.Y, sourceData.Width * scale, sourceData.Height * scale);
+			Rectangle increaseHitBox = new Rectangle((int)inGameData.X + distance, (int)inGameData.Y, sourceData.Width * scale, sourceData.Height * scale);
 
 			lastHover = isHovered;
 			if (decreaseHitBox.Contains(Globals.mousePosition))
@@ -35,7 +39,11 @@ namespace Honeymoon.Source.Menus
 				color1 = Color.Orange;
 				if (InputManager.IsLeftButtonNewlyPressed())
 				{
-					if (value > 0)
+					if (value - 1 < 0)
+					{
+						value = maxValue;
+					}
+					else
 					{
 						value--;
 					}
@@ -53,7 +61,11 @@ namespace Honeymoon.Source.Menus
 				color2 = Color.Orange;
 				if (InputManager.IsLeftButtonNewlyPressed())
 				{
-					if (value < maxValue - 1)
+					if (value + 1 > maxValue)
+					{
+						value = 0;
+					}
+					else
 					{
 						value++;
 					}
@@ -75,7 +87,7 @@ namespace Honeymoon.Source.Menus
 		public virtual void DrawSelector()
 		{
 			Globals.spriteBatch.Draw(valueIncrease, inGameData, sourceData, color1, 0f, Vector2.Zero, SpriteEffects.None, 0);
-			Globals.spriteBatch.Draw(valueIncrease, new Rectangle(inGameData.X + 30, inGameData.Y, inGameData.Width, inGameData.Height), sourceData, color2, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+			Globals.spriteBatch.Draw(valueIncrease, new Rectangle(inGameData.X + distance, inGameData.Y, inGameData.Width, inGameData.Height), sourceData, color2, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
 		}
 	}
 }

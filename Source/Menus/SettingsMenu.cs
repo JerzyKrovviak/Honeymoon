@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Honeymoon.Managers;
 using Honeymoon.Menus;
 
@@ -16,7 +9,6 @@ namespace Honeymoon.Source.Menus
 	{
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static MenuButton settingsMenuLogo;
-
 		public SettingsMenu()
 		{
 			settingsMenuLogo = new MenuButton(FontManager.hm_f_menu, "Settings", Vector2.Zero, 5, Color.White);
@@ -24,17 +16,23 @@ namespace Honeymoon.Source.Menus
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Video", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Volume", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Save & back", Vector2.Zero, 3, Color.White));
+			ResolutionReload();
 		}
-
+		public virtual void ResolutionReload()
+		{
+			settingsMenuLogo.position = new Vector2(settingsMenuLogo.PerfectMidPositionText().X, settingsMenuLogo.PerfectMidPositionText().Y - 250);
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
+			}
+		}
 		public virtual void Update()
 		{
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
 				menuButtons[i].Update();
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
 			}
-			settingsMenuLogo.size = settingsMenuLogo.GetButtonSize();
-			settingsMenuLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(settingsMenuLogo.size.X), GlobalFunctions.PerfectMidPosY(settingsMenuLogo.size.Y) - 250);
 
 			if (menuButtons[0].IsHoveredAndClicked())
 			{
@@ -55,7 +53,6 @@ namespace Honeymoon.Source.Menus
 				Globals.gameState = 0;
 			}
 		}
-
 		public virtual void Draw()
 		{
 			foreach (var menuButton in menuButtons)

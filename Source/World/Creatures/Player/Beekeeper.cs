@@ -18,19 +18,19 @@ namespace Honeymoon.Source.World.Creatures.Player
 		public FrameSet framesData;
 		public Color shirtColor, pantsColor;
 		public string nickname;
-
 		public List<AnimatedComponent> animations = new List<AnimatedComponent>();
 
 		public Beekeeper(PlayerSave playersave)
 		{
 			texture = Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base");
-			position = Map.Map.TileIdPosToXY(new Vector2(25,25));
+			position = Map.Map.TileIdPosToXY(playersave.Position);
 			color = Color.White;
 			rotation = 0;
 			origin = Vector2.Zero;
 			velocity = new Vector2(0.18f,0.18f);
 			hitBox = new Rectangle((int)position.X, (int)position.Y + sourceData.Height / 2, 64,64);
 			direction = 5;
+			nickname = playersave.Name;
 			shirtColor = playersave.shirtColor;
 			pantsColor = playersave.pantsColor;
 

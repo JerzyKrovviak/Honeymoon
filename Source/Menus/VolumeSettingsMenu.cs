@@ -18,7 +18,6 @@ namespace Honeymoon.Source.Menus
 	{
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static MenuButton volumelSettingsLogo;
-
 		public VolumeSettingsMenu()
 		{
 			volumelSettingsLogo = new MenuButton(FontManager.hm_f_menu, "Volume", Vector2.Zero, 5, Color.White);
@@ -27,16 +26,21 @@ namespace Honeymoon.Source.Menus
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
 		}
-
+		public virtual void ResolutionReload()
+		{
+			volumelSettingsLogo.position = new Vector2(volumelSettingsLogo.PerfectMidPositionText().X, volumelSettingsLogo.PerfectMidPositionText().Y - 250);
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
+			}
+		}
 		public virtual void Update()
 		{
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
 				menuButtons[i].Update();
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i);
 			}
-			volumelSettingsLogo.size = volumelSettingsLogo.GetButtonSize();
-			volumelSettingsLogo.position = new Vector2(GlobalFunctions.PerfectMidPosX(volumelSettingsLogo.size.X), GlobalFunctions.PerfectMidPosY(volumelSettingsLogo.size.Y) - 250);
 			if (menuButtons[3].IsHoveredAndClicked())
 			{
 				Globals.gameState = 2;

@@ -27,8 +27,8 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void Update()
 		{
-			yesButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(yesButton.GetButtonSize().X + 200), 500);
-			noButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(noButton.GetButtonSize().X - 200), 500);
+			yesButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(yesButton.GetTextBtnSize().X + 200), 500);
+			noButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(noButton.GetTextBtnSize().X - 200), 500);
 			yesButton.Update();
 			noButton.Update();
 			yesButton.color = Color.Green;
