@@ -66,13 +66,34 @@ namespace Honeymoon.Menus
 			}
 			return false;
 		}
-		public bool IsHovered()
+		public bool IsButtonHovered()
 		{
 			if (hitbox.Contains(Globals.mousePosition))
 			{
 				return true;
 			}
 			return false;
+		}
+		public virtual void UpdateTextureButton()
+		{
+			lastHover = isHovered;
+			if (IsButtonHovered())
+			{
+				isHovered = true;
+			}
+			else
+			{
+				isHovered = false;
+			}
+			if (!lastHover && isHovered)
+			{
+				AudioManager.soundBank.PlayCue("optionHover");
+			}
+
+			if (IsHoveredAndClicked())
+			{
+				AudioManager.soundBank.PlayCue("optionSelect");
+			}
 		}
 		public virtual void Update()
 		{

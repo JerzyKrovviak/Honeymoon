@@ -95,7 +95,7 @@ namespace Honeymoon.Source.World.Map
 
 		public static Vector2 TileIdPosToXY(Vector2 position)
 		{
-			return new Vector2((int)position.X * scaledTileWidth, (int)position.Y * scaledTileHeight);
+			return new Vector2(position.X * scaledTileWidth, position.Y * scaledTileHeight);
 		}
 
 		public virtual void Draw(int mapID)

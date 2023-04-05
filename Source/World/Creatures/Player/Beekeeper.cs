@@ -23,11 +23,12 @@ namespace Honeymoon.Source.World.Creatures.Player
 		public Beekeeper(PlayerSave playersave)
 		{
 			texture = Globals.content.Load<Texture2D>("Creatures/Beekeeper/hm_beekeeper_base");
-			position = Map.Map.TileIdPosToXY(playersave.Position);
+			position = playersave.Position;
 			color = Color.White;
 			rotation = 0;
 			origin = Vector2.Zero;
-			velocity = new Vector2(0.18f,0.18f);
+			//velocity = new Vector2(0.18f,0.18f);
+			velocity = playersave.velocity;
 			hitBox = new Rectangle((int)position.X, (int)position.Y + sourceData.Height / 2, 64,64);
 			direction = 5;
 			nickname = playersave.Name;
@@ -86,11 +87,6 @@ namespace Honeymoon.Source.World.Creatures.Player
 			animations.Add(new AnimatedComponent(shirtsData.texture, "walkUpShirt", 16, 32, new Vector2[] { shirtsData.frameData[10], shirtsData.frameData[11], shirtsData.frameData[10], shirtsData.frameData[12] }, 0.1f, shirtColor));
 			animations.Add(new AnimatedComponent(framesData.texture, "walkUpHands", 16, 32, new Vector2[] { framesData.frameData[43], framesData.frameData[44], framesData.frameData[43], framesData.frameData[45] }, 0.1f, Color.White));
 			animations.Add(new AnimatedComponent(framesData.texture, "walkUpShoulders", 16, 32, new Vector2[] { framesData.frameData[49], framesData.frameData[50], framesData.frameData[49], framesData.frameData[51] }, 0.1f, shirtColor));
-		}
-
-		public static Vector2 GetPlayerTile()
-		{
-			return new Vector2((Globals.player.hitBox.X + Globals.player.hitBox.Width / 2) / Map.Map.scaledTileWidth, (Globals.player.hitBox.Y + Globals.player.hitBox.Height / 2) / Map.Map.scaledTileHeight);
 		}
 
 		public virtual void Update()

@@ -13,7 +13,6 @@ namespace Honeymoon.Source.World.Creatures
 {
 	public class InputComponent
 	{
-		public bool menuIngame;
 		public void Update()
 		{
 			if (InputManager.IsKeyDown(Keys.A))
@@ -80,15 +79,6 @@ namespace Honeymoon.Source.World.Creatures
 					animation.StopAnimation();
 				}
 			}
-
-			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
-			{
-				menuIngame = !menuIngame;
-			}
-			if (menuIngame)
-			{
-				Globals.mainMenu.Update();
-			}
 		}
 
 		public virtual void DrawPlayerAnim()
@@ -145,11 +135,6 @@ namespace Honeymoon.Source.World.Creatures
 						Globals.player.animations[i].Draw(Globals.player.position);
 					}
 				}
-			}
-
-			if (menuIngame)
-			{
-				Globals.mainMenu.Draw();
 			}
 		}
 	}

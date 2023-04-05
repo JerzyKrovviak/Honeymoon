@@ -1,12 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Honeymoon.Managers;
-using Honeymoon.Menus;
+﻿using Honeymoon.Managers;
 using Honeymoon.Source.Menus;
-using Honeymoon.Source;
 using Honeymoon.Source.World.Map;
-using Honeymoon.Source.World.Creatures.Player;
+using Microsoft.Xna.Framework.Input;
 
 namespace Honeymoon.Source.Managers
 {
@@ -17,13 +12,27 @@ namespace Honeymoon.Source.Managers
 			Globals.tilesetManager = new TilesetManager();
 			Globals.map = new Map();
 			Globals.input = new Source.World.Creatures.InputComponent();
+			Globals.inGameMenu = new InGameMenu();
 		}
 
 		public virtual void Update()
 		{
-			Globals.tilesetManager.Update();
-			Globals.map.Update();
-			Globals.player.Update();
+			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
+			{
+				Globals.ingMenu = !Globals.ingMenu;
+				AudioManager.soundBank.PlayCue("selectorAdd");
+			}
+
+			if (!Globals.ingMenu)
+			{
+				Globals.tilesetManager.Update();
+				Globals.map.Update();
+				Globals.player.Update();
+			}
+			else
+			{
+				Globals.inGameMenu.Update();
+			}
 		}
 
 		public virtual void Draw()
@@ -31,6 +40,10 @@ namespace Honeymoon.Source.Managers
 			Globals.map.Draw(0);
 			//Globals.map.DrawDebugMode();
 			Globals.input.DrawPlayerAnim();
+			if (Globals.ingMenu)
+			{
+				Globals.inGameMenu.Draw();
+			}
 		}
 	}
 }

@@ -65,6 +65,8 @@ namespace Honeymoon.Source
 
 		public static Random random = new Random();
 
+		public static bool ingMenu;
+
 		public static MainMenu mainMenu;
 		public static SettingsMenu settingsMenu;
 		public static GeneralSettingsMenu generalSettingsMenu;
