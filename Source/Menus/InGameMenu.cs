@@ -18,10 +18,12 @@ namespace Honeymoon.Source.Menus
 {
 	public class InGameMenu
 	{
-		private protected MenuButton ingMenuUi;
+		private protected MenuButton ingMenuUi, ingMenuTitle, resume, resolution;
 		private protected Texture2D background;
 		private protected List<MenuButton> ingMenuIcons = new List<MenuButton>();
 		private protected int ingMenuMode = 0;
+		private protected OptionBoolSelector confirmExit;
+		private protected string[] resolutions = { "Fullscreen", "Windowed", "Windowed Fullscreen" };
 
 		public InGameMenu()
 		{
@@ -33,10 +35,14 @@ namespace Honeymoon.Source.Menus
 			}
 			background.SetData(data);
 			ingMenuUi = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(96, 0, 96, 64), 6, Color.White);
-			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(68, 64, 9, 9), 5, Color.White)); //general
-			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(77, 64, 9, 9), 5, Color.White)); //volume
-			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(86, 64, 9, 9), 5, Color.White)); //video
-			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(95, 64, 9, 9), 5, Color.White)); //exit
+			ingMenuTitle = new MenuButton(FontManager.hm_f_menu, "General", Vector2.Zero, 2f, Color.White);
+			resume = new MenuButton(FontManager.hm_f_menu, "Resume", Vector2.Zero, 3f, Color.White);
+			resolution = new MenuButton(FontManager.hm_f_default, "Resolution: ", Vector2.Zero, 1.3f, Color.Black);
+			confirmExit = new OptionBoolSelector();
+			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), "General", Vector2.Zero, new Rectangle(68, 64, 9, 9), 5, Color.White)); //general
+			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), "Volume", Vector2.Zero, new Rectangle(77, 64, 9, 9), 5, Color.White)); //volume
+			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), "Video", Vector2.Zero, new Rectangle(86, 64, 9, 9), 5, Color.White)); //video
+			ingMenuIcons.Add(new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), "Save & Exit", Vector2.Zero, new Rectangle(95, 64, 9, 9), 5, Color.White)); //exit
 			ResolutionReload();
 		}
 		public virtual void ResolutionReload()
@@ -44,8 +50,12 @@ namespace Honeymoon.Source.Menus
 			ingMenuUi.position = new Vector2(-(int)Camera.cameraOffsetX + ingMenuUi.PerfectMidPositionTexture().X, -(int)Camera.cameraOffsetY + ingMenuUi.PerfectMidPositionTexture().Y);
 			for (int i = 0; i < ingMenuIcons.Count; i++)
 			{
-				ingMenuIcons[i].position = new Vector2(ingMenuUi.position.X + 54, ingMenuUi.position.Y + 54 + (ingMenuIcons[i].inGameData.Width + 8) * i);
+				ingMenuIcons[i].position = new Vector2(ingMenuUi.position.X + 54, ingMenuUi.position.Y + 54 + (ingMenuIcons[i].inGameData.Width + 30) * i);
 			}
+			ingMenuTitle.position = new Vector2(-(int)Camera.cameraOffsetX + ingMenuTitle.PerfectMidPositionText().X, ingMenuUi.position.Y + 36);
+			resume.position = new Vector2(-(int)Camera.cameraOffsetX + resume.PerfectMidPositionText().X, -(int)Camera.cameraOffsetY + resume.PerfectMidPositionText().Y + 240);
+			resolution.position = new Vector2(-(int)Camera.cameraOffsetX + resolution.PerfectMidPositionText().X - 30, -(int)Camera.cameraOffsetY + resolution.PerfectMidPositionText().Y - 80);
+			resolution.hitbox = new Rectangle((int)resolution.position.X + (int)Camera.cameraOffsetX, (int)resolution.position.Y + (int)Camera.cameraOffsetY, (int)resolution.GetTextBtnSize().X, (int)resolution.GetTextBtnSize().Y);
 		}
 		public void SavePlayerProfile(PlayerSave playersave)
 		{
@@ -62,57 +72,137 @@ namespace Honeymoon.Source.Menus
 		}
 		public virtual void Update()
 		{
-			ResolutionReload();
-			foreach (MenuButton icon in ingMenuIcons)
+			if (!confirmExit.draw)
 			{
-				icon.UpdateTextureButton();
-				icon.hitbox = new Rectangle((int)icon.position.X + (int)Camera.cameraOffsetX, (int)icon.position.Y + (int)Camera.cameraOffsetY, icon.inGameData.Width, icon.inGameData.Height);
-				if (icon.IsButtonHovered())
+				foreach (MenuButton icon in ingMenuIcons)
 				{
-					icon.color = new Color(Color.White, 70);
+					icon.UpdateTextureButton();
+					icon.hitbox = new Rectangle((int)icon.position.X + (int)Camera.cameraOffsetX, (int)icon.position.Y + (int)Camera.cameraOffsetY, icon.inGameData.Width, icon.inGameData.Height);
+					if (icon.IsButtonHovered())
+					{
+						icon.color = new Color(Color.White, 70);
+					}
+					else
+					{
+						icon.color = Color.White;
+					}
 				}
-				else
+				resume.Update();
+				if (resume.IsHoveredAndClicked())
 				{
-					icon.color = Color.White;
+					Globals.ingMenu = false;
 				}
-			}
 
-			if (ingMenuIcons[0].IsHoveredAndClicked())		
-			{
-				ingMenuMode = 0;
-			}
-			else if (ingMenuIcons[1].IsHoveredAndClicked())
-			{
-				ingMenuMode = 1;
-			}
-			else if (ingMenuIcons[2].IsHoveredAndClicked())
-			{
-				ingMenuMode = 2;
-			}
-			else if (ingMenuIcons[3].IsHoveredAndClicked())
-			{
-				PlayerSave playerSave = new PlayerSave
+				if (ingMenuIcons[0].IsHoveredAndClicked()) //general
 				{
-					Name = Globals.player.nickname,
-					mapId = Map.GetCurrentMapId(),
-					Position = Globals.player.position,
-					shirtColor = Globals.player.shirtColor,
-					pantsColor = Globals.player.pantsColor,
-					velocity = Globals.player.velocity
-				};
-				SavePlayerProfile(playerSave);
-				Globals.gameState = 0;
-				Globals.ingMenu = false;
+					ingMenuMode = 0;
+					ingMenuTitle.text = "General";
+				}
+				else if (ingMenuIcons[1].IsHoveredAndClicked()) //volume
+				{
+					ingMenuMode = 1;
+					ingMenuTitle.text = "Volume";
+				}
+				else if (ingMenuIcons[2].IsHoveredAndClicked()) //video
+				{
+					ingMenuMode = 2;
+					ingMenuTitle.text = "Video";
+				}
+				else if (ingMenuIcons[3].IsHoveredAndClicked()) //exit
+				{
+					confirmExit.draw = true;
+				}
+
+				if (ingMenuMode == 2)
+				{
+					resolution.Update();
+					resolution.text = "Resolution: " + resolutions[Globals.selectedResolution - 1];
+					if (resolution.IsHoveredAndClicked())
+					{
+						Globals.selectedResolution++;
+						if (Globals.selectedResolution == 1)
+						{
+							resolution.text = "Resolution: " + resolutions[0];
+							Globals.ChangeGameResolution(1);
+						}
+						if (Globals.selectedResolution == 2)
+						{
+							resolution.text = "Resolution: " + resolutions[1];
+							Globals.ChangeGameResolution(2);
+						}
+						if (Globals.selectedResolution == 3)
+						{
+							resolution.text = "Resolution: " + resolutions[2];
+							Globals.ChangeGameResolution(3);
+						}
+						if (Globals.selectedResolution > 3)
+						{
+							Globals.ChangeGameResolution(1);
+							Globals.selectedResolution = 1;
+						}
+						Globals.gameManager.ResolutionReload();
+						Globals.menuManager.ResolutionReload();
+					}
+				}
 			}
+			else
+			{
+				confirmExit.Update();
+				if (confirmExit.yesButton.IsHoveredAndClicked())
+				{
+					PlayerSave playerSave = new PlayerSave
+					{
+						Name = Globals.player.nickname,
+						mapId = Map.GetCurrentMapId(),
+						Position = Globals.player.position,
+						shirtColor = Globals.player.shirtColor,
+						pantsColor = Globals.player.pantsColor,
+						velocity = Globals.player.velocity
+					};
+					SavePlayerProfile(playerSave);
+					Globals.gameState = 0;
+					Globals.ingMenu = false;
+					Globals.persistentSettings = new SavedSettings();
+					SavedSettings.SaveSettings(Globals.persistentSettings);
+					confirmExit.draw = false;
+				}
+				else if (confirmExit.noButton.IsHoveredAndClicked())
+				{
+					confirmExit.draw = false;
+				}
+			}
+			ResolutionReload();
 		}
 
 		public virtual void Draw()
 		{
+			Vector2 fixedMousePos = new Vector2(-Camera.cameraOffsetX + Globals.mousePosition.X, -Camera.cameraOffsetY + Globals.mousePosition.Y);
 			Globals.spriteBatch.Draw(background, new Rectangle(-(int)Camera.cameraOffsetX, -(int)Camera.cameraOffsetY, (int)Globals.windowSize.X, (int)Globals.windowSize.Y), Color.Black);
 			ingMenuUi.DrawTexture();
+			ingMenuTitle.DrawString();
+			resume.DrawString();
 			foreach (MenuButton icon in ingMenuIcons)
 			{
 				icon.DrawTexture();
+				if (icon.IsButtonHovered())
+				{
+					Globals.spriteBatch.DrawString(FontManager.hm_f_menu, icon.text, new Vector2(fixedMousePos.X - icon.hitbox.Width / 2, fixedMousePos.Y - icon.hitbox.Height / 2), Color.White);
+				}
+			}
+			if (ingMenuMode == 0)
+			{
+			}
+			else if (ingMenuMode == 1)
+			{
+			}
+			else if (ingMenuMode == 2)
+			{
+				resolution.DrawString();
+			}
+
+			if (confirmExit.draw)
+			{
+				confirmExit.DrawBoolSelector();
 			}
 		}
 	}

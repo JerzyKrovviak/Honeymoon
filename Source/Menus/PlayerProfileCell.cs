@@ -55,7 +55,7 @@ namespace Honeymoon.Source.Menus
 				if (InputManager.IsLeftButtonNewlyPressed())
 				{
 					Globals.player = new Beekeeper(linkedSave);
-					Globals.gameState = 1;
+					Globals.gameState = 8;
 				}
 			}
 			else

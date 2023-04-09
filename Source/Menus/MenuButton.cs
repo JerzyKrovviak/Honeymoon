@@ -1,5 +1,6 @@
 ﻿using Honeymoon.Managers;
 using Honeymoon.Source;
+using Honeymoon.Source.World.Creatures.Player;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,7 +14,7 @@ namespace Honeymoon.Menus
 		public Vector2 position, size;
 		public Rectangle inGameData, sourceData, hitbox;
 		public Color color;
-		public float rotation, scale;
+		public float rotation, scale, constScale;
 		private Vector2 origin;
 		public bool isHovered;
 		public bool lastHover;
@@ -30,10 +31,24 @@ namespace Honeymoon.Menus
 			rotation = 0f;
 			origin = Vector2.Zero;
 			isHovered = false;
+			constScale = scale;
 		}
 		public MenuButton(Texture2D texture, Vector2 position, Rectangle sourceData, int scale, Color color)
 		{
 			this.texture = texture;
+			this.position = position;
+			this.sourceData = sourceData;
+			this.inGameData = new Rectangle((int)position.X, (int)position.Y, sourceData.Width * scale, sourceData.Height * scale);
+			this.color = color;
+			rotation = 0f;
+			origin = Vector2.Zero;
+			isHovered = false;
+		}
+
+		public MenuButton(Texture2D texture, string nameId, Vector2 position, Rectangle sourceData, int scale, Color color)
+		{
+			this.texture = texture;
+			this.text = nameId;
 			this.position = position;
 			this.sourceData = sourceData;
 			this.inGameData = new Rectangle((int)position.X, (int)position.Y, sourceData.Width * scale, sourceData.Height * scale);
@@ -100,16 +115,25 @@ namespace Honeymoon.Menus
 			inGameData.X = (int)position.X;
 			inGameData.Y = (int)position.Y;
 			lastHover = isHovered;
-			size = GetTextBtnSize();
-			if (scale == 3)
+			if (scale == constScale)
 			{
-				hitbox = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
+				if (Globals.gameState == 1)
+				{
+					hitbox = new Rectangle((int)position.X + (int)Camera.cameraOffsetX, (int)position.Y + (int)Camera.cameraOffsetY, (int)GetTextBtnSize().X, (int)GetTextBtnSize().Y);
+				}
+				else
+				{
+					hitbox = new Rectangle((int)position.X, (int)position.Y, (int)GetTextBtnSize().X, (int)GetTextBtnSize().Y);
+				}
 			}
 			if (hitbox.Contains(Globals.mousePosition))
 			{
 				isHovered = true;
-				color = Color.Orange;
-				if (scale < 4.0f)
+				if (font == FontManager.hm_f_menu)
+				{
+					color = Color.Orange;
+				}
+				if (scale < constScale + 1)
 				{
 					scale += 0.1f;
 				}
@@ -120,12 +144,15 @@ namespace Honeymoon.Menus
 			}
 			else
 			{
-				if (scale > 3.0f)
+				if (scale > constScale)
 				{
 					scale -= 0.1f;
 				}
 				isHovered = false;
-				color = Color.White;
+				if (font == FontManager.hm_f_menu)
+				{
+					color = Color.White;
+				}
 			}
 			if (!lastHover && isHovered)
 			{

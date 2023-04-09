@@ -8,14 +8,22 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Honeymoon.Source.World.Map;
+using System.Runtime.Serialization;
 
 namespace Honeymoon.Source.World
 {
+	[DataContract]
 	public class GraphicsComponent
 	{
+		//[DataMember]
 		public Texture2D texture;
+		//[DataMember]
 		public Rectangle sourceData;
+		//[DataMember]
 		public Color color;
+		//[DataMember]
 		public bool flipHorizontal, flipVertical;
+
+		public GraphicsComponent() { }
 	}
 }

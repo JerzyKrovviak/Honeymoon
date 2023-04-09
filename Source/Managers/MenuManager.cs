@@ -17,6 +17,7 @@ namespace Honeymoon.Source.Managers
 			Globals.playerSelectionMenu = new PlayerSelectionMenu();
 			Globals.playerCreationMenu = new PlayerCreationMenu();
 			Globals.worldSelectionMenu = new WorldSelectionMenu();
+			Globals.worldCreationMenu = new WorldCreationMenu();
 		}
 		public virtual void ResolutionReload()
 		{
@@ -27,6 +28,8 @@ namespace Honeymoon.Source.Managers
 			Globals.videoSettingsMenu.ResolutionReload();
 			Globals.playerSelectionMenu.ResolutionReload();
 			Globals.playerCreationMenu.ResolutionReload();
+			Globals.worldSelectionMenu.ResolutionReload();
+			Globals.worldCreationMenu.ResolutionReload();
 		}
 		public virtual void Update()
 		{
@@ -61,6 +64,10 @@ namespace Honeymoon.Source.Managers
 			else if (Globals.gameState == 8)
 			{
 				Globals.worldSelectionMenu.Update();
+			}
+			else if (Globals.gameState == 9)
+			{
+				Globals.worldCreationMenu.Update();
 			}
 
 			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
@@ -102,6 +109,10 @@ namespace Honeymoon.Source.Managers
 			else if (Globals.gameState == 8)
 			{
 				Globals.worldSelectionMenu.Draw();
+			}
+			else if (Globals.gameState == 9)
+			{
+				Globals.worldCreationMenu.Draw();
 			}
 		}
 	}

@@ -75,6 +75,7 @@ namespace Honeymoon.Source
 		public static PlayerSelectionMenu playerSelectionMenu;
 		public static WorldSelectionMenu worldSelectionMenu;
 		public static PlayerCreationMenu playerCreationMenu;
+		public static WorldCreationMenu worldCreationMenu;
 		public static InGameMenu inGameMenu;
 
 		public static SavedSettings persistentSettings;

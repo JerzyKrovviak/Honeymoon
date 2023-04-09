@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Honeymoon.Managers;
 using Honeymoon.Menus;
 using System.Linq;
+using Honeymoon.Source.World.Creatures.Player;
 
 namespace Honeymoon.Source.Menus
 {
@@ -27,8 +28,16 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void Update()
 		{
-			yesButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(yesButton.GetTextBtnSize().X + 200), 500);
-			noButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(noButton.GetTextBtnSize().X - 200), 500);
+			if (Globals.gameState == 1)
+			{
+				yesButton.position = new Vector2(-(int)Camera.cameraOffsetX + GlobalFunctions.PerfectMidPosX(yesButton.GetTextBtnSize().X + 200), -(int)Camera.cameraOffsetY + 500);
+				noButton.position = new Vector2(-(int)Camera.cameraOffsetX + GlobalFunctions.PerfectMidPosX(noButton.GetTextBtnSize().X - 200), -(int)Camera.cameraOffsetY + 500);
+			}
+			else
+			{
+				yesButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(yesButton.GetTextBtnSize().X + 200), 500);
+				noButton.position = new Vector2(GlobalFunctions.PerfectMidPosX(noButton.GetTextBtnSize().X - 200), 500);
+			}
 			yesButton.Update();
 			noButton.Update();
 			yesButton.color = Color.Green;
@@ -37,9 +46,17 @@ namespace Honeymoon.Source.Menus
 
 		public virtual void DrawBoolSelector()
 		{
-			Globals.spriteBatch.Draw(background, new Rectangle(0,0, (int)Globals.windowSize.X, (int)Globals.windowSize.Y), Color.Black);
 			var size = FontManager.hm_f_outline.MeasureString("Are you sure?");
-			Globals.spriteBatch.DrawString(FontManager.hm_f_menu, "Are you sure?", new Vector2(GlobalFunctions.PerfectMidPosX(size.X * 3), 300), Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0);
+			if (Globals.gameState == 1)
+			{
+				Globals.spriteBatch.Draw(background, new Rectangle(-(int)Camera.cameraOffsetX, -(int)Camera.cameraOffsetY, (int)Globals.windowSize.X, (int)Globals.windowSize.Y), Color.Black);
+				Globals.spriteBatch.DrawString(FontManager.hm_f_menu, "Are you sure?", new Vector2(-(int)Camera.cameraOffsetX + GlobalFunctions.PerfectMidPosX(size.X * 3), -(int)Camera.cameraOffsetY + 300), Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0);
+			}
+			else
+			{
+				Globals.spriteBatch.Draw(background, new Rectangle(0, 0, (int)Globals.windowSize.X, (int)Globals.windowSize.Y), Color.Black);
+				Globals.spriteBatch.DrawString(FontManager.hm_f_menu, "Are you sure?", new Vector2(GlobalFunctions.PerfectMidPosX(size.X * 3), 300), Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0);
+			}
 			yesButton.DrawString();
 			noButton.DrawString();
 		}

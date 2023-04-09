@@ -2,23 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Honeymoon.Source.SavedData
 {
+	[DataContract]
 	public class WorldSave
 	{
-		public int id, day;
+		[DataMember]
 		public string name;
-		public MapObject[] MapObjectsData;
-
-		public WorldSave(int id, string name, MapObject[] MapObjectsData, int day)
-		{
-			this.id = id;
-			this.name = name;
-			this.MapObjectsData = MapObjectsData;
-			this.day = day;
-		}
+		//public MapObject[] MapObjectsData;
+		[DataMember]
+		public List<MapObject[]> mapObjectsData;
 	}
 }

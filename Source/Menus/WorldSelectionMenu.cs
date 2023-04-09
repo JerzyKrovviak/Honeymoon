@@ -13,31 +13,44 @@ namespace Honeymoon.Source.Menus
 	public class WorldSelectionMenu
 	{
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
-		private static MenuButton worldSelectionMenu;
+		private static MenuButton logo;
 
 		public WorldSelectionMenu()
 		{
-			worldSelectionMenu = new MenuButton(FontManager.hm_f_menu, "World Selection", Vector2.Zero, 5, Color.White);
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting1", Vector2.Zero, 3, Color.White));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting2", Vector2.Zero, 3, Color.White));
-			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "setting3", Vector2.Zero, 3, Color.White));
+			logo = new MenuButton(FontManager.hm_f_menu, "World Selection", Vector2.Zero, 5, Color.White);
+			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Create new ", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
+			ResolutionReload();
 		}
-
+		public virtual void ResolutionReload()
+		{
+			for (int i = 0; i < menuButtons.Count; i++)
+			{
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
+			}
+			logo.position = new Vector2(logo.PerfectMidPositionText().X, 20);
+		}
 		public virtual void Update()
 		{
 			for (int i = 0; i < menuButtons.Count; i++)
 			{
 				menuButtons[i].Update();
-				menuButtons[i].position = new Vector2(GlobalFunctions.PerfectMidPosX(menuButtons[i].size.X), GlobalFunctions.PerfectMidPosY(menuButtons[i].size.Y - 170 * i));
+				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
 			}
-			worldSelectionMenu.size = worldSelectionMenu.GetTextBtnSize();
-			worldSelectionMenu.position = new Vector2(GlobalFunctions.PerfectMidPosX(worldSelectionMenu.size.X), GlobalFunctions.PerfectMidPosY(worldSelectionMenu.size.Y) - 250);
+
+			if (menuButtons[0].IsHoveredAndClicked())
+			{
+				Globals.gameState = 9;
+			}
+			else if (menuButtons[1].IsHoveredAndClicked())
+			{
+				Globals.gameState = 6;
+			}
 		}
 
 		public virtual void Draw()
 		{
-			worldSelectionMenu.DrawString();
+			logo.DrawString();
 			foreach (MenuButton button in menuButtons)
 			{
 				button.DrawString();

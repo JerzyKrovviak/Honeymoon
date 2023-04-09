@@ -1,5 +1,6 @@
 ﻿using Honeymoon.Managers;
 using Honeymoon.Source.Menus;
+using Honeymoon.Source.World.Creatures.Player;
 using Honeymoon.Source.World.Map;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,7 +15,11 @@ namespace Honeymoon.Source.Managers
 			Globals.input = new Source.World.Creatures.InputComponent();
 			Globals.inGameMenu = new InGameMenu();
 		}
-
+		public virtual void ResolutionReload()
+		{
+			Globals.inGameMenu.ResolutionReload();
+			Camera.CalculateTranslation();
+		}
 		public virtual void Update()
 		{
 			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
@@ -34,7 +39,6 @@ namespace Honeymoon.Source.Managers
 				Globals.inGameMenu.Update();
 			}
 		}
-
 		public virtual void Draw()
 		{
 			Globals.map.Draw(0);

@@ -22,7 +22,7 @@ namespace Honeymoon.Source.World.Map
 		public static int tilesHeight;
 		public static int currentMap;
 
-		private static List<XmlDataCache.Map> maps = new List<XmlDataCache.Map>();
+		public static List<XmlDataCache.Map> maps = new List<XmlDataCache.Map>();
 
 		public Texture2D rectanglexdddd;
 		
@@ -30,16 +30,16 @@ namespace Honeymoon.Source.World.Map
 		{
 			XmlDataCache.Map hm_map_0 = Globals.content.Load<XmlDataCache.Map>("Maps/hm_map_0");
 			maps.Add(hm_map_0);
+			XmlDataCache.Map hm_map_1 = Globals.content.Load<XmlDataCache.Map>("Maps/hm_map_1");
+			maps.Add(hm_map_1);
 
 			rectanglexdddd = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
 			rectanglexdddd.SetData(new Color[] { Color.Red });
 		}
-
 		public static Vector2 GetEntityTile(PhysicalComponent entity)
 		{
 			return new Vector2((entity.hitBox.X + entity.hitBox.Width) / scaledTileWidth, (entity.hitBox.Y + entity.hitBox.Height) / scaledTileHeight);
 		}
-
 		public static bool CheckForCollision(PhysicalComponent entity)
 		{
 			foreach (XmlDataCache.Map map in maps)
@@ -68,36 +68,29 @@ namespace Honeymoon.Source.World.Map
 			}
 			return false;
 		}
-
 		public virtual void Update()
 		{
 		}
-
 		public static int GetCurrentMapId()
 		{
 			return currentMap;
 		}
-
 		public static Vector2 GetCurrentMapTilesSize()
 		{
 			return new Vector2(tilesWidth, tilesHeight);
 		}
-
 		public static Vector2 GetCurrentMapSizePixels()
 		{
 			return new Vector2(tilesWidth * GetCurrentMapTilesSize().X, tilesHeight * GetCurrentMapTilesSize().Y);
 		}
-
 		public static Vector2 GetCurrentMapScaledSizePixels()
 		{
 			return new Vector2(scaledTileWidth * GetCurrentMapTilesSize().X, scaledTileHeight * GetCurrentMapTilesSize().Y);
 		}
-
 		public static Vector2 TileIdPosToXY(Vector2 position)
 		{
 			return new Vector2(position.X * scaledTileWidth, position.Y * scaledTileHeight);
 		}
-
 		public virtual void Draw(int mapID)
 		{
 			currentMap = mapID;
@@ -128,7 +121,6 @@ namespace Honeymoon.Source.World.Map
 		public virtual void DrawWorldObjects(int saveFileId)
 		{ 
 		}
-
 		public virtual void DrawDebugMode()
 		{
 			foreach (XmlDataCache.Map map in maps)

@@ -193,7 +193,10 @@ namespace Honeymoon.Source.Menus
 			}
 			return lastKey;
 		}
-
+		public Vector2 PerfectMidPositionTexture()
+		{
+			return new Vector2(Globals.windowSize.X / 2 - inGameData.Width / 2, Globals.windowSize.Y / 2 - inGameData.Height / 2);
+		}
 		public virtual void UpdateTextInput()
 		{
 			if (text.Length > 0)
