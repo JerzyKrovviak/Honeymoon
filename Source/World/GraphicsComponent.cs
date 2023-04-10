@@ -18,7 +18,7 @@ namespace Honeymoon.Source.World
 		//[DataMember]
 		public Texture2D texture;
 		//[DataMember]
-		public Rectangle sourceData;
+		public Rectangle sourceData, inGameData;
 		//[DataMember]
 		public Color color;
 		//[DataMember]

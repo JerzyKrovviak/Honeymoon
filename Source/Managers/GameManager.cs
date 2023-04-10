@@ -44,6 +44,7 @@ namespace Honeymoon.Source.Managers
 			Globals.map.Draw(0);
 			//Globals.map.DrawDebugMode();
 			Globals.input.DrawPlayerAnim();
+			Globals.objectLayer.Draw();
 			if (Globals.ingMenu)
 			{
 				Globals.inGameMenu.Draw();

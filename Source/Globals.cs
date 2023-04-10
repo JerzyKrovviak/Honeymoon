@@ -84,6 +84,7 @@ namespace Honeymoon.Source
 		public static GameManager gameManager;
 		public static Map map;
 		public static TilesetManager tilesetManager;
+		public static ObjectLayer objectLayer;
 
 		public static Beekeeper player;
 		public static InputComponent input;

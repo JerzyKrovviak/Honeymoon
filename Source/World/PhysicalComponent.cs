@@ -15,20 +15,16 @@ namespace Honeymoon.Source.World
 	[DataContract]
 	public class PhysicalComponent : GraphicsComponent
 	{
-		//[DataMember]
-		public Vector2 position, velocity, acceleration, origin;
-		//[DataMember]
+		public Vector2 position, velocity, origin;
 		public Rectangle hitBox;
-		//[DataMember]
 		public float rotation;
-		//[DataMember]
 		public int hitPoints;
-		//[DataMember]
 		public int direction;
 
 		public virtual void Draw()
 		{
-			Globals.spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, sourceData.Width * Map.Map.scale, sourceData.Height * Map.Map.scale), sourceData, color, rotation, origin, flipHorizontal ? SpriteEffects.FlipHorizontally : flipVertical ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
+			inGameData = new Rectangle((int)position.X, (int)position.Y, sourceData.Width * Map.Map.scale, sourceData.Height * Map.Map.scale);
+			Globals.spriteBatch.Draw(texture, inGameData, sourceData, color, rotation, origin, flipHorizontal ? SpriteEffects.FlipHorizontally : flipVertical ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
 		}
 		public PhysicalComponent() { }
 	}

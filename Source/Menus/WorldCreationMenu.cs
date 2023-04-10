@@ -18,6 +18,7 @@ namespace Honeymoon.Source.Menus
 		private static MenuButton logo;
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static TextInput worldName;
+		private int lastIndex;
 		public WorldCreationMenu()
 		{
 			logo = new MenuButton(FontManager.hm_f_menu, "Create World", Vector2.Zero, 5f, Color.White);
@@ -43,18 +44,28 @@ namespace Honeymoon.Source.Menus
 				Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds"));
 			}
 		}
-		private List<MapObject[]> GenerateWorld()
+		private List<List<MapObject>> GenerateWorld()
 		{
-			List<MapObject[]> objectsList = new List<MapObject[]>();
+			List<List<MapObject>> objectsList = new List<List<MapObject>>();
 			for (int i = 0; i < Map.maps.Count; i++)
 			{
 				int totalTiles = Map.maps[i].tilesHeight * Map.maps[i].tilesWidth;
-				MapObject[] mapObjects = new MapObject[totalTiles / 2];
-				for (int a = 0; a < totalTiles / 2; a++)
+				int objectAmount = Globals.random.Next(0, totalTiles / 4);
+				List<MapObject> mapObjects = new List<MapObject>();
+				List<Vector2> objectpositions = new List<Vector2>();
+				for (int y = 0; y < Map.maps[i].tilesHeight; y++)
 				{
-					Vector2 randomPosition = new Vector2(Globals.random.Next(0, Map.maps[i].tilesWidth), Globals.random.Next(0, Map.maps[i].tilesHeight));
-					mapObjects[a] = new MapObject(i, Globals.content.Load<Texture2D>("Objects/tree"), new Rectangle(0, 0, 48, 112), "tree", Map.TileIdPosToXY(randomPosition));
-					System.Diagnostics.Debug.WriteLine("map: " + i + " object: " + a + " Creating object: " + mapObjects[a].name + ", on map: " + mapObjects[a].mapid + ", on position: " + mapObjects[a].position);
+					for (int x = 0; x < Map.maps[i].tilesWidth; x++)
+					{
+						objectpositions.Add(new Vector2(x, y));
+						//System.Diagnostics.Debug.WriteLine("map: " + i + "amount: " + objectpositions.Count + " " + objectpositions[objectpositions.Count - 1]);
+					}
+				}
+				for (int a = 0; a < objectAmount; a++)
+				{
+					mapObjects.Add(new MapObject(i, "tree", Map.TileIdPosToXY(objectpositions[a + lastIndex])));
+					//lastIndex = a + Globals.random.Next(40,80);
+					//System.Diagnostics.Debug.WriteLine("map: " + i + " object: " + a + " Creating object: " + mapObjects[a].name + ", on map: " + mapObjects[a].mapid + ", on position: " + mapObjects[a].position);
 				}
 				objectsList.Add(mapObjects);
 			}
@@ -70,27 +81,15 @@ namespace Honeymoon.Source.Menus
 			};
 			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds\\" + newWorld.name + ".dat");
 			var serializer = new DataContractSerializer(typeof(WorldSave));
-			//var stream = new MemoryStream();
 			var fs = new FileStream(path, FileMode.Create);
 			using (var writer = XmlDictionaryWriter.CreateBinaryWriter(fs))
 			{
 				serializer.WriteObject(writer, newWorld);
 			}
 			System.Diagnostics.Debug.WriteLine("-----------------------SUCCESFULLY GENERATED WORLD WITH NAME: " + newWorld.name + " -----------------------------------------------");
-
-			WorldSave loadedWorld = LoadSave(newWorld.name);
-			foreach (var data in loadedWorld.mapObjectsData)
-			{
-				foreach (var obj in data)
-				{
-					System.Diagnostics.Debug.WriteLine(obj.mapid + " " + obj.name + " " + obj.position);
-				}
-			}
-			System.Diagnostics.Debug.WriteLine("-----------------------SUCCESFULLY LOADED WORLD WITH NAME: " + newWorld.name + " -----------------------------------------------");
 		}
 		private static WorldSave LoadSave(string worldName)
 		{
-			List<MapObject[]> objectsList = new List<MapObject[]>();
 			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds\\" + worldName + ".dat");
 			var serializer = new DataContractSerializer(typeof(WorldSave));
 			FileStream fs = new FileStream(path, FileMode.Open);
@@ -99,16 +98,14 @@ namespace Honeymoon.Source.Menus
 				WorldSave worldSave = (WorldSave)serializer.ReadObject(reader);
 				return worldSave;
 			}
-
-			//WorldSave worldSave = (WorldSave)serializer.ReadObject(reader);
-			//return worldSave;
-
-			//var serializer = new DataContractSerializer(typeof(T));
-			//using (var stream = new MemoryStream(data))
-			//using (var reader = XmlDictionaryReader.CreateBinaryReader(stream, XmlDictionaryReaderQuotas.Max))
-			//{
-			//	return (T)serializer.ReadObject(reader);
-			//}
+		}
+		public bool CheckIfWorldExists(string name)
+		{
+			if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds\\" + name + ".dat")))
+			{
+				return true;
+			}
+			return false;
 		}
 		public virtual void Update()
 		{
@@ -118,13 +115,24 @@ namespace Honeymoon.Source.Menus
 				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
 			}
 			worldName.UpdateTextInput();
-			if (menuButtons[0].IsHoveredAndClicked())
+			if (menuButtons[0].IsHoveredAndClicked() && !string.IsNullOrEmpty(worldName.text) && !CheckIfWorldExists(worldName.text))
 			{
 				GenerateSaveFile(worldName.text);
+				WorldSelectionMenu.LoadWorldSaves();
+				Globals.gameState = 8;
 			}
 			if (menuButtons[1].IsHoveredAndClicked())
 			{
 				Globals.gameState = 8;
+			}
+
+			if (CheckIfWorldExists(worldName.text))
+			{
+				worldName.color = Color.Red;
+			}
+			else
+			{
+				worldName.color = Color.Black;
 			}
 		}
 		public virtual void Draw()
@@ -135,6 +143,15 @@ namespace Honeymoon.Source.Menus
 				menuButton.DrawString();
 			}
 			worldName.DrawTextInput();
+
+			if (CheckIfWorldExists(worldName.text))
+			{
+				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "World with name '" + worldName.text + "' already exists!", new Vector2(worldName.inGameData.X - 290, worldName.inGameData.Y - 70), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
+			}
+			else if (string.IsNullOrEmpty(worldName.text))
+			{
+				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "Name cannot be empty!", new Vector2(worldName.inGameData.X - 100, worldName.inGameData.Y - 70), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
+			}
 		}
 	}
 }

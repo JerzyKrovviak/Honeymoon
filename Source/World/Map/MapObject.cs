@@ -21,10 +21,9 @@ namespace Honeymoon.Source.World.Map
 		[DataMember]
 		public Vector2 position;
 
-		public MapObject(int mapid, Texture2D texture, Rectangle sourcedata, string name, Vector2 position)
+		public MapObject(int mapid, string name, Vector2 position)
 		{
 			this.mapid = mapid;
-			this.texture = texture;
 			this.position = position;
 			this.name = name;
 		}

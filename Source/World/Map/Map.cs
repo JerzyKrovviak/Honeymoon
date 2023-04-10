@@ -118,9 +118,6 @@ namespace Honeymoon.Source.World.Map
 				}
 			}
 		}
-		public virtual void DrawWorldObjects(int saveFileId)
-		{ 
-		}
 		public virtual void DrawDebugMode()
 		{
 			foreach (XmlDataCache.Map map in maps)

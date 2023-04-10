@@ -15,6 +15,7 @@ namespace Honeymoon.Source.SavedData
 		public string name;
 		//public MapObject[] MapObjectsData;
 		[DataMember]
-		public List<MapObject[]> mapObjectsData;
+		public List<List<MapObject>> mapObjectsData;
+		//public List<MapObject[]> mapObjectsData;
 	}
 }

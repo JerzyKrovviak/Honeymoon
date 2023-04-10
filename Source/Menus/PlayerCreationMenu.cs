@@ -98,7 +98,6 @@ namespace Honeymoon.Source.Menus
 			{
 				nameInput.color = Color.Black;
 			}
-
 		}
 		public void CreatePlayerProfile(PlayerSave playersave)
 		{
@@ -142,7 +141,7 @@ namespace Honeymoon.Source.Menus
 
 			if (CheckIfProfileExists(nameInput.text))
 			{
-				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "profile with name " + nameInput.text + " already exists!", new Vector2(uiBox.inGameData.X - 120, uiBox.inGameData.Y - 55), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
+				Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "profile with name '" + nameInput.text + "' already exists!", new Vector2(uiBox.inGameData.X - 120, uiBox.inGameData.Y - 55), Color.Red, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
 			}
 			else if (string.IsNullOrEmpty(nameInput.text))
 			{
