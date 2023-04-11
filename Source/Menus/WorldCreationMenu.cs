@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
@@ -18,7 +19,6 @@ namespace Honeymoon.Source.Menus
 		private static MenuButton logo;
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static TextInput worldName;
-		private int lastIndex;
 		public WorldCreationMenu()
 		{
 			logo = new MenuButton(FontManager.hm_f_menu, "Create World", Vector2.Zero, 5f, Color.White);
@@ -47,25 +47,44 @@ namespace Honeymoon.Source.Menus
 		private List<List<MapObject>> GenerateWorld()
 		{
 			List<List<MapObject>> objectsList = new List<List<MapObject>>();
+			XmlDataCache.ObjectData objectData = Globals.content.Load<XmlDataCache.ObjectData>("Data/ObjectData");
 			for (int i = 0; i < Map.maps.Count; i++)
 			{
 				int totalTiles = Map.maps[i].tilesHeight * Map.maps[i].tilesWidth;
-				int objectAmount = Globals.random.Next(0, totalTiles / 4);
+				int objectAmount = Globals.random.Next(0, totalTiles);
+				int tileid = 0;
+				Vector2 destination = Vector2.Zero;
 				List<MapObject> mapObjects = new List<MapObject>();
 				List<Vector2> objectpositions = new List<Vector2>();
+				int[] topLayer = new int[totalTiles];
+				foreach (var layer in Map.maps[i].layers)
+				{
+					if (layer.layerId == 1)
+					{
+						topLayer = layer.tileData;
+					}
+				}
 				for (int y = 0; y < Map.maps[i].tilesHeight; y++)
 				{
 					for (int x = 0; x < Map.maps[i].tilesWidth; x++)
 					{
-						objectpositions.Add(new Vector2(x, y));
-						//System.Diagnostics.Debug.WriteLine("map: " + i + "amount: " + objectpositions.Count + " " + objectpositions[objectpositions.Count - 1]);
+						Vector2 objectposition = new Vector2(x, y);
+						objectpositions.Add(objectposition);
 					}
 				}
 				for (int a = 0; a < objectAmount; a++)
 				{
-					mapObjects.Add(new MapObject(i, "tree", Map.TileIdPosToXY(objectpositions[a + lastIndex])));
-					//lastIndex = a + Globals.random.Next(40,80);
-					//System.Diagnostics.Debug.WriteLine("map: " + i + " object: " + a + " Creating object: " + mapObjects[a].name + ", on map: " + mapObjects[a].mapid + ", on position: " + mapObjects[a].position);
+					int dataindex = Globals.random.Next(0, objectData.objectData.Count);
+					string randomObject = objectData.objectData[dataindex].Name;
+					if (objectData.objectData[dataindex].spawnableTiles.Contains(topLayer[a]))
+					{
+						mapObjects.Add(new MapObject(i, randomObject, Map.TileIdPosToXY(objectpositions[a])));
+						System.Diagnostics.Debug.WriteLine("objectid: " + a + " name: " + objectData.objectData[dataindex].Name + " can be spawned on tile: " + tileid + " position: " + objectpositions[a]);
+					}
+					else
+					{
+						System.Diagnostics.Debug.WriteLine("objectid: " + a + " name: " + objectData.objectData[dataindex].Name + " CANNOT be spawned on tile: " + tileid + " position: " + objectpositions[a]);
+					}
 				}
 				objectsList.Add(mapObjects);
 			}

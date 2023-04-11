@@ -20,6 +20,8 @@ namespace Honeymoon.Source.World.Map
 		public string name;
 		[DataMember]
 		public Vector2 position;
+		[DataMember]
+		public int[] spawnableTiles;
 
 		public MapObject(int mapid, string name, Vector2 position)
 		{

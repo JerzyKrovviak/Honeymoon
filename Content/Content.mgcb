@@ -38,6 +38,11 @@
 /processorParam:TextureFormat=Color
 /build:Creatures/Beekeeper/hm_beekeeper_shirts.png
 
+#begin Data/ObjectData.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/ObjectData.xml
+
 #begin Data/TileData.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -107,6 +112,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MiscSprites/logo.png
+
+#begin Objects/mushrooms.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/mushrooms.png
 
 #begin Objects/tree.png
 /importer:TextureImporter

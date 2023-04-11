@@ -12,13 +12,12 @@ namespace Honeymoon.Source.World.Map
 {
 	public class ObjectLayer
 	{
-		//private List<MapObject[]> mapObjects;
 		private List<List<MapObject>> mapObjects;
-		private Texture2D treeXD;
+
 		public ObjectLayer(WorldSave save)
 		{
 			this.mapObjects = save.mapObjectsData;
-			treeXD = Globals.content.Load<Texture2D>("Objects/tree");
+			XmlDataCache.ObjectData objectData = Globals.content.Load<XmlDataCache.ObjectData>("Data/ObjectData");
 			foreach (var data in mapObjects)
 			{
 				foreach (var mapObject in data)
@@ -28,17 +27,45 @@ namespace Honeymoon.Source.World.Map
 						mapObject.texture = Globals.content.Load<Texture2D>("Objects/tree");
 						mapObject.sourceData = new Rectangle(0, 0, 48, 112);
 						mapObject.color = Color.White;
-						mapObject.rotation = 0f;
-						mapObject.origin = Vector2.Zero;
-						//mapObject.position.X -= 64;
-						//mapObject.position.Y -= 384;
-						//System.Diagnostics.Debug.WriteLine(mapObject.position + " " + mapObject.sourceData);
+						mapObject.position.X -= 64;
+						mapObject.position.Y -= 384;
+					}
+					else if (mapObject.name == "mushrooms")
+					{
+						mapObject.texture = Globals.content.Load<Texture2D>("Objects/mushrooms");
+						mapObject.sourceData = new Rectangle(0, 0, 16, 16);
+						mapObject.color = Color.White;
 					}
 				}
 			}
 		}
 		public virtual void Update()
 		{
+			foreach (var data in mapObjects)
+			{
+				foreach (var mapObject in data)
+				{
+					mapObject.hitBox = new Rectangle((int)mapObject.position.X, (int)mapObject.position.Y, mapObject.sourceData.Width * Map.scale, mapObject.sourceData.Height * Map.scale);
+					if (mapObject.name == "tree")
+					{
+						if (mapObject.hitBox.Contains(Globals.player.position))
+						{
+							if (mapObject.color.A > 90)
+							{
+								mapObject.color.A -= 10;
+							}
+						}
+						else
+						{
+							//mapObject.color.A = 255;
+							if (mapObject.color.A != 255)
+							{
+								mapObject.color.A += 5;
+							}
+						}
+					}
+				}
+			}
 		}
 		public virtual void Draw()
 		{
@@ -48,12 +75,7 @@ namespace Honeymoon.Source.World.Map
 				{
 					if (mapObject.mapid == Map.GetCurrentMapId())
 					{
-						if (mapObject.name == "tree")
-						{
-							//mapObject.Draw();
-							Globals.spriteBatch.Draw(mapObject.texture, new Rectangle((int)mapObject.position.X, (int)mapObject.position.Y, mapObject.sourceData.Width * Map.scale, mapObject.sourceData.Height * Map.scale), mapObject.sourceData, mapObject.color, mapObject.rotation, mapObject.origin, SpriteEffects.None, 0);
-							Globals.spriteBatch.DrawString(FontManager.hm_f_default, mapObject.mapid + "\n" + mapObject.name, mapObject.position, Color.OrangeRed);
-						}
+						Globals.spriteBatch.Draw(mapObject.texture, new Rectangle((int)mapObject.position.X, (int)mapObject.position.Y, mapObject.sourceData.Width * Map.scale, mapObject.sourceData.Height * Map.scale), mapObject.sourceData, mapObject.color, mapObject.rotation, mapObject.origin, SpriteEffects.None, 0);
 					}
 				}
 			}

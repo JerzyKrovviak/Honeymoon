@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="XmlDataCache.ObjectData">
+    <objectData>
+      <Item>
+        <Name>tree</Name>
+        <Description>casual tree</Description>
+        <spawnableTiles>26</spawnableTiles>
+      </Item>
+	  <Item>
+        <Name>mushrooms</Name>
+        <Description>mushroms bro</Description>
+        <spawnableTiles>26</spawnableTiles>
+      </Item>
+    </objectData>
+  </Asset>
+</XnaContent>

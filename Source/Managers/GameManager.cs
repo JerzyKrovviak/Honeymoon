@@ -33,6 +33,7 @@ namespace Honeymoon.Source.Managers
 				Globals.tilesetManager.Update();
 				Globals.map.Update();
 				Globals.player.Update();
+				Globals.objectLayer.Update();
 			}
 			else
 			{
@@ -41,7 +42,7 @@ namespace Honeymoon.Source.Managers
 		}
 		public virtual void Draw()
 		{
-			Globals.map.Draw(0);
+			Globals.map.Draw(Globals.player.mapId);
 			//Globals.map.DrawDebugMode();
 			Globals.input.DrawPlayerAnim();
 			Globals.objectLayer.Draw();

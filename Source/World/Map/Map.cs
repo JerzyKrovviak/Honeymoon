@@ -36,7 +36,7 @@ namespace Honeymoon.Source.World.Map
 			rectanglexdddd = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
 			rectanglexdddd.SetData(new Color[] { Color.Red });
 		}
-		public static Vector2 GetEntityTile(PhysicalComponent entity)
+		public static Vector2 GetEntityHitboxTile(PhysicalComponent entity)
 		{
 			return new Vector2((entity.hitBox.X + entity.hitBox.Width) / scaledTileWidth, (entity.hitBox.Y + entity.hitBox.Height) / scaledTileHeight);
 		}
@@ -48,15 +48,14 @@ namespace Honeymoon.Source.World.Map
 				{
 					foreach (var layer in map.layers)
 					{
-						for (int y = (int)GetEntityTile(entity).Y - 1; y < (int)GetEntityTile(entity).Y + 1; y++)
+						for (int y = (int)GetEntityHitboxTile(entity).Y - 1; y < (int)GetEntityHitboxTile(entity).Y + 1; y++)
 						{
-							for (int x = (int)GetEntityTile(entity).X - 1; x < (int)GetEntityTile(entity).X + 1; x++)
+							for (int x = (int)GetEntityHitboxTile(entity).X - 1; x < (int)GetEntityHitboxTile(entity).X + 1; x++)
 							{
 								int gid = layer.tileData[y * layer.tilesWidth + x];
 								if (gid == 0) continue;
 								var tileset = TilesetManager.GetTilesetByGid(gid);
 								Rectangle destination = new Rectangle(x * tileWidth * scale, y * tileHeight * scale, tileWidth * scale, tileHeight * scale);
-
 								if (entity.hitBox.Intersects(destination) && tileset.tiles[gid - tileset.firstgid].collision)
 								{
 									return true;
@@ -135,7 +134,7 @@ namespace Honeymoon.Source.World.Map
 				}
 			}
 			//Rectangle destination = new Rectangle(TileIdPosToXY(GetEntityTile(Globals.player).X).X, GetEntityTile(Globals.player).Y);
-			Vector2 rectpos = TileIdPosToXY(new Vector2(GetEntityTile(Globals.player).X, GetEntityTile(Globals.player).Y));
+			Vector2 rectpos = TileIdPosToXY(new Vector2(GetEntityHitboxTile(Globals.player).X, GetEntityHitboxTile(Globals.player).Y));
 			Rectangle destination = new Rectangle((int)rectpos.X, (int)rectpos.Y, 64, 64);
 			Globals.spriteBatch.Draw(rectanglexdddd, destination, Color.Red);
 		}

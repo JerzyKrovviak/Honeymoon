@@ -18,6 +18,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 		public FrameSet framesData;
 		public Color shirtColor, pantsColor;
 		public string nickname;
+		public int mapId;
 		public List<AnimatedComponent> animations = new List<AnimatedComponent>();
 
 		public Beekeeper(PlayerSave playersave)
@@ -34,6 +35,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 			nickname = playersave.Name;
 			shirtColor = playersave.shirtColor;
 			pantsColor = playersave.pantsColor;
+			mapId = playersave.mapId;
 
 			framesData = new FrameSet(texture);
 			framesData.frameWidth = 16;
