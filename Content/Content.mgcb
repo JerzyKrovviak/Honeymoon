@@ -72,13 +72,6 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/hm_f_outline.tga
 
-#begin Fonts/textInputFont.spritefont
-/importer:FontDescriptionImporter
-/processor:LocalizedFontProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/textInputFont.spritefont
-
 #begin Maps/hm_map_0.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -125,6 +118,18 @@
 /processorParam:TextureFormat=Color
 /build:Objects/mushrooms.png
 
+#begin Objects/rock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Objects/rock.png
+
 #begin Objects/tree.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -137,7 +142,7 @@
 /processorParam:TextureFormat=Color
 /build:Objects/tree.png
 
-#begin Tilesets/hm_tileset_animated.png
+#begin Tilesets/hm_tileset_plain.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -147,17 +152,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tilesets/hm_tileset_animated.png
-
-#begin Tilesets/hm_tileset_common.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Tilesets/hm_tileset_common.png
+/build:Tilesets/hm_tileset_plain.png
 

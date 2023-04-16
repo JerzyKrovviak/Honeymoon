@@ -3,7 +3,7 @@
   <Asset Type="XmlDataCache.TileData">
     <tileData>
       <Item>
-        <gid>34</gid>
+        <gid>61</gid>
         <collision>true</collision>
         <isAnimated>true</isAnimated>
         <framesCount>10</framesCount>

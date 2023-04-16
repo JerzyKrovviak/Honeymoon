@@ -5,12 +5,32 @@
       <Item>
         <Name>tree</Name>
         <Description>casual tree</Description>
-        <spawnableTiles>26</spawnableTiles>
+        <spawnableTiles>44</spawnableTiles>
+		<drawAboveEntity>true</drawAboveEntity>
+		<isAnimated>false</isAnimated>
+		<framesCount>0</framesCount>
+		<frameSpeed>0</frameSpeed>
+		<spawnChance>5</spawnChance>
       </Item>
 	  <Item>
         <Name>mushrooms</Name>
         <Description>mushroms bro</Description>
-        <spawnableTiles>26</spawnableTiles>
+        <spawnableTiles>44</spawnableTiles>
+		<drawAboveEntity>false</drawAboveEntity>
+		<isAnimated>false</isAnimated>
+		<framesCount>0</framesCount>
+		<frameSpeed>0</frameSpeed>
+		<spawnChance>0.5</spawnChance>
+      </Item>
+	  <Item>
+        <Name>rock</Name>
+        <Description>small rock</Description>
+        <spawnableTiles>22</spawnableTiles>
+		<drawAboveEntity>false</drawAboveEntity>
+		<isAnimated>false</isAnimated>
+		<framesCount>0</framesCount>
+		<frameSpeed>0</frameSpeed>
+		<spawnChance>2</spawnChance>
       </Item>
     </objectData>
   </Asset>

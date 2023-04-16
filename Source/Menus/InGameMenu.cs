@@ -22,7 +22,7 @@ namespace Honeymoon.Source.Menus
 		private protected Texture2D background;
 		private protected List<MenuButton> ingMenuIcons = new List<MenuButton>();
 		private protected int ingMenuMode = 0;
-		private protected OptionBoolSelector confirmExit;
+		public OptionBoolSelector confirmExit;
 		private protected string[] resolutions = { "Fullscreen", "Windowed", "Windowed Fullscreen" };
 
 		public InGameMenu()

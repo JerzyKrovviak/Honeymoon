@@ -51,9 +51,7 @@ namespace Honeymoon.Source.Menus
 			for (int i = 0; i < Map.maps.Count; i++)
 			{
 				int totalTiles = Map.maps[i].tilesHeight * Map.maps[i].tilesWidth;
-				int objectAmount = Globals.random.Next(0, totalTiles);
-				int tileid = 0;
-				Vector2 destination = Vector2.Zero;
+				int maxObjects = totalTiles / 2;
 				List<MapObject> mapObjects = new List<MapObject>();
 				List<Vector2> objectpositions = new List<Vector2>();
 				int[] topLayer = new int[totalTiles];
@@ -64,26 +62,30 @@ namespace Honeymoon.Source.Menus
 						topLayer = layer.tileData;
 					}
 				}
-				for (int y = 0; y < Map.maps[i].tilesHeight; y++)
+
+				foreach (var layer in Map.maps[i].layers)
 				{
-					for (int x = 0; x < Map.maps[i].tilesWidth; x++)
+					for (int y = 0; y < Map.maps[i].tilesHeight; y++)
 					{
-						Vector2 objectposition = new Vector2(x, y);
-						objectpositions.Add(objectposition);
-					}
-				}
-				for (int a = 0; a < objectAmount; a++)
-				{
-					int dataindex = Globals.random.Next(0, objectData.objectData.Count);
-					string randomObject = objectData.objectData[dataindex].Name;
-					if (objectData.objectData[dataindex].spawnableTiles.Contains(topLayer[a]))
-					{
-						mapObjects.Add(new MapObject(i, randomObject, Map.TileIdPosToXY(objectpositions[a])));
-						System.Diagnostics.Debug.WriteLine("objectid: " + a + " name: " + objectData.objectData[dataindex].Name + " can be spawned on tile: " + tileid + " position: " + objectpositions[a]);
-					}
-					else
-					{
-						System.Diagnostics.Debug.WriteLine("objectid: " + a + " name: " + objectData.objectData[dataindex].Name + " CANNOT be spawned on tile: " + tileid + " position: " + objectpositions[a]);
+						for (int x = 0; x < Map.maps[i].tilesWidth; x++)
+						{
+							Vector2 objectposition = new Vector2(x, y);
+							objectpositions.Add(objectposition);
+							int gid = layer.tileData[y * layer.tilesWidth + x];
+							if (gid == 0) continue;
+							for (int o = 0; o < objectData.objectData.Count; o++)
+							{
+								int chance = Globals.random.Next(0, 100);
+								if (objectData.objectData[o].spawnableTiles.Contains(gid))
+								{
+									if (chance <= objectData.objectData[o].spawnChance)
+									{
+										mapObjects.Add(new MapObject(i, objectData.objectData[o].Name, Map.TileIdPosToXY(new Vector2(x, y))));
+									}
+									//System.Diagnostics.Debug.WriteLine("objectid: " + x + " name: " + objectData.objectData[x].Name + " can be spawned on tile: " + topLayer[gid] + " position: " + objectpositions[x]);
+								}
+							}
+						}
 					}
 				}
 				objectsList.Add(mapObjects);

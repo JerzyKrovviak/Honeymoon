@@ -25,6 +25,7 @@ namespace Honeymoon.Source.Managers
 			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
 			{
 				Globals.ingMenu = !Globals.ingMenu;
+				Globals.inGameMenu.confirmExit.draw = false;
 				AudioManager.soundBank.PlayCue("selectorAdd");
 			}
 
@@ -44,8 +45,9 @@ namespace Honeymoon.Source.Managers
 		{
 			Globals.map.Draw(Globals.player.mapId);
 			//Globals.map.DrawDebugMode();
+			Globals.objectLayer.DrawUnder();
 			Globals.input.DrawPlayerAnim();
-			Globals.objectLayer.Draw();
+			Globals.objectLayer.DrawAbove();
 			if (Globals.ingMenu)
 			{
 				Globals.inGameMenu.Draw();

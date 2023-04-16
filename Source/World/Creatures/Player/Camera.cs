@@ -23,7 +23,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 			{
 				cameraOffsetX = MathHelper.Clamp(cameraOffsetX, -Map.Map.GetCurrentMapScaledSizePixels().X + Globals.windowSize.X + (Map.Map.scaledTileWidth / 2), 0) + (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;
 			}
-			cameraOffsetY = (Globals.windowSize.Y / 2) - Globals.player.position.Y - 28;
+			cameraOffsetY = (Globals.windowSize.Y / 2) - Globals.player.position.Y;
 			if (Map.Map.GetCurrentMapScaledSizePixels().Y >= Globals.windowSize.Y)
 			{
 				cameraOffsetY = MathHelper.Clamp(cameraOffsetY, -Map.Map.GetCurrentMapScaledSizePixels().Y + Globals.windowSize.Y + (Map.Map.scaledTileHeight / 2), 0) + (float)Globals.gameTime.ElapsedGameTime.TotalSeconds;

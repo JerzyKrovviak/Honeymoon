@@ -20,6 +20,9 @@ namespace Honeymoon.Source.Menus
 		private static List<MenuButton> menuButtons = new List<MenuButton>();
 		private static MenuButton logo;
 		private static List<WorldSelectionCell> worldSelectionCells;
+		public OptionBoolSelector deleteConfirm;
+		private OptionValueSelector worldCellsSelector;
+		private protected int deleteIndex;
 		private protected static string worldsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds");
 
 		public WorldSelectionMenu()
@@ -27,6 +30,8 @@ namespace Honeymoon.Source.Menus
 			logo = new MenuButton(FontManager.hm_f_menu, "World Selection", Vector2.Zero, 5, Color.White);
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Create new ", Vector2.Zero, 3, Color.White));
 			menuButtons.Add(new MenuButton(FontManager.hm_f_menu, "Back", Vector2.Zero, 3, Color.White));
+			deleteConfirm = new OptionBoolSelector();
+			worldCellsSelector = new OptionValueSelector(Vector2.Zero, 0, 666, 6, 100);
 			ResolutionReload();
 		}
 		public virtual void ResolutionReload()
@@ -55,29 +60,69 @@ namespace Honeymoon.Source.Menus
 				}
 			}
 		}
+		public virtual void DeleteWorldSave(WorldSave linkedsave)
+		{
+			var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds\\" + linkedsave.name + ".dat");
+			System.GC.Collect();
+			System.GC.WaitForPendingFinalizers();
+			File.Delete(path);
+			LoadWorldSaves();
+			worldCellsSelector.value = 0;
+		}
 		public virtual void Update()
 		{
-			if (worldSelectionCells.Count > 0)
+			if (!deleteConfirm.draw)
 			{
-				for (int i = 0; i < worldSelectionCells.Count; i++)
+				if (worldSelectionCells.Count > 0)
 				{
-					worldSelectionCells[i].Update();
-					worldSelectionCells[i].position = new Vector2(Globals.windowSize.X / 2 - worldSelectionCells[i].inGameData.Width / 2, GlobalFunctions.PerfectMidPosY(worldSelectionCells[i].inGameData.Width) + 100);
+					if (worldSelectionCells.Count > 1)
+					{
+						worldCellsSelector.position = new Vector2((int)GlobalFunctions.PerfectMidPosX(worldCellsSelector.inGameData.Width) - worldCellsSelector.distance / 2, GlobalFunctions.PerfectMidPosY(worldCellsSelector.inGameData.Width) + 100);
+						worldCellsSelector.UpdateSelector();
+						worldCellsSelector.maxValue = worldSelectionCells.Count - 1;
+					}
+					for (int i = worldCellsSelector.value; i < worldCellsSelector.value + 1; i++)
+					{
+						worldSelectionCells[i].Update();
+						worldSelectionCells[i].position = new Vector2(Globals.windowSize.X / 2 - worldSelectionCells[i].inGameData.Width / 2, GlobalFunctions.PerfectMidPosY(worldSelectionCells[i].inGameData.Width) + 100);
+						if (worldSelectionCells[i].deleteProfile.inGameData.Contains(Globals.mousePosition))
+						{
+							if (InputManager.IsLeftButtonNewlyPressed())
+							{
+								deleteConfirm.draw = true;
+								deleteIndex = i;
+							}
+						}
+					}
+				}
+				for (int i = 0; i < menuButtons.Count; i++)
+				{
+					menuButtons[i].Update();
+					menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
+				}
+
+				if (menuButtons[0].IsHoveredAndClicked())
+				{
+					Globals.gameState = 9;
+				}
+				else if (menuButtons[1].IsHoveredAndClicked())
+				{
+					Globals.gameState = 6;
 				}
 			}
-			for (int i = 0; i < menuButtons.Count; i++)
+			else
 			{
-				menuButtons[i].Update();
-				menuButtons[i].position = new Vector2(menuButtons[i].PerfectMidPositionText().X, menuButtons[i].PerfectMidPositionText().Y + 80 * i + 250);
-			}
-
-			if (menuButtons[0].IsHoveredAndClicked())
-			{
-				Globals.gameState = 9;
-			}
-			else if (menuButtons[1].IsHoveredAndClicked())
-			{
-				Globals.gameState = 6;
+				deleteConfirm.Update();
+				if (deleteConfirm.yesButton.IsHoveredAndClicked())
+				{
+					DeleteWorldSave(worldSelectionCells[deleteIndex].linkedSave);
+					AudioManager.soundBank.PlayCue("trashChar");
+					deleteConfirm.draw = false;
+				}
+				else if (deleteConfirm.noButton.IsHoveredAndClicked())
+				{
+					deleteConfirm.draw = false;
+				}
 			}
 		}
 		public virtual void Draw()
@@ -89,10 +134,18 @@ namespace Honeymoon.Source.Menus
 			}
 			if (worldSelectionCells.Count > 0)
 			{
-				for (int i = 0; i < worldSelectionCells.Count; i++)
+				for (int i = worldCellsSelector.value; i < worldCellsSelector.value + 1; i++)
 				{
 					worldSelectionCells[i].Draw();
 				}
+			}
+			if (worldSelectionCells.Count > 1)
+			{
+				worldCellsSelector.DrawSelector();
+			}
+			if (deleteConfirm.draw)
+			{
+				deleteConfirm.DrawBoolSelector();
 			}
 		}
 	}

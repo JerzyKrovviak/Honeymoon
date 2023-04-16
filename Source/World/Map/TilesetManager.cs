@@ -15,9 +15,9 @@ namespace Honeymoon.Source.World.Map
 
 		public TilesetManager()
 		{
-			tilesets.Add(new Tileset(Globals.content.Load<Texture2D>("Tilesets/hm_tileset_common")));
+			tilesets.Add(new Tileset(Globals.content.Load<Texture2D>("Tilesets/hm_tileset_plain")));
 			tilesets[0].firstgid = 1;
-			tilesets.Add(new Tileset(Globals.content.Load<Texture2D>("Tilesets/hm_tileset_animated")));
+			//tilesets.Add(new Tileset(Globals.content.Load<Texture2D>("Tilesets/hm_tileset_animated")));
 			XmlDataCache.TileData tileData = Globals.content.Load<XmlDataCache.TileData>("Data/TileData");
 
 			for (int i = 0; i < tilesets.Count; i++)
@@ -37,7 +37,6 @@ namespace Honeymoon.Source.World.Map
 						int index = y * tilesets[i].columns + x;
 						var source = new Rectangle(x * tilesets[i].tileWidth, y * tilesets[i].tileHeight, tilesets[i].tileWidth, tilesets[i].tileHeight);
 						tilesets[i].tiles[index] = new Tile(index + tilesets[i].firstgid, source);
-
 						for (int d = 0; d < tileData.tileData.Count; d++)
 						{
 							if (tilesets[i].tiles[index].id == tileData.tileData[d].gid)
