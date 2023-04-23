@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Honeymoon.Managers;
 using Honeymoon.Menus;
 using Honeymoon.Source;
@@ -69,6 +71,19 @@ namespace Honeymoon.Source.Menus
 			{
 				serializer.Serialize(writer, playersave);
 			}
+		}
+		private void SaveWorld(WorldSave worldsave)
+		{
+			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds\\" + worldsave.name + ".dat");
+			var serializer = new DataContractSerializer(typeof(WorldSave));
+			var fs = new FileStream(path, FileMode.Create);
+			System.GC.Collect();
+			System.GC.WaitForPendingFinalizers();
+			using (var writer = XmlDictionaryWriter.CreateBinaryWriter(fs))
+			{
+				serializer.WriteObject(writer, worldsave);
+			}
+			System.Diagnostics.Debug.WriteLine("-----------------------SUCCESFULLY SAVED WORLD WITH NAME: " + worldsave.name + " -----------------------------------------------");
 		}
 		public virtual void Update()
 		{
@@ -157,9 +172,15 @@ namespace Honeymoon.Source.Menus
 						Position = Globals.player.position,
 						shirtColor = Globals.player.shirtColor,
 						pantsColor = Globals.player.pantsColor,
-						velocity = Globals.player.velocity
+						walkSpeed = Globals.player.speed
+					};
+					WorldSave worldSave = new WorldSave
+					{
+						name = Globals.objectLayer.linkedSave.name,
+						mapObjectsData = Globals.objectLayer.linkedSave.mapObjectsData
 					};
 					SavePlayerProfile(playerSave);
+					SaveWorld(worldSave);
 					Globals.gameState = 0;
 					Globals.ingMenu = false;
 					Globals.persistentSettings = new SavedSettings();

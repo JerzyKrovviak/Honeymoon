@@ -87,6 +87,7 @@ namespace Honeymoon.Source
 		public static ObjectLayer objectLayer;
 
 		public static Beekeeper player;
+		public static AnimationManager animationManager;
 		public static InputComponent input;
 	}
 }

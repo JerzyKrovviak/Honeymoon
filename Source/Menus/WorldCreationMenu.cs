@@ -9,16 +9,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Honeymoon.Source.Menus
 {
 	public class WorldCreationMenu
 	{
-		private static MenuButton logo;
-		private static List<MenuButton> menuButtons = new List<MenuButton>();
-		private static TextInput worldName;
+		private MenuButton logo;
+		private List<MenuButton> menuButtons = new List<MenuButton>();
+		private TextInput worldName;
 		public WorldCreationMenu()
 		{
 			logo = new MenuButton(FontManager.hm_f_menu, "Create World", Vector2.Zero, 5f, Color.White);
@@ -44,33 +46,18 @@ namespace Honeymoon.Source.Menus
 				Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds"));
 			}
 		}
-		private List<List<MapObject>> GenerateWorld()
+		private List<MapObject> GenerateWorld()
 		{
-			List<List<MapObject>> objectsList = new List<List<MapObject>>();
+			List<MapObject> mapObjects = new List<MapObject>();
 			XmlDataCache.ObjectData objectData = Globals.content.Load<XmlDataCache.ObjectData>("Data/ObjectData");
 			for (int i = 0; i < Map.maps.Count; i++)
 			{
-				int totalTiles = Map.maps[i].tilesHeight * Map.maps[i].tilesWidth;
-				int maxObjects = totalTiles / 2;
-				List<MapObject> mapObjects = new List<MapObject>();
-				List<Vector2> objectpositions = new List<Vector2>();
-				int[] topLayer = new int[totalTiles];
-				foreach (var layer in Map.maps[i].layers)
-				{
-					if (layer.layerId == 1)
-					{
-						topLayer = layer.tileData;
-					}
-				}
-
 				foreach (var layer in Map.maps[i].layers)
 				{
 					for (int y = 0; y < Map.maps[i].tilesHeight; y++)
 					{
 						for (int x = 0; x < Map.maps[i].tilesWidth; x++)
 						{
-							Vector2 objectposition = new Vector2(x, y);
-							objectpositions.Add(objectposition);
 							int gid = layer.tileData[y * layer.tilesWidth + x];
 							if (gid == 0) continue;
 							for (int o = 0; o < objectData.objectData.Count; o++)
@@ -88,9 +75,16 @@ namespace Honeymoon.Source.Menus
 						}
 					}
 				}
-				objectsList.Add(mapObjects);
 			}
-			return objectsList;
+			foreach (var mapObject in mapObjects)
+			{
+				if (mapObject.name == "tree")
+				{
+					mapObject.position.X -= 64;
+					mapObject.position.Y -= 320;
+				}
+			}
+			return mapObjects;
 		}
 		private void GenerateSaveFile(string name)
 		{
@@ -103,7 +97,7 @@ namespace Honeymoon.Source.Menus
 			string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Honeymoon\\PlayerWorlds\\" + newWorld.name + ".dat");
 			var serializer = new DataContractSerializer(typeof(WorldSave));
 			var fs = new FileStream(path, FileMode.Create);
-			using (var writer = XmlDictionaryWriter.CreateBinaryWriter(fs))
+			using (XmlWriter writer = XmlDictionaryWriter.CreateBinaryWriter(fs))
 			{
 				serializer.WriteObject(writer, newWorld);
 			}

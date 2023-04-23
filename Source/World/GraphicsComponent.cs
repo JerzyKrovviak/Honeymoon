@@ -12,7 +12,7 @@ using System.Runtime.Serialization;
 
 namespace Honeymoon.Source.World
 {
-	[DataContract]
+	[DataContract(Namespace = "")]
 	public class GraphicsComponent
 	{
 		//[DataMember]

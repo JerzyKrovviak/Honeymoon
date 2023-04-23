@@ -8,6 +8,7 @@
         <spawnableTiles>44</spawnableTiles>
 		<drawAboveEntity>true</drawAboveEntity>
 		<isAnimated>false</isAnimated>
+		<isPassable>false</isPassable>
 		<framesCount>0</framesCount>
 		<frameSpeed>0</frameSpeed>
 		<spawnChance>5</spawnChance>
@@ -18,6 +19,7 @@
         <spawnableTiles>44</spawnableTiles>
 		<drawAboveEntity>false</drawAboveEntity>
 		<isAnimated>false</isAnimated>
+		<isPassable>true</isPassable>
 		<framesCount>0</framesCount>
 		<frameSpeed>0</frameSpeed>
 		<spawnChance>0.5</spawnChance>
@@ -28,6 +30,7 @@
         <spawnableTiles>22</spawnableTiles>
 		<drawAboveEntity>false</drawAboveEntity>
 		<isAnimated>false</isAnimated>
+		<isPassable>true</isPassable>
 		<framesCount>0</framesCount>
 		<frameSpeed>0</frameSpeed>
 		<spawnChance>2</spawnChance>

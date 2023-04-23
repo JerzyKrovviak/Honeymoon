@@ -12,6 +12,8 @@ namespace Honeymoon.Source.World.Map
 	public class TilesetManager
 	{
 		public static List<Tileset> tilesets = new List<Tileset>();
+		public static int[] collisionTiles;
+		public static int[] step1SoundTiles;
 
 		public TilesetManager()
 		{
@@ -19,7 +21,8 @@ namespace Honeymoon.Source.World.Map
 			tilesets[0].firstgid = 1;
 			//tilesets.Add(new Tileset(Globals.content.Load<Texture2D>("Tilesets/hm_tileset_animated")));
 			XmlDataCache.TileData tileData = Globals.content.Load<XmlDataCache.TileData>("Data/TileData");
-
+			collisionTiles = tileData.collisionTiles;
+			step1SoundTiles = tileData.step1SoundTiles;
 			for (int i = 0; i < tilesets.Count; i++)
 			{
 				tilesets[i].columns = tilesets[i].texture.Width / tilesets[i].tileWidth;

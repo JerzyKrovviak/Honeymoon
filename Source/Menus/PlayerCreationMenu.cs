@@ -79,7 +79,7 @@ namespace Honeymoon.Source.Menus
 					pantsColor = clothesColors[pantsSelector.value],
 					mapId = 0,
 					Position = new Vector2(1637, 1487),
-					velocity = new Vector2(0.18f, 0.18f)
+					walkSpeed = 0.18f
 				};
 				CreatePlayerProfile(playerSave);
 				PlayerSelectionMenu.LoadPlayerProfiles();

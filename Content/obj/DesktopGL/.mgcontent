@@ -15,12 +15,14 @@
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Maps/hm_map_1.xml</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/MiscSprites/hm_uiElements.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/MiscSprites/logo.png</File>
+    <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/MiscSprites/menuBg.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Objects/mushrooms.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Objects/rock.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Objects/tree.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Tilesets/hm_tileset_plain.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

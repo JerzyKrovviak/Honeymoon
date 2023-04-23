@@ -13,23 +13,22 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Honeymoon.Source.World.Map
 {
-	[DataContract]
+	[DataContract(Namespace = "")]
 	public class MapObject : PhysicalComponent
 	{
-		[DataMember]
-		public int mapid;
-		[DataMember]
-		public string name;
-		[DataMember]
+		[DataMember(Name = "mapid", IsRequired = false, Order = 3, EmitDefaultValue = false)]
+		public int mapid { get; set; }
+		[DataMember(Name = "objname", IsRequired = false, Order = 4, EmitDefaultValue = false)]
+		public string name { get; set; }
+		[DataMember(Name = "objpos", IsRequired = false, Order = 5, EmitDefaultValue = false)]
 		public Vector2 position;
-		[DataMember]
 		public int[] spawnableTiles;
-		public bool drawAboveEntity, isAnimated;
+		public bool drawAboveEntity, isAnimated, isPassable;
 		public int framesCount;
-		public int currentFrame;
+		private int currentFrame;
 		public float frameSpeed;
-		public double timeSinceLastFrame;
-		public float spawnChance;
+		private double timeSinceLastFrame;
+		private readonly float spawnChance;
 
 		public MapObject(int mapid, string name, Vector2 position)
 		{

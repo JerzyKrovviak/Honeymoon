@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using static Honeymoon.Source.World.Map.MapObject;
 
 namespace Honeymoon.Source.World.Map
 {
@@ -35,37 +36,6 @@ namespace Honeymoon.Source.World.Map
 
 			rectanglexdddd = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
 			rectanglexdddd.SetData(new Color[] { Color.Red });
-		}
-		public static Vector2 GetEntityHitboxTile(PhysicalComponent entity)
-		{
-			return new Vector2((entity.hitBox.X + entity.hitBox.Width) / scaledTileWidth, (entity.hitBox.Y + entity.hitBox.Height) / scaledTileHeight);
-		}
-		public static bool CheckForCollision(PhysicalComponent entity)
-		{
-			foreach (XmlDataCache.Map map in maps)
-			{
-				if (map.mapId == GetCurrentMapId())
-				{
-					foreach (var layer in map.layers)
-					{
-						for (int y = (int)GetEntityHitboxTile(entity).Y - 1; y < (int)GetEntityHitboxTile(entity).Y + 1; y++)
-						{
-							for (int x = (int)GetEntityHitboxTile(entity).X - 1; x < (int)GetEntityHitboxTile(entity).X + 1; x++)
-							{
-								int gid = layer.tileData[y * layer.tilesWidth + x];
-								if (gid == 0) continue;
-								var tileset = TilesetManager.GetTilesetByGid(gid);
-								Rectangle destination = new Rectangle(x * tileWidth * scale, y * tileHeight * scale, tileWidth * scale, tileHeight * scale);
-								if (entity.hitBox.Intersects(destination) && tileset.tiles[gid - tileset.firstgid].collision)
-								{
-									return true;
-								}
-							}
-						}
-					}
-				}
-			}
-			return false;
 		}
 		public virtual void Update()
 		{
@@ -119,24 +89,49 @@ namespace Honeymoon.Source.World.Map
 		}
 		public virtual void DrawDebugMode()
 		{
-			foreach (XmlDataCache.Map map in maps)
+			//foreach (XmlDataCache.Map map in maps)
+			//{
+			//	foreach (var layer in map.layers)
+			//	{
+			//		for (int y = 0; y < layer.tilesHeight; y++)
+			//		{
+			//			for (int x = 0; x < layer.tilesWidth; x++)
+			//			{
+			//				//Rectangle tileRect = new Rectangle(x * scaledTileWidth, y * scaledTileHeight, 64, 64);
+			//				//Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "" + x + "," + y, new Vector2(tileRect.X, tileRect.Y), Color.Yellow, 0f, Vector2.Zero, 1, SpriteEffects.None, 0);
+			//				int gid = layer.tileData[y * layer.tilesWidth + x];
+			//				if (gid == 0) continue;
+			//				var tileset = TilesetManager.GetTilesetByGid(gid);
+			//				var source = tileset.tiles[gid - tileset.firstgid].sourceData;
+			//				Rectangle destination = new Rectangle(x * tileWidth * scale, y * tileHeight * scale, tileWidth * scale, tileHeight * scale);
+			//				if (tileset.tiles[gid - tileset.firstgid].collision)
+			//				{
+			//					Globals.spriteBatch.Draw(rectanglexdddd, destination, new Color(Color.YellowGreen, 120));
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
+			//Rectangle destination = new Rectangle(TileIdPosToXY(GetEntityTile(Globals.player).X).X, GetEntityTile(Globals.player).Y);
+			//Vector2 rectpos = TileIdPosToXY(new Vector2(Globals.player.GetEntityHitboxTile().X, Globals.player.GetEntityHitboxTile().Y));
+			//Rectangle destination = new Rectangle((int)rectpos.X, (int)rectpos.Y, 64, 64);
+			//Globals.spriteBatch.Draw(rectanglexdddd, destination, Color.Red);
+			int leftTile = Globals.player.hitBox.Left / 64;
+			int topTile = Globals.player.hitBox.Top / 64;
+			int rightTile = (int)Math.Ceiling((float)Globals.player.hitBox.Right / 64) - 1;
+			int bottomTile = (int)Math.Ceiling(((float)Globals.player.hitBox.Bottom / 64)) - 1;
+			//int rightTile = (int)Math.Ceiling((float)Globals.player.hitBox.Right / 64) - 1;
+			//int bottomTile = (int)Math.Ceiling(((float)Globals.player.hitBox.Bottom / 64)) - 1;
+			for (int y = topTile; y <= bottomTile; ++y)
 			{
-				foreach (var layer in map.layers)
+				for (int x = leftTile; x <= rightTile; ++x)
 				{
-					for (int y = 0; y < layer.tilesHeight; y++)
-					{
-						for (int x = 0; x < layer.tilesWidth; x++)
-						{
-							Rectangle tileRect = new Rectangle(x * scaledTileWidth, y * scaledTileHeight, 64, 64);
-							Globals.spriteBatch.DrawString(FontManager.hm_f_outline, "" + x + "," + y, new Vector2(tileRect.X, tileRect.Y), Color.Yellow, 0f, Vector2.Zero, 1, SpriteEffects.None, 0);
-						}
-					}
+					Vector2 pos = TileIdPosToXY(new Vector2(x, y));
+					Rectangle destination = new Rectangle((int)pos.X, (int)pos.Y, 64, 64);
+					Globals.spriteBatch.Draw(rectanglexdddd, destination, new Color(Color.Blue, 120));
 				}
 			}
-			//Rectangle destination = new Rectangle(TileIdPosToXY(GetEntityTile(Globals.player).X).X, GetEntityTile(Globals.player).Y);
-			Vector2 rectpos = TileIdPosToXY(new Vector2(GetEntityHitboxTile(Globals.player).X, GetEntityHitboxTile(Globals.player).Y));
-			Rectangle destination = new Rectangle((int)rectpos.X, (int)rectpos.Y, 64, 64);
-			Globals.spriteBatch.Draw(rectanglexdddd, destination, Color.Red);
+			Globals.spriteBatch.Draw(rectanglexdddd, Globals.player.hitBox, new Color(Color.Blue, 120));
 		}
 	}
 }

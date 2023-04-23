@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace Honeymoon.Source.SavedData
 {
-	[DataContract]
+	[DataContract(Namespace = "")]
 	public class WorldSave
 	{
-		[DataMember]
-		public string name;
-		//public MapObject[] MapObjectsData;
-		[DataMember]
-		public List<List<MapObject>> mapObjectsData;
-		//public List<MapObject[]> mapObjectsData;
+		[DataMember(Name = "worldname", IsRequired = true, Order = 1, EmitDefaultValue = false)]
+		public string name { get; set; }
+		[DataMember(Name = "objectsdata", IsRequired = true, Order = 2, EmitDefaultValue = false)]
+		public List<MapObject> mapObjectsData { get; set; }
 	}
 }

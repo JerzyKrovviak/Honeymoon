@@ -44,7 +44,7 @@ namespace Honeymoon.Source.Managers
 		public virtual void Draw()
 		{
 			Globals.map.Draw(Globals.player.mapId);
-			//Globals.map.DrawDebugMode();
+			Globals.map.DrawDebugMode();
 			Globals.objectLayer.DrawUnder();
 			Globals.input.DrawPlayerAnim();
 			Globals.objectLayer.DrawAbove();

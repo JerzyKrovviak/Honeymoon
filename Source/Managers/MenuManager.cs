@@ -1,14 +1,18 @@
 ﻿using Honeymoon.Managers;
 using Honeymoon.Menus;
 using Honeymoon.Source.Menus;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Honeymoon.Source.Managers
 {
 	public class MenuManager
 	{
+		private static Texture2D menuBg;
 		public MenuManager()
 		{
+			menuBg = Globals.content.Load<Texture2D>("MiscSprites/menuBg");
 			Globals.mainMenu = new MainMenu();
 			Globals.settingsMenu = new SettingsMenu();
 			Globals.generalSettingsMenu = new GeneralSettingsMenu();
@@ -78,6 +82,7 @@ namespace Honeymoon.Source.Managers
 		}
 		public virtual void Draw()
 		{
+			Globals.spriteBatch.Draw(menuBg, new Rectangle(0, 0, (int)Globals.windowSize.X, (int)Globals.windowSize.Y), Color.White);
 			if (Globals.gameState == 0)
 			{
 				Globals.mainMenu.Draw();
