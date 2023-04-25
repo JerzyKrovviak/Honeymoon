@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Honeymoon.Source.World.HudElements;
+using Microsoft.Xna.Framework;
 using System;
 using System.IO;
 using System.Text;
@@ -14,5 +15,6 @@ namespace Honeymoon.Source.SavedData
 		public Color pantsColor { get; set; }
 		public Color shirtColor { get; set; }
 		public float walkSpeed { get; set; }
+		//public Item[] items { get; set; }
 	}
 }

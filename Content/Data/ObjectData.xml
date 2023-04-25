@@ -3,10 +3,10 @@
   <Asset Type="XmlDataCache.ObjectData">
     <objectData>
       <Item>
-        <Name>tree</Name>
-        <Description>casual tree</Description>
+        <Name>treeTrunk</Name>
+        <Description>treeTrunkxd</Description>
         <spawnableTiles>44</spawnableTiles>
-		<drawAboveEntity>true</drawAboveEntity>
+		<drawAboveEntity>false</drawAboveEntity>
 		<isAnimated>false</isAnimated>
 		<isPassable>false</isPassable>
 		<framesCount>0</framesCount>

@@ -18,39 +18,63 @@ namespace Honeymoon.Source.Managers
 		public virtual void ResolutionReload()
 		{
 			Globals.inGameMenu.ResolutionReload();
+			Globals.mainInventory.ResolutionReload();
 			Camera.CalculateTranslation();
 		}
 		public virtual void Update()
 		{
-			if (InputManager.IsKeyNewlyPressed(Keys.Escape))
+			if (InputManager.IsKeyNewlyPressed(Keys.Escape) && !Globals.openInventory)
 			{
-				Globals.ingMenu = !Globals.ingMenu;
+				Globals.openIngMenu = !Globals.openIngMenu;
 				Globals.inGameMenu.confirmExit.draw = false;
 				AudioManager.soundBank.PlayCue("selectorAdd");
 			}
+			else if (InputManager.IsKeyNewlyPressed(Keys.Tab) && !Globals.openIngMenu)
+			{
+				Globals.openInventory = !Globals.openInventory;
+				AudioManager.soundBank.PlayCue("selectorAdd");
+			}
 
-			if (!Globals.ingMenu)
+			if (!Globals.openInventory && !Globals.openIngMenu)
+			{
+				Globals.isAnyMenuOpen = false;
+			}
+			else
+			{
+				Globals.isAnyMenuOpen = true;
+			}
+
+			if (!Globals.isAnyMenuOpen)
 			{
 				Globals.tilesetManager.Update();
 				Globals.map.Update();
 				Globals.player.Update();
 				Globals.objectLayer.Update();
 			}
-			else
+
+			if (Globals.openIngMenu)
 			{
 				Globals.inGameMenu.Update();
+			}
+			if (Globals.openInventory)
+			{
+				Globals.mainInventory.Update();
 			}
 		}
 		public virtual void Draw()
 		{
 			Globals.map.Draw(Globals.player.mapId);
-			Globals.map.DrawDebugMode();
+			//Globals.map.DrawDebugMode();
 			Globals.objectLayer.DrawUnder();
-			Globals.input.DrawPlayerAnim();
+			Globals.input.DrawPlayerAnimations();
 			Globals.objectLayer.DrawAbove();
-			if (Globals.ingMenu)
+			if (Globals.openIngMenu)
 			{
 				Globals.inGameMenu.Draw();
+			}
+			if (Globals.openInventory)
+			{
+				Globals.mainInventory.Draw();
 			}
 		}
 	}

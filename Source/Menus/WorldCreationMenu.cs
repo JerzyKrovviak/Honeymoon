@@ -52,6 +52,7 @@ namespace Honeymoon.Source.Menus
 			XmlDataCache.ObjectData objectData = Globals.content.Load<XmlDataCache.ObjectData>("Data/ObjectData");
 			for (int i = 0; i < Map.maps.Count; i++)
 			{
+				List<Vector2> occupiedTiles = new List<Vector2>();
 				foreach (var layer in Map.maps[i].layers)
 				{
 					for (int y = 0; y < Map.maps[i].tilesHeight; y++)
@@ -67,21 +68,17 @@ namespace Honeymoon.Source.Menus
 								{
 									if (chance <= objectData.objectData[o].spawnChance)
 									{
-										mapObjects.Add(new MapObject(i, objectData.objectData[o].Name, Map.TileIdPosToXY(new Vector2(x, y))));
+										Vector2 occupedTile = new Vector2(x, y);
+										if (!occupiedTiles.Contains(occupedTile))
+										{
+											mapObjects.Add(new MapObject(i, objectData.objectData[o].Name, Map.TileIdPosToXY(new Vector2(x, y))));
+											occupiedTiles.Add(occupedTile);
+										}
 									}
-									//System.Diagnostics.Debug.WriteLine("objectid: " + x + " name: " + objectData.objectData[x].Name + " can be spawned on tile: " + topLayer[gid] + " position: " + objectpositions[x]);
 								}
 							}
 						}
 					}
-				}
-			}
-			foreach (var mapObject in mapObjects)
-			{
-				if (mapObject.name == "tree")
-				{
-					mapObject.position.X -= 64;
-					mapObject.position.Y -= 320;
 				}
 			}
 			return mapObjects;

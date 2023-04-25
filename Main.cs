@@ -8,6 +8,7 @@ using Honeymoon.Source;
 using Honeymoon.Source.World.Map;
 using Honeymoon.Source.World.Creatures.Player;
 using Honeymoon.Source.Managers;
+using System;
 
 namespace Honeymoon
 {
@@ -21,6 +22,11 @@ namespace Honeymoon
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
 			self = this;
+			//IsFixedTimeStep = false;
+			Globals._graphics.SynchronizeWithVerticalRetrace = false; //Vsync
+			IsFixedTimeStep = true;
+			TargetElapsedTime = TimeSpan.FromMilliseconds(1000.0f / 60);
+			System.Diagnostics.Debug.WriteLine(IsFixedTimeStep);
 		}
 
 		protected override void Initialize()

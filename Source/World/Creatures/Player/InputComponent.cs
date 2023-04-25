@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Honeymoon.Managers;
+﻿using Honeymoon.Managers;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using static Honeymoon.Source.World.PhysicalComponent;
-
 namespace Honeymoon.Source.World.Creatures
 {
 	public class InputComponent
 	{
 		private float stepDelay;
-		public void BasicMovement(float elapsed)
+		private bool specialAction;
+		public void UpdateBasicMovement(float elapsed)
 		{
+			Globals.player.oldPosition = Globals.player.position;
 			if (InputManager.IsKeyDown(Keys.A))
 			{
 				Globals.player.velocity.X = -Globals.player.speed * elapsed;
@@ -85,21 +78,7 @@ namespace Honeymoon.Source.World.Creatures
 					stepDelay = 0;
 				}
 			}
-		}
-		public void Update(float elapsed)
-		{
-			Globals.player.oldPosition = Globals.player.position;
-			BasicMovement(elapsed);
-			if (InputManager.IsKeyDown(Keys.F1))
-			{
-				Globals.player.position = new Vector2(941, 5154);
-			}
-			else if (InputManager.IsKeyDown(Keys.F2))
-			{
-				Globals.player.position = new Vector2(2345, 2393);
-			}
-
-			if (!InputManager.AreKeysDown(new Keys[] { Keys.W, Keys.S, Keys.A, Keys.D }))
+			else
 			{
 				if (Globals.player.direction == "up")
 				{
@@ -115,44 +94,53 @@ namespace Honeymoon.Source.World.Creatures
 				}
 			}
 		}
-
-		public virtual void DrawPlayerAnim()
+		public void Update(float elapsed)
 		{
-			if (InputManager.IsKeyDown(Keys.A))
+			if (!specialAction)
 			{
-				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, true);
+				UpdateBasicMovement(elapsed);
 			}
-			else if (InputManager.IsKeyDown(Keys.D))
+			if (InputManager.IsKeyDown(Keys.F1))
 			{
-				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, false);
+				Globals.player.position = new Vector2(941, 5154);
 			}
-			else if (InputManager.IsKeyDown(Keys.W))
+			else if (InputManager.IsKeyDown(Keys.F2))
+			{
+				Globals.player.position = new Vector2(2345, 500);
+			}
+		}
+		private void DrawBasicMovement()
+		{
+			if (Globals.player.direction == "up")
 			{
 				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkUp, false);
 			}
-			else if (InputManager.IsKeyDown(Keys.S))
+			else if (Globals.player.direction == "down")
 			{
 				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkDown, false);
 			}
-
-			if (!InputManager.AreKeysDown(new Keys[] { Keys.W, Keys.S, Keys.A, Keys.D }))
+			else if (Globals.player.direction == "right")
 			{
-				if (Globals.player.direction == "up")
-				{
-					Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkUp, false);
-				}
-				else if (Globals.player.direction == "down")
-				{
-					Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkDown, false);
-				}
-				else if (Globals.player.direction == "right")
-				{
-					Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, false);
-				}
-				else if (Globals.player.direction == "left")
-				{
-					Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, true);
-				}
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, false);
+			}
+			else if (Globals.player.direction == "left")
+			{
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, true);
+			}
+			else if (Globals.player.direction == "TopRight" || Globals.player.direction == "DownRight")
+			{
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, false);
+			}
+			else if (Globals.player.direction == "TopLeft" || Globals.player.direction == "DownLeft")
+			{
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, true);
+			}
+		}
+		public virtual void DrawPlayerAnimations()
+		{
+			if (!specialAction)
+			{
+				DrawBasicMovement();
 			}
 		}
 	}

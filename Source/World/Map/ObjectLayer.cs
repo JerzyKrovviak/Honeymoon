@@ -15,7 +15,7 @@ namespace Honeymoon.Source.World.Map
 	{
 		public static List<MapObject> mapObjects;
 		public WorldSave linkedSave;
-		private Texture2D rectanglexdddd;
+		private Texture2D rectanglexdddd,treeTop;
 
 		public ObjectLayer(WorldSave save)
 		{
@@ -25,15 +25,16 @@ namespace Honeymoon.Source.World.Map
 			XmlDataCache.ObjectData objectData = Globals.content.Load<XmlDataCache.ObjectData>("Data/ObjectData");
 			rectanglexdddd = new Texture2D(Globals._graphics.GraphicsDevice, 1, 1);
 			rectanglexdddd.SetData(new Color[] { Color.Red });
+			treeTop = Globals.content.Load<Texture2D>("Objects/treeTop");
 			foreach (var mapObject in linkedSave.mapObjectsData)
 			{
-				if (mapObject.name == "tree")
+				if (mapObject.name == "treeTrunk")
 				{
-					mapObject.texture = Globals.content.Load<Texture2D>("Objects/tree");
-					mapObject.sourceData = new Rectangle(0, 0, 48, 96);
+					mapObject.texture = Globals.content.Load<Texture2D>("Objects/treeTrunk");
+					mapObject.sourceData = new Rectangle(0, 0, 16, 16);
 					mapObject.color = Color.White;
-					mapObject.drawAboveEntity = true;
-					mapObject.hitBox = new Rectangle((int)mapObject.position.X + 64, (int)mapObject.position.Y + 320, 64, 64);
+					mapObject.drawAboveEntity = objectData.objectData[0].drawAboveEntity;
+					mapObject.hitBox = new Rectangle((int)mapObject.position.X, (int)mapObject.position.Y, 64, 64);
 					mapObject.isPassable = objectData.objectData[0].isPassable;
 				}
 				else if (mapObject.name == "mushrooms")
@@ -106,8 +107,10 @@ namespace Honeymoon.Source.World.Map
 				{
 					Globals.spriteBatch.Draw(rectanglexdddd, mapObject.hitBox, Color.Red);
 				}
-				//Globals.spriteBatch.Draw(rectanglexdddd, mapObject.hitBox, new Color(Color.Blue, 80));
-				//Globals.spriteBatch.DrawString(FontManager.hm_f_default, mapObject.name, new Vector2(mapObject.hitBox.X, mapObject.hitBox.Y), Color.Red);
+				if (mapObject.name == "treeTrunk")
+				{
+					Globals.spriteBatch.Draw(treeTop, new Rectangle((int)mapObject.position.X - 64, (int)mapObject.position.Y - 320, 192, 320), new Rectangle(0, 0, 48, 80), Color.White);
+				}
 			}
 		}
 	}

@@ -71,10 +71,15 @@ namespace Honeymoon.Source.World
 					{
 						int gid = layer.tileData[y * layer.tilesWidth + x];
 						if (gid == 0) continue;
-						if (TilesetManager.step1SoundTiles.Contains(gid))
+						if (TilesetManager.sandSoundTiles.Contains(gid))
 						{
 							string[] sounds = new string[] { "walkSand", "walkSand2" };
 							return sounds[Globals.random.Next(0,sounds.Length)];
+						}
+						else if (TilesetManager.grassSoundTiles.Contains(gid))
+						{
+							string[] sounds = new string[] { "walkGrass", "walkGrass2" };
+							return sounds[Globals.random.Next(0, sounds.Length)];
 						}
 					}
 				}

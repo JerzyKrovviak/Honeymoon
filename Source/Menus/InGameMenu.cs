@@ -105,7 +105,7 @@ namespace Honeymoon.Source.Menus
 				resume.Update();
 				if (resume.IsHoveredAndClicked())
 				{
-					Globals.ingMenu = false;
+					Globals.openIngMenu = false;
 				}
 
 				if (ingMenuIcons[0].IsHoveredAndClicked()) //general
@@ -182,7 +182,7 @@ namespace Honeymoon.Source.Menus
 					SavePlayerProfile(playerSave);
 					SaveWorld(worldSave);
 					Globals.gameState = 0;
-					Globals.ingMenu = false;
+					Globals.openIngMenu = false;
 					Globals.persistentSettings = new SavedSettings();
 					SavedSettings.SaveSettings(Globals.persistentSettings);
 					confirmExit.draw = false;

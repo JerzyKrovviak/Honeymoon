@@ -8,6 +8,7 @@ using Honeymoon.Managers;
 using Honeymoon.Menus;
 using Honeymoon.Source.SavedData;
 using Honeymoon.Source.World.Creatures.Player;
+using Honeymoon.Source.World.HudElements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -56,6 +57,7 @@ namespace Honeymoon.Source.Menus
 				{
 					Globals.player = new Beekeeper(linkedSave);
 					Globals.animationManager = new AnimationManager();
+					Globals.mainInventory = new MainInventory();
 					Globals.gameState = 8;
 				}
 			}

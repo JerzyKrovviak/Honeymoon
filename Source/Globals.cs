@@ -14,6 +14,7 @@ using Honeymoon.Source.World.Map;
 using Honeymoon.Source.World.Creatures.Player;
 using Honeymoon.Source.World.Creatures;
 using Honeymoon.Source.Managers;
+using Honeymoon.Source.World.HudElements;
 
 namespace Honeymoon.Source
 {
@@ -65,7 +66,7 @@ namespace Honeymoon.Source
 
 		public static Random random = new Random();
 
-		public static bool ingMenu;
+		public static bool isAnyMenuOpen, openIngMenu, openInventory;
 
 		public static MainMenu mainMenu;
 		public static SettingsMenu settingsMenu;
@@ -89,5 +90,6 @@ namespace Honeymoon.Source
 		public static Beekeeper player;
 		public static AnimationManager animationManager;
 		public static InputComponent input;
+		public static MainInventory mainInventory;
 	}
 }
