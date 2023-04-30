@@ -14,6 +14,9 @@ namespace Honeymoon.Source.SavedData
 		public Vector2 Position { get; set; }
 		public Color pantsColor { get; set; }
 		public Color shirtColor { get; set; }
+		public Color skinColor { get; set; }
+		public Color eyesColor { get; set; }
+		public Color bootsColor { get; set; }
 		public float walkSpeed { get; set; }
 		//public Item[] items { get; set; }
 	}

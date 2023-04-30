@@ -172,6 +172,9 @@ namespace Honeymoon.Source.Menus
 						Position = Globals.player.position,
 						shirtColor = Globals.player.shirtColor,
 						pantsColor = Globals.player.pantsColor,
+						bootsColor = Globals.player.bootsColor,
+						skinColor = Globals.player.skinColor,
+						eyesColor = Globals.player.eyesColor,
 						walkSpeed = Globals.player.speed
 					};
 					WorldSave worldSave = new WorldSave

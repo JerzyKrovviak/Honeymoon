@@ -25,7 +25,7 @@ namespace Honeymoon.Source.Menus
 		{
 			this.linkedSave = linkedsave;
 			this.texture = Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements");
-			this.sourceData = new Rectangle(0, 76, 96, 37);
+			this.sourceData = new Rectangle(0, 76, 96, 42);
 			this.worldName = linkedSave.name;
 			deleteProfile = new MenuButton(Globals.content.Load<Texture2D>("MiscSprites/hm_uiElements"), Vector2.Zero, new Rectangle(59, 64, 9, 9), 4, Color.White);
 		}

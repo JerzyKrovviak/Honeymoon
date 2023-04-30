@@ -22,7 +22,7 @@ namespace Honeymoon.Source.World.Creatures
 				Globals.player.direction = "right";
 				Globals.animationManager.PlayAnimationSet(Globals.animationManager.walkRight);
 			}
-			if (InputManager.IsKeyDown(Keys.W))
+			else if (InputManager.IsKeyDown(Keys.W))
 			{
 				Globals.player.velocity.Y = -Globals.player.speed * elapsed;
 				Globals.player.direction = "up";
@@ -34,6 +34,36 @@ namespace Honeymoon.Source.World.Creatures
 				Globals.player.direction = "down";
 				Globals.animationManager.PlayAnimationSet(Globals.animationManager.walkDown);
 			}
+
+			if (InputManager.IsKeyDown(Keys.W) && InputManager.IsKeyDown(Keys.D))
+			{
+				Globals.player.direction = "TopRight";
+				Globals.player.velocity.Y = -Globals.player.speed * elapsed;
+				Globals.player.velocity.X = Globals.player.speed * elapsed;
+				Globals.animationManager.PlayAnimationSet(Globals.animationManager.walkUpRight);
+			}
+			else if (InputManager.IsKeyDown(Keys.S) && InputManager.IsKeyDown(Keys.D))
+			{
+				Globals.player.direction = "DownRight";
+				Globals.player.velocity.Y = Globals.player.speed * elapsed;
+				Globals.player.velocity.X = Globals.player.speed * elapsed;
+				Globals.animationManager.PlayAnimationSet(Globals.animationManager.walkDownRight);
+			}
+			else if (InputManager.IsKeyDown(Keys.S) && InputManager.IsKeyDown(Keys.A))
+			{
+				Globals.player.direction = "DownLeft";
+				Globals.player.velocity.Y = Globals.player.speed * elapsed;
+				Globals.player.velocity.X = -Globals.player.speed * elapsed;
+				Globals.animationManager.PlayAnimationSet(Globals.animationManager.walkDownRight);
+			}
+			else if (InputManager.IsKeyDown(Keys.A) && InputManager.IsKeyDown(Keys.W))
+			{
+				Globals.player.direction = "TopLeft";
+				Globals.player.velocity.Y = -Globals.player.speed * elapsed;
+				Globals.player.velocity.X = -Globals.player.speed * elapsed;
+				Globals.animationManager.PlayAnimationSet(Globals.animationManager.walkUpRight);
+			}
+
 			Globals.player.HandleCollisions();
 			Globals.player.position += Globals.player.velocity;
 			Globals.player.velocity = Vector2.Zero;
@@ -92,6 +122,22 @@ namespace Honeymoon.Source.World.Creatures
 				{
 					Globals.animationManager.StopAnimationSet(Globals.animationManager.walkRight);
 				}
+				if (Globals.player.direction == "TopRight")
+				{
+					Globals.animationManager.StopAnimationSet(Globals.animationManager.walkUpRight);
+				}
+				else if (Globals.player.direction == "DownRight")
+				{
+					Globals.animationManager.StopAnimationSet(Globals.animationManager.walkDownRight);
+				}
+				else if (Globals.player.direction == "DownLeft")
+				{
+					Globals.animationManager.StopAnimationSet(Globals.animationManager.walkDownRight);
+				}
+				else if (Globals.player.direction == "TopLeft")
+				{
+					Globals.animationManager.StopAnimationSet(Globals.animationManager.walkUpRight);
+				}
 			}
 		}
 		public void Update(float elapsed)
@@ -127,13 +173,21 @@ namespace Honeymoon.Source.World.Creatures
 			{
 				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, true);
 			}
-			else if (Globals.player.direction == "TopRight" || Globals.player.direction == "DownRight")
+			else if (Globals.player.direction == "TopRight")
 			{
-				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, false);
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkUpRight, false);
 			}
-			else if (Globals.player.direction == "TopLeft" || Globals.player.direction == "DownLeft")
+			else if (Globals.player.direction == "TopLeft")
 			{
-				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkRight, true);
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkUpRight, true);
+			}
+			else if (Globals.player.direction == "DownRight")
+			{
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkDownRight, false);
+			}
+			else if (Globals.player.direction == "DownLeft")
+			{
+				Globals.animationManager.DrawAnimationSet(Globals.animationManager.walkDownRight, true);
 			}
 		}
 		public virtual void DrawPlayerAnimations()

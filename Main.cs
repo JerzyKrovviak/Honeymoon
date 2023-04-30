@@ -26,7 +26,7 @@ namespace Honeymoon
 			Globals._graphics.SynchronizeWithVerticalRetrace = false; //Vsync
 			IsFixedTimeStep = true;
 			TargetElapsedTime = TimeSpan.FromMilliseconds(1000.0f / 60);
-			System.Diagnostics.Debug.WriteLine(IsFixedTimeStep);
+			//System.Diagnostics.Debug.WriteLine(IsFixedTimeStep);
 		}
 
 		protected override void Initialize()

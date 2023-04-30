@@ -16,7 +16,7 @@ namespace Honeymoon.Source.World.Creatures.Player
 	{
 		public FrameSet shirtsData;
 		public FrameSet framesData;
-		public Color shirtColor, pantsColor;
+		public Color shirtColor, pantsColor, bootsColor, skinColor, eyesColor;
 		public string nickname;
 		public int mapId;
 		public List<AnimatedComponent> animations = new List<AnimatedComponent>();
@@ -35,6 +35,9 @@ namespace Honeymoon.Source.World.Creatures.Player
 			nickname = playersave.Name;
 			shirtColor = playersave.shirtColor;
 			pantsColor = playersave.pantsColor;
+			bootsColor = playersave.bootsColor;
+			skinColor = playersave.skinColor;
+			eyesColor = playersave.eyesColor;
 			mapId = playersave.mapId;
 		}
 

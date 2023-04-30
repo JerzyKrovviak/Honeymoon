@@ -5,7 +5,6 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Creatures/Beekeeper/hm_beekeeper_base.png</File>
-    <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Creatures/Beekeeper/hm_beekeeper_shirts.png</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Data/ObjectData.xml</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Data/TileData.xml</File>
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga</File>
@@ -24,7 +23,6 @@
     <File>C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Tilesets/hm_tileset_plain.png</File>
   </SourceFiles>
   <DestFiles>
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
