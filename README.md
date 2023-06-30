@@ -1,4 +1,4 @@
-Old scratched XNA/Monogame project.
+Old scratched XNA/Monogame project of a top-down sandbox.
 Contains:
 - Menu system
 - Tilemaps loading (i was creating maps in Tiled, then somehow converting the .tmx file to .xnb and loading it using normal content loader. Tile's id were global, thanks to tileset manager).
@@ -9,3 +9,5 @@ Contains:
 - Bad collisions system.
 - In game menu.
 - Xact audio engine.
+
+If you find anything in here useful i'll be happy, do whatever you want.
