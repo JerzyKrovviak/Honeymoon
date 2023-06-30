@@ -122,9 +122,6 @@ namespace Honeymoon.Source.World
 			int topTile = playerBounds.Top / TileSize;
 			int rightTile = (int)Math.Ceiling((float)playerBounds.Right / TileSize) - 1;
 			int bottomTile = (int)Math.Ceiling(((float)playerBounds.Bottom / TileSize)) - 1;
-			//int rightTile = (int)Math.Ceiling((float)playerBounds.Right / TileSize) - 1;
-			//int bottomTile = (int)Math.Ceiling(((float)playerBounds.Bottom / TileSize)) - 1;
-
 			for (int y = topTile; y <= bottomTile; ++y)
 			{
 				for (int x = leftTile; x <= rightTile; ++x)

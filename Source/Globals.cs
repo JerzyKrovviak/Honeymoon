@@ -20,6 +20,8 @@ namespace Honeymoon.Source
 {
 	public class Globals
 	{
+		//global variables
+
 		public static GraphicsDeviceManager _graphics;
 
 		public static SpriteBatch spriteBatch;
@@ -68,6 +70,7 @@ namespace Honeymoon.Source
 
 		public static bool isAnyMenuOpen, openIngMenu, openInventory;
 
+		#region MenuStates
 		public static MainMenu mainMenu;
 		public static SettingsMenu settingsMenu;
 		public static GeneralSettingsMenu generalSettingsMenu;
@@ -78,6 +81,7 @@ namespace Honeymoon.Source
 		public static PlayerCreationMenu playerCreationMenu;
 		public static WorldCreationMenu worldCreationMenu;
 		public static InGameMenu inGameMenu;
+		#endregion
 
 		public static SavedSettings persistentSettings;
 

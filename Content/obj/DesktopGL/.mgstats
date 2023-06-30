@@ -1,5 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Creatures/Beekeeper/hm_beekeeper_base.png","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Creatures/Beekeeper/hm_beekeeper_base.xnb","TextureProcessor","Texture2DContent",4405,256085,0,1077735
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_default.xnb","FontTextureProcessor","SpriteFontContent",49713,78702,0,020909
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_menu.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_menu.xnb","FontTextureProcessor","SpriteFontContent",61158,95086,0,0081083
-"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_outline.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_outline.xnb","FontTextureProcessor","SpriteFontContent",53653,95086,0,0082544
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_default.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_default.xnb","FontTextureProcessor","SpriteFontContent",49713,78702,0,1169767
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_menu.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_menu.xnb","FontTextureProcessor","SpriteFontContent",61158,95086,0,0096911
+"C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/Fonts/hm_f_outline.tga","C:/Users/JK/source/repos/Honeymoon/Honeymoon/Content/bin/DesktopGL/Fonts/hm_f_outline.xnb","FontTextureProcessor","SpriteFontContent",53653,95086,0,0079191

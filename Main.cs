@@ -31,14 +31,14 @@ namespace Honeymoon
 
 		protected override void Initialize()
 		{
-			if (SavedSettings.CheckIfFileExists())
+			if (SavedSettings.CheckIfFileExists()) //check if persistent settings file exists
 			{
 				Globals.persistentSettings = SavedSettings.LoadSettings();
 				Globals.ChangeGameResolution(Globals.persistentSettings.resolution);
 			}
 			else
 			{
-				Globals.ChangeGameResolution(2);
+				Globals.ChangeGameResolution(2); // if not change resolution to default
 			}
 			Globals._graphics.ApplyChanges();
 			Globals.windowSize = new Vector2(Globals._graphics.PreferredBackBufferWidth, Globals._graphics.PreferredBackBufferHeight);
@@ -63,7 +63,7 @@ namespace Honeymoon
 		protected override void Update(GameTime gameTime)
 		{
 			Globals.windowSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-			if (!IsOutOfFocus())
+			if (!IsOutOfFocus()) //update if game window is focused
 			{
 				Globals.gameTime = gameTime;
 				MouseState mouseState = Mouse.GetState();

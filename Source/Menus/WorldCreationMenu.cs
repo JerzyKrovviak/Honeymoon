@@ -48,6 +48,7 @@ namespace Honeymoon.Source.Menus
 		}
 		private List<MapObject> GenerateWorld()
 		{
+			//random world objects generation
 			List<MapObject> mapObjects = new List<MapObject>();
 			XmlDataCache.ObjectData objectData = Globals.content.Load<XmlDataCache.ObjectData>("Data/ObjectData");
 			for (int i = 0; i < Map.maps.Count; i++)
